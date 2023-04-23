@@ -1,6 +1,8 @@
 import {
+  Checkbox,
   FormControl,
   FormControlLabel,
+  FormGroup,
   FormLabel,
   Grid,
   IconButton,
@@ -16,7 +18,7 @@ import {DraftsOutlined} from '@mui/icons-material';
 import {useState} from 'react';
 
 const Landing = () => {
-  const [isShown, setIsShown] = useState(false);
+  const [showCategories, setIsShown] = useState(false);
 
   const handleClick = (event) => {
     setIsShown((current) => !current);
@@ -49,36 +51,15 @@ const Landing = () => {
             <TuneIcon></TuneIcon>
           </IconButton>
         </Grid>
-        {isShown ? (
+        {showCategories ? (
           <Grid item>
-            <FormControl>
-              <FormLabel id="category-buttons">Categories</FormLabel>
-              <RadioGroup
-                aria-labelledby="category-buttons"
-                name="category-buttons-group"
-              >
-                <FormControlLabel
-                  value="activity-park"
-                  control={<Radio />}
-                  label="activity parks"
-                />
-                <FormControlLabel
-                  value="skate-park"
-                  control={<Radio />}
-                  label="skate parks"
-                />
-                <FormControlLabel
-                  value="dog-park"
-                  control={<Radio />}
-                  label="dog parks"
-                />
-                <FormControlLabel
-                  value="playgrounds"
-                  control={<Radio />}
-                  label="playgrounds"
-                />
-              </RadioGroup>
-            </FormControl>
+            <Typography component="p">Categories</Typography>
+            <FormGroup>
+              <FormControlLabel control={<Checkbox />} label="activity parks" />
+              <FormControlLabel control={<Checkbox />} label="skate parks" />
+              <FormControlLabel control={<Checkbox />} label="dog parks" />
+              <FormControlLabel control={<Checkbox />} label="playgrounds" />
+            </FormGroup>
           </Grid>
         ) : null}
       </Grid>
