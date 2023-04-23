@@ -55,11 +55,14 @@ const Layout = () => {
                 letterSpacing: '.3rem',
               }}
             >
-              FIRMA
+              Activout
             </Typography>
             <Box sx={{mr: 2}}>
               <Button sx={{color: 'white'}} component={Link} to="/home">
                 Home
+              </Button>
+              <Button sx={{color: 'white'}} component={Link} to="/landing">
+                Landing
               </Button>
               {user ? (
                 <>
