@@ -13,7 +13,12 @@ const Login = (props) => {
     <Grid container direction="column" alignItems="center">
       <Grid item>
         <Typography component="h1" variant="h3">
-          {formToggle ? 'Login' : 'Register'}
+          Activout
+        </Typography>
+      </Grid>
+      <Grid item>
+        <Typography component="h2" variant="h5">
+          {formToggle ? 'Login' : 'Sign in'}
         </Typography>
       </Grid>
       <Grid item>

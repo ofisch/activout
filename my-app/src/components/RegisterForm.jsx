@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import useForm from '../hooks/FormHooks';
 import {useUser} from '../hooks/ApiHooks';
-import {Box, Button, Grid, TextField} from '@mui/material';
+import {Box, Button, Grid, Slider, TextField, Typography} from '@mui/material';
 import {Container} from '@mui/system';
 import {ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 import {registerForm} from '../utils/errorMessages';
@@ -102,6 +102,12 @@ const RegisterForm = ({toggle}) => {
           validators={registerValidators.full_name}
           errorMessages={registerForm.full_name}
         />
+        <Typography component="p">Age</Typography>
+        <Slider
+          defaultValue={50}
+          aria-label="Default"
+          valueLabelDisplay="auto"
+        ></Slider>
         <Button fullWidth sx={{mt: 1}} variant="contained" type="submit">
           Register
         </Button>
