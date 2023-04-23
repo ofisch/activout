@@ -61,7 +61,7 @@ const Layout = () => {
               <Button sx={{color: 'white'}} component={Link} to="/home">
                 Home
               </Button>
-              <Button sx={{color: 'white'}} component={Link} to="/landing">
+              <Button sx={{color: 'white'}} component={Link} to="/">
                 Landing
               </Button>
               {user ? (
@@ -74,7 +74,7 @@ const Layout = () => {
                   </Button>
                 </>
               ) : (
-                <Button sx={{color: 'white'}} component={Link} to="/">
+                <Button sx={{color: 'white'}} component={Link} to="/login">
                   Login
                 </Button>
               )}

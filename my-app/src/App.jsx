@@ -17,9 +17,9 @@ const App = () => {
       <MediaProvider>
         <Routes>
           <Route element={<Layout />}>
-            <Route path="/" element={<Login />} />
+            <Route path="/" element={<Landing />} />
             <Route path="/home" element={<Home />} />
-            <Route path="/landing" element={<Landing />} />
+            <Route path="/login" element={<Login />} />
             <Route path="/single" element={<Single />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/logout" element={<Logout />} />
