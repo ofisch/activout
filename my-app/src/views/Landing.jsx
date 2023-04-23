@@ -5,13 +5,14 @@ import {
   Grid,
   IconButton,
   InputAdornment,
+  Radio,
   RadioGroup,
   TextField,
   Typography,
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import TuneIcon from '@mui/icons-material/Tune';
-import {DraftsOutlined, Radio} from '@mui/icons-material';
+import {DraftsOutlined} from '@mui/icons-material';
 import {useState} from 'react';
 
 const Landing = () => {
