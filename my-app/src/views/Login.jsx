@@ -12,12 +12,7 @@ const Login = (props) => {
   return (
     <Grid container direction="column" alignItems="center">
       <Grid item>
-        <Typography component="h1" variant="h3">
-          Activout
-        </Typography>
-      </Grid>
-      <Grid item>
-        <Typography component="h2" variant="h5">
+        <Typography component="h2" variant="h4" sx={{mt: 16, mb:8}}>
           {formToggle ? 'Login' : 'Sign in'}
         </Typography>
       </Grid>
@@ -25,7 +20,7 @@ const Login = (props) => {
         {formToggle ? <LoginForm /> : <RegisterForm toggle={toggle} />}
       </Grid>
       <Grid item>
-        <Typography variant="body2" sx={{mt: 2}}>
+        <Typography variant="body2" sx={{mt: 8}}>
           {formToggle ? 'First time here?' : 'Already registered?'}
         </Typography>
       </Grid>
