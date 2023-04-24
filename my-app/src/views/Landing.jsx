@@ -16,12 +16,26 @@ import SearchIcon from '@mui/icons-material/Search';
 import TuneIcon from '@mui/icons-material/Tune';
 import {DraftsOutlined} from '@mui/icons-material';
 import {useState} from 'react';
+import {useTag} from '../hooks/apiHooks';
+import {appId} from '../utils/variables';
 
 const Landing = () => {
   const [showCategories, setIsShown] = useState(false);
 
   const handleClick = (event) => {
     setIsShown((current) => !current);
+  };
+
+  const doSearch = async () => {
+    try {
+      // haetaan kaikki
+      const files = await useTag().getTag(appId);
+      // tulostetaan alkion 5 description-json (josta löytyy kategoria ja osoite)
+      console.log(JSON.parse(files[6].description));
+      // TODO: haku-stringin ja kategorioiden vertailu json-olion tietoihin
+    } catch (error) {
+      alert(error);
+    }
   };
 
   return (
@@ -40,7 +54,9 @@ const Landing = () => {
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
-                  <SearchIcon></SearchIcon>
+                  <IconButton onClick={doSearch}>
+                    <SearchIcon></SearchIcon>
+                  </IconButton>
                 </InputAdornment>
               ),
             }}
