@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   Container,
   Grid,
@@ -12,6 +13,9 @@ import {mediaUrl} from '../utils/variables';
 import StarIcon from '@mui/icons-material/Star';
 
 const MediaRow = ({file}) => {
+  // lokaation kaikki ominaisuudet (kuvaus, kategoria, osoite jne.)
+  const fileAttributes = JSON.parse(file.description);
+
   return (
     /*
     <ImageListItem>
@@ -33,8 +37,15 @@ const MediaRow = ({file}) => {
     </ImageListItem>
     */
 
-    <Grid container direction="row" bgcolor={'aquamarine'}>
-      <Grid container direction="column" bgcolor={'red'}>
+    /*
+    <Grid
+      container
+      direction="row"
+      justifyContent="flex-start"
+      alignItems="center"
+      bgcolor={'aquamarine'}
+    >
+      <Container bgcolor={'red'}>
         <Typography component="h1" variant="h4">
           {file.title}
         </Typography>
@@ -44,11 +55,50 @@ const MediaRow = ({file}) => {
         <Typography component="p">address</Typography>
         <Typography component="p">X ratings</Typography>
         <StarIcon></StarIcon>
-      </Grid>
-      <Grid container bgcolor={'bisque'}>
+      </Container>
+      <Container bgcolor={'bisque'}>
         <img src={mediaUrl + file.thumbnails.w640} alt={file.title} />
-      </Grid>
+      </Container>
     </Grid>
+    */
+
+    <Box
+      sx={{
+        width: 500,
+        height: 300,
+        backgroundColor: 'secondary.light',
+        '&:hover': {
+          backgroundColor: 'secondary.dark',
+          opacity: [0.9, 0.8, 0.7],
+        },
+      }}
+    >
+      <Grid
+        container
+        direction="row"
+        justifyContent="flex-start"
+        flexWrap="nowrap"
+      >
+        <Grid container direction="column">
+          <Typography component="h1" variant="h4">
+            {file.title}
+          </Typography>
+          <Typography component="h1" variant="h5">
+            {fileAttributes.category}
+          </Typography>
+          <Typography component="p">{fileAttributes.address}</Typography>
+          <Typography component="p">X ratings</Typography>
+          <StarIcon></StarIcon>
+        </Grid>
+        <Grid container>
+          <img
+            src={mediaUrl + file.thumbnails.w640}
+            alt={file.title}
+            style={{width: 250, height: 200}}
+          />
+        </Grid>
+      </Grid>
+    </Box>
   );
 };
 

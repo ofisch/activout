@@ -18,6 +18,10 @@ const Upload = (props) => {
 
   const initValues = {
     title: '',
+    category: '',
+    address: '',
+    ratings: '',
+    averageRating: '',
     description: '',
   };
 
@@ -32,12 +36,18 @@ const Upload = (props) => {
     try {
       const data = new FormData();
       data.append('title', inputs.title);
+      console.log(inputs.title);
       const allData = {
         desc: inputs.description,
+        category: inputs.category,
+        address: inputs.address,
         filters: filterInputs,
       };
       data.append('description', JSON.stringify(allData));
       data.append('file', file);
+      // data.append('category', inputs.category);
+      // data.append('address', inputs.address);
+      console.log(inputs.address);
       const userToken = localStorage.getItem('userToken');
       const uploadResult = await postMedia(data, userToken);
       const tagResult = await postTag(
@@ -96,11 +106,27 @@ const Upload = (props) => {
           onChange={handleInputChange}
           type="text"
           name="title"
+          placeholder="title"
           value={inputs.title}
+        ></input>
+        <input
+          onChange={handleInputChange}
+          type="text"
+          name="category"
+          placeholder="category"
+          value={inputs.category}
+        ></input>
+        <input
+          onChange={handleInputChange}
+          type="text"
+          name="address"
+          placeholder="address"
+          value={inputs.address}
         ></input>
         <textarea
           onChange={handleInputChange}
           name="description"
+          placeholder="description"
           value={inputs.description}
         ></textarea>
         <input
