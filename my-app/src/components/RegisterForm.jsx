@@ -52,12 +52,14 @@ const RegisterForm = ({toggle}) => {
         <TextValidator
           fullWidth
           margin="dense"
+          sx={{mt: 2}}
           name="username"
           label="Username"
           value={inputs.username}
           onChange={handleInputChange}
           validators={registerValidators.username}
           errorMessages={registerForm.username}
+          style={{width:'300px'}}
         />
         <TextValidator
           fullWidth
@@ -102,13 +104,7 @@ const RegisterForm = ({toggle}) => {
           validators={registerValidators.full_name}
           errorMessages={registerForm.full_name}
         />
-        <Typography component="p">Age</Typography>
-        <Slider
-          defaultValue={50}
-          aria-label="Default"
-          valueLabelDisplay="auto"
-        ></Slider>
-        <Button fullWidth sx={{mt: 1}} variant="contained" type="submit">
+        <Button fullWidth sx={{mt: 3}} variant="contained" type="submit">
           Register
         </Button>
       </ValidatorForm>

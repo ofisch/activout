@@ -44,7 +44,7 @@ const Landing = () => {
     <>
       <Grid container direction="column" alignItems="center">
         <Grid item>
-          <Typography component="h1" variant="h3">
+          <Typography component="h1" variant="h3" sx={{mt: 8, mb:6}}>
             Activout
           </Typography>
         </Grid>
@@ -74,7 +74,7 @@ const Landing = () => {
             }}
           ></TextField>
         </Grid>
-        <Grid item>
+        <Grid item sx={{mt: 4, mb:2}}>
           <IconButton onClick={handleShowCategory}>
             <TuneIcon></TuneIcon>
           </IconButton>
