@@ -3,6 +3,7 @@ import {
   Avatar,
   Card,
   CardContent,
+  Grid,
   List,
   ListItem,
   ListItemAvatar,
@@ -39,50 +40,52 @@ const Profile = () => {
   }, [user]);
 
   return (
-    <Card>
-      {user && (
-        <CardContent>
-          <List>
-            <ListItem>
-              <ListItemAvatar sx={{width: '100%'}}>
-                <Avatar
-                  variant="square"
-                  src={avatar.filename}
-                  imgProps={{
-                    alt: `${user.username}'s profile image`,
-                  }}
-                  sx={{width: '100%', height: '30vh'}}
-                />
-              </ListItemAvatar>
-            </ListItem>
-            <ListItem>
-              <ListItemIcon>
-                <AccountCircle />
-              </ListItemIcon>
-              <ListItemText primary={user.username} />
-            </ListItem>
-            <ListItem>
-              <ListItemIcon>
-                <ContactMail />
-              </ListItemIcon>
-              <ListItemText primary={user.email} />
-            </ListItem>
-            <ListItem>
-              <ListItemIcon>
-                <Badge />
-              </ListItemIcon>
-              <ListItemText primary={user.full_name} />
-            </ListItem>
-            <ListItem>
-              <ListItemIcon>
-                <Badge />
-              </ListItemIcon>
-              <ListItemText primary={user.user_id} />
-            </ListItem>
-          </List>
-        </CardContent>
-      )}
-    </Card>
+    <Grid container direction="column" alignItems="center">
+      <Card sx={{width: '100%', maxWidth: '425px'}}>
+        {user && (
+          <CardContent>
+            <List>
+              <ListItem>
+                <ListItemAvatar sx={{width: '100%'}}>
+                  <Avatar
+                    variant="square"
+                    src={avatar.filename}
+                    imgProps={{
+                      alt: `${user.username}'s profile image`,
+                    }}
+                    sx={{width: '100%', height: '30vh'}}
+                  />
+                </ListItemAvatar>
+              </ListItem>
+              <ListItem>
+                <ListItemIcon>
+                  <AccountCircle />
+                </ListItemIcon>
+                <ListItemText primary={user.username} />
+              </ListItem>
+              <ListItem>
+                <ListItemIcon>
+                  <ContactMail />
+                </ListItemIcon>
+                <ListItemText primary={user.email} />
+              </ListItem>
+              <ListItem>
+                <ListItemIcon>
+                  <Badge />
+                </ListItemIcon>
+                <ListItemText primary={user.full_name} />
+              </ListItem>
+              <ListItem>
+                <ListItemIcon>
+                  <Badge />
+                </ListItemIcon>
+                <ListItemText primary={user.user_id} />
+              </ListItem>
+            </List>
+          </CardContent>
+        )}
+      </Card>
+    </Grid>
   );
 };
 
