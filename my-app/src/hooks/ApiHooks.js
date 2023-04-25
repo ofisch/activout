@@ -40,7 +40,6 @@ const doSearch = async (searchString) => {
             .includes(location.address.toLowerCase())) ||
         searchString.toLowerCase().includes(i.title.toLowerCase())
       ) {
-        console.log('ebin');
         searchResults.push(i);
       }
     }
