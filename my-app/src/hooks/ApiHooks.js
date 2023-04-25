@@ -13,6 +13,44 @@ const doFetch = async (url, options) => {
   return json;
 };
 
+// staattinen taulukko (ehkä vähä nihkee.. mut toimii!!)
+let searchResults = [];
+
+const doSearch = async (searchString) => {
+  try {
+    searchResults = [];
+
+    // haetaan kaikki
+    console.log(searchString);
+    const files = await useTag().getTag(appId);
+    const filesWithThumbnail = await Promise.all(
+      files.map(async (file) => {
+        return await doFetch(baseUrl + 'media/' + file.file_id);
+      })
+    );
+
+    for (const i of filesWithThumbnail) {
+      const location = JSON.parse(i.description);
+      console.log(location.address);
+
+      if (
+        (location.address != undefined &&
+          searchString
+            .toLowerCase()
+            .includes(location.address.toLowerCase())) ||
+        searchString.toLowerCase().includes(i.title.toLowerCase())
+      ) {
+        console.log('ebin');
+        searchResults.push(i);
+      }
+    }
+
+    console.log(searchResults);
+  } catch (error) {
+    alert(error);
+  }
+};
+
 const useMedia = () => {
   const [mediaArray, setMediaArray] = useState([]);
   const getMedia = async () => {
@@ -120,4 +158,4 @@ const useTag = () => {
   return {getTag, postTag};
 };
 
-export {useMedia, useUser, useAuthentication, useTag};
+export {useMedia, useUser, useAuthentication, useTag, doSearch, searchResults};

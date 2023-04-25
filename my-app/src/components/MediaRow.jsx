@@ -17,51 +17,6 @@ const MediaRow = ({file}) => {
   const fileAttributes = JSON.parse(file.description);
 
   return (
-    /*
-    <ImageListItem>
-      <img src={mediaUrl + file.thumbnails.w640} alt={file.title} />
-      <ImageListItemBar
-        title={file.title}
-        subtitle={file.description}
-        actionIcon={
-          <Button
-            component={Link}
-            variant="contained"
-            to="/single"
-            state={{file}}
-          >
-            View
-          </Button>
-        }
-      />
-    </ImageListItem>
-    */
-
-    /*
-    <Grid
-      container
-      direction="row"
-      justifyContent="flex-start"
-      alignItems="center"
-      bgcolor={'aquamarine'}
-    >
-      <Container bgcolor={'red'}>
-        <Typography component="h1" variant="h4">
-          {file.title}
-        </Typography>
-        <Typography component="h1" variant="h5">
-          category
-        </Typography>
-        <Typography component="p">address</Typography>
-        <Typography component="p">X ratings</Typography>
-        <StarIcon></StarIcon>
-      </Container>
-      <Container bgcolor={'bisque'}>
-        <img src={mediaUrl + file.thumbnails.w640} alt={file.title} />
-      </Container>
-    </Grid>
-    */
-
     <Box
       sx={{
         width: 500,

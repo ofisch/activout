@@ -16,26 +16,28 @@ import SearchIcon from '@mui/icons-material/Search';
 import TuneIcon from '@mui/icons-material/Tune';
 import {DraftsOutlined} from '@mui/icons-material';
 import {useState} from 'react';
-import {useTag} from '../hooks/apiHooks';
+import {useTag, doSearch} from '../hooks/ApiHooks';
 import {appId} from '../utils/variables';
+import {useNavigate} from 'react-router-dom';
 
 const Landing = () => {
+  const navigate = useNavigate();
+
   const [showCategories, setIsShown] = useState(false);
 
-  const handleClick = (event) => {
+  const [searchString, setSearchString] = useState('');
+  const [updatedSearch, setUpdatedSearch] = useState(searchString);
+
+  const handleShowCategory = (event) => {
     setIsShown((current) => !current);
   };
 
-  const doSearch = async () => {
-    try {
-      // haetaan kaikki
-      const files = await useTag().getTag(appId);
-      // tulostetaan alkion 5 description-json (josta löytyy kategoria ja osoite)
-      console.log(JSON.parse(files[6].description));
-      // TODO: haku-stringin ja kategorioiden vertailu json-olion tietoihin
-    } catch (error) {
-      alert(error);
-    }
+  const handleChange = (event) => {
+    setSearchString(event.target.value);
+  };
+
+  const handleSearchString = () => {
+    setUpdatedSearch(searchString);
   };
 
   return (
@@ -51,10 +53,20 @@ const Landing = () => {
             id="outlined-basic"
             label="Search"
             variant="outlined"
+            name="search"
+            onChange={handleChange}
+            value={searchString}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
-                  <IconButton onClick={doSearch}>
+                  <IconButton
+                    onClick={() => {
+                      doSearch(searchString);
+                      handleSearchString();
+                      // mennään hakutulokset-sivulle kun painetaan hakua
+                      navigate('/home');
+                    }}
+                  >
                     <SearchIcon></SearchIcon>
                   </IconButton>
                 </InputAdornment>
@@ -63,7 +75,7 @@ const Landing = () => {
           ></TextField>
         </Grid>
         <Grid item>
-          <IconButton onClick={handleClick}>
+          <IconButton onClick={handleShowCategory}>
             <TuneIcon></TuneIcon>
           </IconButton>
         </Grid>
