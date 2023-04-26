@@ -33,9 +33,11 @@ const Landing = () => {
     response: [],
   });
 
-  const categories = [];
+  // const categories = [];
+  const [categories, setCategoriesTest] = useState([]);
 
   const handleCategory = (e) => {
+    e.persist() && e.persist();
     const {value, checked} = e.target;
     //const {categories} = searchCategories;
 
@@ -59,6 +61,7 @@ const Landing = () => {
 
   const handleChange = (event) => {
     setSearchString(event.target.value);
+    console.log('categoryArray:', categories);
   };
 
   const handleSearchString = () => {
@@ -86,8 +89,8 @@ const Landing = () => {
                 <InputAdornment position="start">
                   <IconButton
                     onClick={() => {
-                      doSearch(searchString, categories);
                       handleSearchString();
+                      doSearch(searchString, categories);
                       // mennään hakutulokset-sivulle kun painetaan hakua
                       navigate('/home');
                     }}

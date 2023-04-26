@@ -21,8 +21,7 @@ const doSearch = async (searchString, categoryArray) => {
     searchResults = [];
 
     // haetaan kaikki
-    console.log(searchString);
-    console.log('categoryArray:', categoryArray);
+    //console.log(searchString);
     const files = await useTag().getTag(appId);
     const filesWithThumbnail = await Promise.all(
       files.map(async (file) => {
@@ -33,22 +32,47 @@ const doSearch = async (searchString, categoryArray) => {
     for (const file of filesWithThumbnail) {
       const location = JSON.parse(file.description);
       const address = location.address;
-      console.log(address);
-      console.log(location.category);
+      //   console.log(address);
+      //  console.log(location.category);
 
-      if (
-        (location.address != undefined &&
-          searchString
-            .toLowerCase()
-            .includes(location.address.toLowerCase())) ||
-        searchString.toLowerCase().includes(file.title.toLowerCase())
+      //  console.log('categoryArray:', categoryArray);
+      //  console.log('category:', location.category);
+
+      /*
+      if ((
+          searchString.toLowerCase().includes(location.address.toLowerCase())) || searchString.toLowerCase().includes(file.title.toLowerCase())
       ) {
-        if (categoryArray.length != 0) {
+        if (categoryArray.length !== 0) {
           if (categoryArray.includes(location.category)) {
             searchResults.push(file);
           }
         } else {
           searchResults.push(file);
+        }
+      }
+      */
+
+      if (location.address != undefined) {
+        if (categoryArray.length === 0) {
+          // jos EI OLE valittuna kategorioita
+          // verrataan haku-stringiä osoitteseen ja otsikkoon
+          if (searchString.toLowerCase().includes(location.address.toLowerCase()) || searchString.toLowerCase().includes(file.title.toLowerCase()) ) {
+            searchResults.push(file);
+            console.log('EI kategorioita:', searchResults);
+            }
+        } else {
+          // jos ON valittuna kategorioita
+          if (categoryArray.includes(location.category)) {
+            if (searchString) {
+              if (searchString.toLowerCase().includes(location.address.toLowerCase()) || searchString.toLowerCase().includes(file.title.toLowerCase()) ) {
+                searchResults.push(file);
+                console.log('ON kategorioita ja HAKU:', searchResults);
+                }
+            } else {
+              searchResults.push(file);
+              console.log('ON kategorioita mutta EI HAKUA:', searchResults);
+            }
+          }
         }
       }
     }
