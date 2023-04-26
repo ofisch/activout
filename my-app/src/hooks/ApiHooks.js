@@ -31,7 +31,8 @@ const doSearch = async (searchString) => {
 
     for (const i of filesWithThumbnail) {
       const location = JSON.parse(i.description);
-      console.log(location.address);
+      const address = location.address;
+      console.log(address);
 
       if (
         (location.address != undefined &&

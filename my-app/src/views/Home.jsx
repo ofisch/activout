@@ -1,13 +1,22 @@
-import {Typography} from '@mui/material';
+import {Grid, Typography} from '@mui/material';
 import MediaTable from '../components/MediaTable';
+//import {searchResults} from '../hooks/ApiHooks';
 
 const Home = () => {
+  //  console.log(searchResults);
+  //  const location = JSON.parse(searchResults[0]);
+  //  const address = location.address;
+  //  console.log(address);
   return (
     <>
-      <Typography component="h1" variant="h3">
-        Home
-      </Typography>
-      <MediaTable />
+      <Grid container direction="column" alignItems="center">
+        <Grid item>
+          <Typography component="h1" variant="h3" sx={{mt: 8, mb: 6}}>
+            Home
+          </Typography>
+        </Grid>
+        <MediaTable />
+      </Grid>
     </>
   );
 };

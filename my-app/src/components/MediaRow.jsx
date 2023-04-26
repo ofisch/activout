@@ -21,6 +21,8 @@ const MediaRow = ({file}) => {
       sx={{
         width: 500,
         height: 300,
+        my: 4,
+        p: 1,
         backgroundColor: 'secondary.light',
         '&:hover': {
           backgroundColor: 'secondary.dark',
@@ -35,15 +37,19 @@ const MediaRow = ({file}) => {
         flexWrap="nowrap"
       >
         <Grid container direction="column">
-          <Typography component="h1" variant="h4">
+          <Typography component="h1" variant="h4" sx={{pl: 1}}>
             {file.title}
           </Typography>
-          <Typography component="h1" variant="h5">
+          <Typography component="h1" variant="h6" sx={{pl: 2}}>
             {fileAttributes.category}
           </Typography>
-          <Typography component="p">{fileAttributes.address}</Typography>
-          <Typography component="p">X ratings</Typography>
-          <StarIcon></StarIcon>
+          <Typography component="p" sx={{pl: 2}}>
+            {fileAttributes.address}
+          </Typography>
+          <Typography component="p" sx={{pl: 2}}>
+            X ratings
+          </Typography>
+          <StarIcon sx={{pl: 2}}></StarIcon>
         </Grid>
         <Grid container>
           <img

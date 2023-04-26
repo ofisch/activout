@@ -7,12 +7,6 @@ const Single = () => {
   const file = state.file;
   let allData = {
     desc: file.description,
-    filters: {
-      brightness: 100,
-      contrast: 100,
-      saturation: 100,
-      sepia: 0,
-    },
   };
   try {
     allData = JSON.parse(file.description);
@@ -33,12 +27,6 @@ const Single = () => {
           style={{
             width: '100%',
             height: 400,
-            filter: `
-            brightness(${allData.filters.brightness}%)
-            contrast(${allData.filters.contrast}%)
-            saturate(${allData.filters.saturation}%)
-            sepia(${allData.filters.sepia}%)
-            `,
           }}
         />
         <CardContent>
@@ -48,7 +36,5 @@ const Single = () => {
     </>
   );
 };
-
-// TODO in the next task: add propType for location
 
 export default Single;
