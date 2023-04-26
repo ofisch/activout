@@ -16,12 +16,13 @@ const doFetch = async (url, options) => {
 // staattinen taulukko (ehkä vähä nihkee.. mut toimii!!)
 let searchResults = [];
 
-const doSearch = async (searchString) => {
+const doSearch = async (searchString, categoryArray) => {
   try {
     searchResults = [];
 
     // haetaan kaikki
     console.log(searchString);
+    console.log('categoryArray:', categoryArray);
     const files = await useTag().getTag(appId);
     const filesWithThumbnail = await Promise.all(
       files.map(async (file) => {
@@ -29,19 +30,26 @@ const doSearch = async (searchString) => {
       })
     );
 
-    for (const i of filesWithThumbnail) {
-      const location = JSON.parse(i.description);
+    for (const file of filesWithThumbnail) {
+      const location = JSON.parse(file.description);
       const address = location.address;
       console.log(address);
+      console.log(location.category);
 
       if (
         (location.address != undefined &&
           searchString
             .toLowerCase()
             .includes(location.address.toLowerCase())) ||
-        searchString.toLowerCase().includes(i.title.toLowerCase())
+        searchString.toLowerCase().includes(file.title.toLowerCase())
       ) {
-        searchResults.push(i);
+        if (categoryArray.length != 0) {
+          if (categoryArray.includes(location.category)) {
+            searchResults.push(file);
+          }
+        } else {
+          searchResults.push(file);
+        }
       }
     }
 

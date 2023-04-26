@@ -28,6 +28,31 @@ const Landing = () => {
   const [searchString, setSearchString] = useState('');
   const [updatedSearch, setUpdatedSearch] = useState(searchString);
 
+  const [searchCategories, setCategories] = useState({
+    categories: [],
+    response: [],
+  });
+
+  const categories = [];
+
+  const handleCategory = (e) => {
+    const {value, checked} = e.target;
+    //const {categories} = searchCategories;
+
+    if (checked) {
+      categories.push(value);
+    } else {
+      for (const i of categories) {
+        if (i.includes(value)) {
+          const index = categories.indexOf(i);
+          const x = categories.splice(index, 1);
+          console.log(x);
+        }
+      }
+    }
+    console.log(categories);
+  };
+
   const handleShowCategory = (event) => {
     setIsShown((current) => !current);
   };
@@ -44,7 +69,7 @@ const Landing = () => {
     <>
       <Grid container direction="column" alignItems="center">
         <Grid item>
-          <Typography component="h1" variant="h3" sx={{mt: 8, mb:6}}>
+          <Typography component="h1" variant="h3" sx={{mt: 8, mb: 6}}>
             Activout
           </Typography>
         </Grid>
@@ -61,7 +86,7 @@ const Landing = () => {
                 <InputAdornment position="start">
                   <IconButton
                     onClick={() => {
-                      doSearch(searchString);
+                      doSearch(searchString, categories);
                       handleSearchString();
                       // mennään hakutulokset-sivulle kun painetaan hakua
                       navigate('/home');
@@ -74,7 +99,7 @@ const Landing = () => {
             }}
           ></TextField>
         </Grid>
-        <Grid item sx={{mt: 4, mb:2}}>
+        <Grid item sx={{mt: 4, mb: 2}}>
           <IconButton onClick={handleShowCategory}>
             <TuneIcon></TuneIcon>
           </IconButton>
@@ -83,10 +108,30 @@ const Landing = () => {
           <Grid item>
             <Typography component="p">Categories</Typography>
             <FormGroup>
-              <FormControlLabel control={<Checkbox />} label="activity parks" />
-              <FormControlLabel control={<Checkbox />} label="skate parks" />
-              <FormControlLabel control={<Checkbox />} label="dog parks" />
-              <FormControlLabel control={<Checkbox />} label="playgrounds" />
+              <FormControlLabel
+                control={<Checkbox />}
+                label="activity parks"
+                value="activity parks"
+                onChange={handleCategory}
+              />
+              <FormControlLabel
+                control={<Checkbox />}
+                label="skate parks"
+                value="skate parks"
+                onChange={handleCategory}
+              />
+              <FormControlLabel
+                control={<Checkbox />}
+                label="dog parks"
+                value="dog parks"
+                onChange={handleCategory}
+              />
+              <FormControlLabel
+                control={<Checkbox />}
+                label="playgrounds"
+                value="playgrounds"
+                onChange={handleCategory}
+              />
             </FormGroup>
           </Grid>
         ) : null}
