@@ -33,13 +33,11 @@ const Landing = () => {
     response: [],
   });
 
-  // const categories = [];
   const [categories, setCategoriesTest] = useState([]);
 
   const handleCategory = (e) => {
     e.persist() && e.persist();
     const {value, checked} = e.target;
-    //const {categories} = searchCategories;
 
     if (checked) {
       categories.push(value);
