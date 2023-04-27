@@ -76,6 +76,9 @@ const Single = () => {
                 justifyContent="center"
                 sx={{my: 2}}
               >
+                <Typography component="p" variant="h6" sx={{px: 2}}>
+                  5
+                </Typography>
                 <StarIcon></StarIcon>
                 <StarIcon></StarIcon>
                 <StarIcon></StarIcon>
