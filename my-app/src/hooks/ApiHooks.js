@@ -15,11 +15,12 @@ const doFetch = async (url, options) => {
 
 // staattinen taulukko (ehkä vähä nihkee.. mut toimii!!)
 let searchResults = [];
+let userSearch;
 
 const doSearch = async (searchString, categoryArray) => {
   try {
     searchResults = [];
-
+    userSearch = searchString;
     // haetaan kaikki
     //console.log(searchString);
     const files = await useTag().getTag(appId);
@@ -190,4 +191,12 @@ const useTag = () => {
   return {getTag, postTag};
 };
 
-export {useMedia, useUser, useAuthentication, useTag, doSearch, searchResults};
+export {
+  useMedia,
+  useUser,
+  useAuthentication,
+  useTag,
+  doSearch,
+  searchResults,
+  userSearch,
+};
