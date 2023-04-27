@@ -10,9 +10,6 @@ const MediaTable = () => {
   const {mediaArray} = useMedia();
   const windowSize = useWindowSize();
 
-  console.log('mediaArray:', mediaArray);
-  console.log('searchResults', searchResults);
-
   return (
     <Stack spacing={2}>
       {searchResults.map((item, index) => {

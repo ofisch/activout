@@ -15,13 +15,13 @@ const doFetch = async (url, options) => {
 
 // staattinen taulukko (ehkä vähä nihkee.. mut toimii!!)
 let searchResults = [];
+let userSearch;
 
-const doSearch = async (searchString) => {
+const doSearch = async (searchString, categoryArray) => {
   try {
     searchResults = [];
-
+    userSearch = searchString;
     // haetaan kaikki
-    console.log(searchString);
     const files = await useTag().getTag(appId);
     const filesWithThumbnail = await Promise.all(
       files.map(async (file) => {
@@ -29,19 +29,41 @@ const doSearch = async (searchString) => {
       })
     );
 
-    for (const i of filesWithThumbnail) {
-      const location = JSON.parse(i.description);
-      const address = location.address;
-      console.log(address);
+    for (const file of filesWithThumbnail) {
+      const location = JSON.parse(file.description);
 
-      if (
-        (location.address != undefined &&
-          searchString
-            .toLowerCase()
-            .includes(location.address.toLowerCase())) ||
-        searchString.toLowerCase().includes(i.title.toLowerCase())
-      ) {
-        searchResults.push(i);
+      if (location.address != undefined) {
+        if (categoryArray.length === 0) {
+          // jos EI OLE valittuna kategorioita
+          // verrataan haku-stringiä osoitteseen ja otsikkoon
+          if (
+            searchString
+              .toLowerCase()
+              .includes(location.address.toLowerCase()) ||
+            searchString.toLowerCase().includes(file.title.toLowerCase())
+          ) {
+            searchResults.push(file);
+            console.log('EI kategorioita:', searchResults);
+          }
+        } else {
+          // jos ON valittuna kategorioita
+          if (categoryArray.includes(location.category)) {
+            if (searchString) {
+              if (
+                searchString
+                  .toLowerCase()
+                  .includes(location.address.toLowerCase()) ||
+                searchString.toLowerCase().includes(file.title.toLowerCase())
+              ) {
+                searchResults.push(file);
+                console.log('ON kategorioita ja HAKU:', searchResults);
+              }
+            } else {
+              searchResults.push(file);
+              console.log('ON kategorioita mutta EI HAKUA:', searchResults);
+            }
+          }
+        }
       }
     }
 
@@ -158,4 +180,12 @@ const useTag = () => {
   return {getTag, postTag};
 };
 
-export {useMedia, useUser, useAuthentication, useTag, doSearch, searchResults};
+export {
+  useMedia,
+  useUser,
+  useAuthentication,
+  useTag,
+  doSearch,
+  searchResults,
+  userSearch,
+};

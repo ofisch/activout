@@ -1,4 +1,4 @@
-import {Box, Button, Slider} from '@mui/material';
+import {Box, Button, Paper, TextField} from '@mui/material';
 import PropTypes from 'prop-types';
 import useForm from '../hooks/FormHooks';
 import {useState} from 'react';
@@ -25,13 +25,6 @@ const Upload = (props) => {
     description: '',
   };
 
-  const filterInitValues = {
-    brightness: 100,
-    contrast: 100,
-    saturation: 100,
-    sepia: 0,
-  };
-
   const doUpload = async () => {
     try {
       const data = new FormData();
@@ -41,7 +34,6 @@ const Upload = (props) => {
         desc: inputs.description,
         category: inputs.category,
         address: inputs.address,
-        filters: filterInputs,
       };
       data.append('description', JSON.stringify(allData));
       data.append('file', file);
@@ -79,100 +71,99 @@ const Upload = (props) => {
     initValues
   );
 
-  const {inputs: filterInputs, handleInputChange: handleFilterChange} = useForm(
-    null,
-    filterInitValues
-  );
-
   return (
-    <Box>
-      <img
-        src={selectedImage}
-        alt="preview"
-        style={{
-          width: '100%',
-          height: 400,
-          objectFit: 'contain',
-          filter: `
-          brightness(${filterInputs.brightness}%)
-          contrast(${filterInputs.contrast}%)
-          saturate(${filterInputs.saturation}%)
-          sepia(${filterInputs.sepia}%)
-          `,
-        }}
-      />
-      <form onSubmit={handleSubmit}>
-        <input
-          onChange={handleInputChange}
-          type="text"
-          name="title"
-          placeholder="title"
-          value={inputs.title}
-        ></input>
-        <input
-          onChange={handleInputChange}
-          type="text"
-          name="category"
-          placeholder="category"
-          value={inputs.category}
-        ></input>
-        <input
-          onChange={handleInputChange}
-          type="text"
-          name="address"
-          placeholder="address"
-          value={inputs.address}
-        ></input>
-        <textarea
-          onChange={handleInputChange}
-          name="description"
-          placeholder="description"
-          value={inputs.description}
-        ></textarea>
-        <input
-          onChange={handleFileChange}
-          type="file"
-          name="file"
-          accept="image/*,video/*,audio/*"
-        ></input>
-        <Button type="submit">Upload</Button>
-      </form>
-      <Slider
-        name="brightness"
-        min={0}
-        max={200}
-        step={1}
-        valueLabelDisplay="auto"
-        onChange={handleFilterChange}
-        value={filterInputs.brightness}
-      />
-      <Slider
-        name="contrast"
-        min={0}
-        max={200}
-        step={1}
-        valueLabelDisplay="auto"
-        onChange={handleFilterChange}
-        value={filterInputs.contrast}
-      />
-      <Slider
-        name="saturation"
-        min={0}
-        max={200}
-        step={1}
-        valueLabelDisplay="auto"
-        onChange={handleFilterChange}
-        value={filterInputs.saturation}
-      />
-      <Slider
-        name="sepia"
-        min={0}
-        max={100}
-        step={1}
-        valueLabelDisplay="auto"
-        onChange={handleFilterChange}
-        value={filterInputs.sepia}
-      />
+    <Box
+      sx={{
+        width: '70%',
+        mx: 'auto',
+      }}
+    >
+      <Paper elevation={3}>
+        <Box
+          sx={{
+            pt: 2,
+            pb: 2,
+            px: 6,
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            gap: 3,
+          }}
+        >
+          <img
+            src={selectedImage}
+            alt="preview"
+            style={{
+              width: '100%',
+              height: 400,
+              objectFit: 'contain',
+            }}
+          />
+          <input
+            onChange={handleFileChange}
+            type="file"
+            name="file"
+            accept="image/*,video/*,audio/*"
+          ></input>
+          <form onSubmit={handleSubmit}>
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+                gap: 3,
+              }}
+            >
+              <TextField
+                id="outlined-basic"
+                label="title"
+                variant="outlined"
+                onChange={handleInputChange}
+                type="text"
+                name="title"
+                value={inputs.title}
+              ></TextField>
+              <TextField
+                id="outlined-basic"
+                label="category"
+                variant="outlined"
+                onChange={handleInputChange}
+                type="text"
+                name="category"
+                value={inputs.category}
+              ></TextField>
+              <TextField
+                id="outlined-basic"
+                label="address"
+                variant="outlined"
+                onChange={handleInputChange}
+                type="text"
+                name="address"
+                value={inputs.address}
+              ></TextField>
+              <TextField
+                id="outlined-basic"
+                label="destription"
+                variant="outlined"
+                onChange={handleInputChange}
+                name="description"
+                value={inputs.description}
+                multiline
+                rows={4}
+                maxRows={6}
+              ></TextField>
+              <Button
+                type="submit"
+                variant="contained"
+                color="secondary"
+                size="large"
+              >
+                upload
+              </Button>
+            </Box>
+          </form>
+        </Box>
+      </Paper>
     </Box>
   );
 };
