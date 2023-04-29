@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build --base=/~onnif/activout/",
+    "build": "vite build --base=/~lassiaa/react-projekti/",
     "preview": "vite preview"
   },
   "dependencies": {

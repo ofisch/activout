@@ -1,11 +1,13 @@
 import {
   Box,
+  Button,
   Card,
   CardContent,
   CardMedia,
   Grid,
   Typography,
 } from '@mui/material';
+import {Link} from 'react-router-dom';
 import {useLocation} from 'react-router-dom';
 import {mediaUrl} from '../utils/variables';
 import StarIcon from '@mui/icons-material/Star';
@@ -88,6 +90,15 @@ const Single = () => {
             </Grid>
           </Grid>
         </Box>
+        <Button
+          component={Link}
+          variant="contained"
+          to="/comment"
+          state={{file}}
+          style={{textDecoration: 'none', color: 'primary.contrastText'}}
+        >
+          Add a comment
+        </Button>
       </Grid>
     </>
   );
