@@ -20,15 +20,13 @@ const Comment = (props) => {
 
   const {user} = useContext(MediaContext);
 
-  console.log(user);
-
   const initValues = {
     title: '',
-    ratings: '',
+    rating: '',
     review: '',
   };
 
-  const doComment = async () => {
+  const doUpload = async () => {
     try {
       const data = new FormData();
       data.append('title', inputs.title);
@@ -51,7 +49,7 @@ const Comment = (props) => {
         },
         userToken
       );
-      console.log('doComment', tagResult);
+      console.log('doUpload', tagResult);
       navigate('/home');
     } catch (error) {
       alert(error.message);
@@ -69,7 +67,7 @@ const Comment = (props) => {
   };
 
   const {inputs, handleSubmit, handleInputChange} = useForm(
-    doComment,
+    doUpload,
     initValues
   );
 
@@ -143,9 +141,9 @@ const Comment = (props) => {
                     label="rating"
                     variant="outlined"
                     onChange={handleInputChange}
-                    type="text"
+                    type="integer"
                     name="rating"
-                    value={inputs.ratings}
+                    value={inputs.rating}
                     sx={{width: '80px', mr: '10px'}}
                   ></TextField>
                   <StarIcon></StarIcon>
