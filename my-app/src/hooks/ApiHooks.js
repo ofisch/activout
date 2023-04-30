@@ -66,8 +66,6 @@ const doSearch = async (searchString, categoryArray) => {
         }
       }
     }
-
-    console.log(searchResults);
   } catch (error) {
     alert(error);
   }
