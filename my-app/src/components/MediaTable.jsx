@@ -3,10 +3,12 @@ import {
   FormControlLabel,
   FormGroup,
   Grid,
+  IconButton,
   ImageList,
   Stack,
   Typography,
 } from '@mui/material';
+import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import PropTypes from 'prop-types';
 import {useEffect, useState} from 'react';
 import {useMedia, searchResults} from '../hooks/ApiHooks';
@@ -36,20 +38,22 @@ const MediaTable = () => {
     if (event.target.value == 'a-z') {
       searchResults.sort((a, b) => (a.title > b.title ? 1 : -1));
       handleSearchRes();
-      console.log('hakutulokset', searchRes);
+      handleShowSort();
+      //  console.log('hakutulokset', searchRes);
     } else if (event.target.value == 'z-a') {
       searchResults.sort((a, b) => (a.title < b.title ? 1 : -1));
       handleSearchRes();
-      console.log('hakutulokset', searchRes);
+      handleShowSort();
+      //  console.log('hakutulokset', searchRes);
     }
     // TODO: järjestäminen ratingin perusteella (kun saadaan ratingit sovellukseen)
   };
 
   return (
     <>
-      <Button variant="contained" onClick={handleShowSort}>
-        järjestä
-      </Button>
+      <IconButton variant="contained" onClick={handleShowSort}>
+        <FilterAltIcon></FilterAltIcon>
+      </IconButton>
       {showSort ? (
         <Grid item>
           <Typography component="p">Sort</Typography>

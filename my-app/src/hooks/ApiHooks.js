@@ -43,7 +43,7 @@ const doSearch = async (searchString, categoryArray) => {
             searchString.toLowerCase().includes(file.title.toLowerCase())
           ) {
             searchResults.push(file);
-            console.log('EI kategorioita:', searchResults);
+            //  console.log('EI kategorioita:', searchResults);
           }
         } else {
           // jos ON valittuna kategorioita
@@ -56,11 +56,11 @@ const doSearch = async (searchString, categoryArray) => {
                 searchString.toLowerCase().includes(file.title.toLowerCase())
               ) {
                 searchResults.push(file);
-                console.log('ON kategorioita ja HAKU:', searchResults);
+                //  console.log('ON kategorioita ja HAKU:', searchResults);
               }
             } else {
               searchResults.push(file);
-              console.log('ON kategorioita mutta EI HAKUA:', searchResults);
+              //  console.log('ON kategorioita mutta EI HAKUA:', searchResults);
             }
           }
         }
