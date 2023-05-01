@@ -97,6 +97,7 @@ const Upload = (props) => {
       );
       console.log('doUpload', tagResult);
       console.log(allData);
+      console.log(uploadResult.file_id);
       navigate('/home');
     } catch (error) {
       alert(error.message);

@@ -9,8 +9,6 @@ import {MediaProvider} from './contexts/MediaContext';
 import Logout from './views/Logout';
 import Landing from './views/Landing';
 import Upload from './views/Upload';
-import Comment from './views/Comment';
-
 
 console.log('base', import.meta.env.BASE_URL);
 
@@ -26,7 +24,6 @@ const App = () => {
             <Route path="/single" element={<Single />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/logout" element={<Logout />} />
-            <Route path="/comment" element={<Comment />} />
             <Route path="/upload" element={<Upload />} />
           </Route>
         </Routes>
