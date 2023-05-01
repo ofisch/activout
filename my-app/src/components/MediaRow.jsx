@@ -18,15 +18,7 @@ const MediaRow = ({file}) => {
   const fileAttributes = JSON.parse(file.description);
 
   return (
-    <Paper
-      elevation={3}
-      sx={{
-        '&:hover': {
-          backgroundColor: 'primary.medium',
-          opacity: [0.9, 0.8, 0.7],
-        },
-      }}
-    >
+    <Paper elevation={3}>
       <Box
         component={Link}
         variant="contained"
@@ -70,7 +62,7 @@ const MediaRow = ({file}) => {
               <img
                 src={mediaUrl + file.thumbnails.w640}
                 alt={file.title}
-                style={{width: 250, height: 200}}
+                style={{width: '85%', height: 'auto'}}
               />
             </Grid>
           </Grid>

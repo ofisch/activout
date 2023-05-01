@@ -59,7 +59,7 @@ const RegisterForm = ({toggle}) => {
           onChange={handleInputChange}
           validators={registerValidators.username}
           errorMessages={registerForm.username}
-          style={{width:'300px'}}
+          style={{width: '300px'}}
         />
         <TextValidator
           fullWidth
