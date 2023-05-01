@@ -48,12 +48,15 @@ const Single = () => {
   const doComment = async () => {
     try {
       const data = new FormData();
-      const title = location.file_id + inputs.title;
-      data.append('title', title);
+      const titleData = {
+        id: location.file_id,
+        title: inputs.title,
+      };
       const allData = {
         rating: inputs.rating,
         review: inputs.review,
       };
+      data.append('title', JSON.stringify(titleData));
       data.append('description', JSON.stringify(allData));
       data.append('file', file);
 
@@ -67,8 +70,8 @@ const Single = () => {
         userToken
       );
 
-      console.log('title ' + title);
       //console.log('doUpload', tagResult);
+      console.log(titleData);
       console.log(allData);
       console.log('file id ' + uploadResult.file_id);
 
