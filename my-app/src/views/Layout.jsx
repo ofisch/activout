@@ -92,7 +92,7 @@ const Layout = () => {
   return (
     <ThemeProvider theme={createTheme(themeOptions)}>
       <CssBaseline />
-      <Container maxWidth="xl">
+      <Container maxWidth="xxl">
         <AppBar position="sticky">
           <Toolbar disableGutters sx={{justifyContent: 'space-between'}}>
             <Typography

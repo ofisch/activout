@@ -1,4 +1,4 @@
-import {Grid, IconButton, Typography} from '@mui/material';
+import {Box, Grid, IconButton, Typography} from '@mui/material';
 import MediaTable from '../components/MediaTable';
 import {userSearch} from '../hooks/ApiHooks';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -11,9 +11,9 @@ const Home = () => {
   return (
     <>
       <Grid container direction="column" alignItems="center" sx={{mt: '-7rem'}}>
-        <Grid item>
+        <Box alignItems="top-left">
           <Box container direction="column">
-            <Typography component="h1" variant="h3" sx={{mt: 8, mb: 6}}>
+            <Typography component="h1" variant="h3" sx={{mb: 6}}>
               <IconButton
                 onClick={() => {
                   navigate('/');
@@ -24,7 +24,7 @@ const Home = () => {
               {userSearch}
             </Typography>
           </Box>
-        </Grid>
+        </Box>
         <MediaTable />
       </Grid>
     </>
