@@ -80,8 +80,7 @@ const Upload = (props) => {
         desc: inputs.description,
         category: inputs.category,
         address: inputs.address,
-        category: inputs.category,
-        address: inputs.address,
+        municipality: inputs.municipality,
       };
       data.append('description', JSON.stringify(allData));
       data.append('file', file);
@@ -272,6 +271,15 @@ const Upload = (props) => {
                 type="text"
                 name="address"
                 value={inputs.address}
+              ></TextField>
+              <TextField
+                id="outlined-basic"
+                label="municipality"
+                variant="outlined"
+                onChange={handleInputChange}
+                type="text"
+                name="municipality"
+                value={inputs.municipality}
               ></TextField>
               <TextField
                 id="outlined-basic"
