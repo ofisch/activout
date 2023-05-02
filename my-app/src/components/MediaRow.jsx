@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  Paper,
   Container,
   Grid,
   ImageListItem,
@@ -17,57 +18,57 @@ const MediaRow = ({file}) => {
   const fileAttributes = JSON.parse(file.description);
 
   return (
-    <Box
-      component={Link}
-      variant="contained"
-      to="/single"
-      state={{file}}
-      style={{textDecoration: 'none', color: 'primary.contrastText'}}
-    >
+    <Paper elevation={3}>
       <Box
-        sx={{
-          width: 500,
-          height: 300,
-          my: 4,
-          p: 1,
-          backgroundColor: 'secondary.light',
-          '&:hover': {
-            backgroundColor: 'secondary.dark',
-            opacity: [0.9, 0.8, 0.7],
-          },
-        }}
+        component={Link}
+        variant="contained"
+        to="/single"
+        state={{file}}
+        style={{textDecoration: 'none', color: 'primary.contrastText'}}
       >
-        <Grid
-          container
-          direction="row"
-          justifyContent="flex-start"
-          flexWrap="nowrap"
+        <Box sx={{bgcolor: 'primary.light', p: 3}}>
+          <Typography component="h1" variant="h3" sx={{ml: 2}}>
+            {file.title}
+          </Typography>
+        </Box>
+        <Box
+          sx={{
+            width: 700,
+            height: 300,
+            my: 4,
+            pl: 7,
+            backgroundColor: 'primary.medium',
+          }}
         >
-          <Grid container direction="column">
-            <Typography component="h1" variant="h4" sx={{pl: 1}}>
-              {file.title}
-            </Typography>
-            <Typography component="h1" variant="h6" sx={{pl: 2}}>
-              {fileAttributes.category}
-            </Typography>
-            <Typography component="p" sx={{pl: 2}}>
-              {fileAttributes.address}
-            </Typography>
-            <Typography component="p" sx={{pl: 2}}>
-              X ratings
-            </Typography>
-            <StarIcon sx={{pl: 2}}></StarIcon>
+          <Grid
+            container
+            direction="row"
+            justifyContent="flex-start"
+            flexWrap="nowrap"
+          >
+            <Grid container direction="column">
+              <StarIcon></StarIcon>
+              <Typography component="p" sx={{mb: 3, pl: 2}}>
+                X ratings
+              </Typography>
+              <Typography component="h1" variant="h6">
+                {fileAttributes.address}
+              </Typography>
+              <Typography component="h1" variant="h6">
+                {fileAttributes.category}
+              </Typography>
+            </Grid>
+            <Grid container>
+              <img
+                src={mediaUrl + file.thumbnails.w640}
+                alt={file.title}
+                style={{width: '85%', height: 'auto'}}
+              />
+            </Grid>
           </Grid>
-          <Grid container>
-            <img
-              src={mediaUrl + file.thumbnails.w640}
-              alt={file.title}
-              style={{width: 250, height: 200}}
-            />
-          </Grid>
-        </Grid>
+        </Box>
       </Box>
-    </Box>
+    </Paper>
   );
 };
 
