@@ -19,7 +19,7 @@ import {
 import {useContext, useEffect, useState} from 'react';
 import {Link, Outlet, useLocation, useNavigate} from 'react-router-dom';
 import {MediaContext} from '../contexts/MediaContext';
-import {useUser} from '../hooks/apiHooks';
+import {useUser} from '../hooks/ApiHooks';
 import {themeOptions} from '../theme/themeOptions';
 import MenuIcon from '@mui/icons-material/Menu';
 
@@ -65,9 +65,6 @@ const Layout = () => {
       onKeyDown={toggleDrawer}
     >
       <List>
-        <ListItem button component={Link} to="/home">
-          <ListItemText primary="Home" />
-        </ListItem>
         <ListItem button component={Link} to="/">
           <ListItemText primary="Landing" />
         </ListItem>
@@ -120,9 +117,6 @@ const Layout = () => {
               </IconButton>
             ) : (
               <Box sx={{mr: 2}}>
-                <Button sx={{color: 'white'}} component={Link} to="/home">
-                  Home
-                </Button>
                 <Button sx={{color: 'white'}} component={Link} to="/">
                   Landing
                 </Button>

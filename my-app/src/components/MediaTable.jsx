@@ -15,6 +15,7 @@ import {useMedia, searchResults} from '../hooks/ApiHooks';
 import {useWindowSize} from '../hooks/WindowHooks';
 import {baseUrl} from '../utils/variables';
 import MediaRow from './MediaRow';
+import SearchIcon from '@mui/icons-material/Search';
 
 const MediaTable = () => {
   const {mediaArray} = useMedia();
@@ -51,8 +52,12 @@ const MediaTable = () => {
 
   return (
     <>
+      <Typography
+        variant="p"
+        sx={{mt: -2, mb: 3}}
+      >{`${searchResults.length} results`}</Typography>
       <IconButton variant="contained" onClick={handleShowSort}>
-        <FilterAltIcon></FilterAltIcon>
+        <FilterAltIcon sx={{scale: '2', mb: 5}}></FilterAltIcon>
       </IconButton>
       {showSort ? (
         <Grid item>
@@ -96,6 +101,7 @@ const MediaTable = () => {
           </FormGroup>
         </Grid>
       ) : null}
+
       <Stack spacing={2}>
         {searchRes.map((item, index) => {
           return <MediaRow key={index} file={item} />;

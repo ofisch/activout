@@ -6,6 +6,7 @@ import {
   Grid,
   TextField,
   Typography,
+  Rating,
 } from '@mui/material';
 import React, {useContext, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
@@ -45,6 +46,22 @@ const Single = () => {
     review: '',
     user: '',
   };
+
+  // arvostelun labelit
+  const labels = {
+    1: 'Poor',
+    2: 'Poor',
+    3: 'Ok',
+    4: 'Good',
+    5: 'Excellent',
+  };
+
+  const getLabelText = (value) => {
+    return `${value} Star${value !== 1 ? 's' : ''}, ${labels[value]}`;
+  };
+
+  const [ratingValue, setRatingValue] = useState(3);
+  const [hoverRating, setHoverRating] = useState(-1);
 
   const doComment = async () => {
     try {
@@ -168,21 +185,26 @@ const Single = () => {
                   justifyContent="right"
                   sx={{flexGrow: 1}}
                 >
-                  <TextField
-                    id="outlined-basic"
-                    label="rating"
-                    variant="outlined"
-                    onChange={handleInputChange}
-                    type="text"
-                    name="rating"
-                    value={inputs.rating}
-                    sx={{width: '80px', mr: '10px'}}
-                  ></TextField>
-                  <StarIcon></StarIcon>
-                  <StarIcon></StarIcon>
-                  <StarIcon></StarIcon>
-                  <StarIcon></StarIcon>
-                  <StarIcon></StarIcon>
+                  <Box>
+                    <Rating
+                      value={ratingValue}
+                      precision={1}
+                      getLabelText={getLabelText}
+                      onChange={(event, newValue) => {
+                        setRatingValue(newValue);
+                        inputs.rating = newValue;
+                      }}
+                      onChangeActive={(event, newHover) => {
+                        setHoverRating(newHover);
+                      }}
+                      emptyIcon={<StarIcon style={{opacity: 0.55}} />}
+                    />
+                    {ratingValue !== null && (
+                      <Box sx={{ml: 2}}>
+                        {labels[hoverRating !== -1 ? hoverRating : ratingValue]}
+                      </Box>
+                    )}
+                  </Box>
                 </Grid>
               </Grid>
               <TextField
