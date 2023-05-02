@@ -43,6 +43,7 @@ const Single = () => {
   const initValues = {
     rating: '',
     review: '',
+    user: '',
   };
 
   const doComment = async () => {
@@ -53,6 +54,7 @@ const Single = () => {
         title: inputs.title,
       };
       const allData = {
+        user: user.username,
         rating: inputs.rating,
         review: inputs.review,
       };
