@@ -12,7 +12,6 @@ import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import PropTypes from 'prop-types';
 import {useEffect, useState} from 'react';
 import {useMedia, searchResults} from '../hooks/ApiHooks';
-import {useMedia, searchResults} from '../hooks/ApiHooks';
 import {useWindowSize} from '../hooks/WindowHooks';
 import {baseUrl} from '../utils/variables';
 import MediaRow from './MediaRow';

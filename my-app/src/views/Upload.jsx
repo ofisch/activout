@@ -76,7 +76,6 @@ const Upload = (props) => {
       const data = new FormData();
       data.append('title', inputs.title);
       console.log(inputs.title);
-      console.log(inputs.title);
       const allData = {
         desc: inputs.description,
         category: inputs.category,
@@ -86,9 +85,6 @@ const Upload = (props) => {
       };
       data.append('description', JSON.stringify(allData));
       data.append('file', file);
-      // data.append('category', inputs.category);
-      // data.append('address', inputs.address);
-      console.log(inputs.address);
       // data.append('category', inputs.category);
       // data.append('address', inputs.address);
       console.log(inputs.address);
@@ -126,6 +122,7 @@ const Upload = (props) => {
   );
 
   return (
+    <Box
       sx={{
         width: '70%',
         mx: 'auto',
