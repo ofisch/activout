@@ -80,8 +80,6 @@ const Upload = (props) => {
         desc: inputs.description,
         category: inputs.category,
         address: inputs.address,
-        category: inputs.category,
-        address: inputs.address,
       };
       data.append('description', JSON.stringify(allData));
       data.append('file', file);
