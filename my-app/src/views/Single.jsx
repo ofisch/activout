@@ -9,13 +9,14 @@ import {
 } from '@mui/material';
 import React, {useContext, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
-import {useMedia, useTag} from '../hooks/ApiHooks';
+import {doFetch, useMedia, useTag} from '../hooks/ApiHooks';
 import {MediaContext} from '../contexts/MediaContext';
 import useForm from '../hooks/FormHooks';
 import {useLocation} from 'react-router-dom';
 import {mediaUrl} from '../utils/variables';
 import StarIcon from '@mui/icons-material/Star';
 import {appId} from '../utils/variables';
+import {baseUrl} from '../utils/variables';
 
 const Single = () => {
   const {state} = useLocation();
@@ -83,6 +84,45 @@ const Single = () => {
     }
   };
 
+  let searchComments = [];
+
+  const getComments = async () => {
+    try {
+      searchComments = [];
+
+      const files = await useTag().getTag(appId);
+      const filesWithId = await Promise.all(
+        files.map(async (file) => {
+          return await doFetch(baseUrl + 'media/' + file.file_id);
+        })
+      );
+
+      for (const file of filesWithId) {
+        if (file.title.startsWith('{')) {
+          const titleId = JSON.parse(file.title);
+          //console.log(file.title);
+          //console.log(titleId.id);
+
+          if (titleId.id == location.file_id) {
+            const comment = JSON.parse(file.description);
+            searchComments.push(file);
+            //console.log(titleId);
+          }
+        }
+      }
+
+      for (let i = 0; i < searchComments.length; i++) {
+        const commentDesc = JSON.parse(searchComments[i].description);
+        console.log(commentDesc);
+      }
+      console.log(searchComments);
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
+  getComments();
+
   const handleFileChange = (event) => {
     event.persist();
     setFile(event.target.files[0]);
@@ -103,6 +143,57 @@ const Single = () => {
   const toggleDrawer = () => {
     setOpenDrawer(!openDrawer);
   };
+
+  const commentsList = () => (
+    <Paper elevation={3}>
+      <Box style={{textDecoration: 'none', color: 'primary.contrastText'}}>
+        <Box sx={{bgcolor: 'primary.light', p: 3}}>
+          <Typography component="h1" variant="h3" sx={{ml: 2}}>
+            {file.title}
+          </Typography>
+        </Box>
+        <Box
+          sx={{
+            width: 700,
+            height: 300,
+            my: 4,
+            pl: 7,
+            backgroundColor: 'primary.medium',
+          }}
+        >
+          <Grid
+            container
+            direction="row"
+            justifyContent="flex-start"
+            flexWrap="nowrap"
+          >
+            <Grid container direction="column">
+              <StarIcon></StarIcon>
+              <Typography component="p" sx={{mb: 3, pl: 2}}>
+                X ratings
+              </Typography>
+              <Typography component="h1" variant="h6">
+                {fileAttributes.address}
+              </Typography>
+              <Typography component="h1" variant="h6">
+                {fileAttributes.category}
+              </Typography>
+              <Typography component="h1" variant="h6">
+                {fileAttributes.desc}
+              </Typography>
+            </Grid>
+            <Grid container>
+              <img
+                src={mediaUrl + file.thumbnails.w640}
+                alt={file.title}
+                style={{width: '85%', height: 'auto'}}
+              />
+            </Grid>
+          </Grid>
+        </Box>
+      </Box>
+    </Paper>
+  );
 
   const drawerList = () => (
     <Box
@@ -278,6 +369,11 @@ const Single = () => {
                   />
                 </Grid>
                 <Grid container direction="column">
+                  <Typography component="p" sx={{pl: 2}}>
+                    {allData.desc}
+                  </Typography>
+                </Grid>
+                <Grid container direction="column">
                   <Typography component="p" sx={{pl: 2}} textAlign={'center'}>
                     X ratings
                   </Typography>
@@ -308,6 +404,8 @@ const Single = () => {
           >
             Add a comment
           </Button>
+
+          {commentsList()}
         </Grid>
       </Paper>
       <Drawer

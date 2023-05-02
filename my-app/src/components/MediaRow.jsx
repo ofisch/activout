@@ -57,6 +57,9 @@ const MediaRow = ({file}) => {
               <Typography component="h1" variant="h6">
                 {fileAttributes.category}
               </Typography>
+              <Typography component="h1" variant="h6">
+                {fileAttributes.desc}
+              </Typography>
             </Grid>
             <Grid container>
               <img

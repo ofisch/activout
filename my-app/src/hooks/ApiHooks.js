@@ -181,6 +181,7 @@ const useTag = () => {
 };
 
 export {
+  doFetch,
   useMedia,
   useUser,
   useAuthentication,
