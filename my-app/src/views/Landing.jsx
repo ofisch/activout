@@ -19,8 +19,13 @@ import {useState} from 'react';
 import {useTag, doSearch} from '../hooks/ApiHooks';
 import {appId} from '../utils/variables';
 import {useNavigate} from 'react-router-dom';
+import {useTag, doSearch} from '../hooks/ApiHooks';
+import {appId} from '../utils/variables';
+import {useNavigate} from 'react-router-dom';
 
 const Landing = () => {
+  const navigate = useNavigate();
+
   const navigate = useNavigate();
 
   const [showCategories, setIsShown] = useState(false);
@@ -71,6 +76,7 @@ const Landing = () => {
       <Grid container direction="column" alignItems="center">
         <Grid item>
           <Typography component="h1" variant="h3" sx={{mt: 8, mb: 6}}>
+          <Typography component="h1" variant="h3" sx={{mt: 8, mb: 6}}>
             Activout
           </Typography>
         </Grid>
@@ -82,9 +88,22 @@ const Landing = () => {
             name="search"
             onChange={handleChange}
             value={searchString}
+            name="search"
+            onChange={handleChange}
+            value={searchString}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
+                  <IconButton
+                    onClick={() => {
+                      handleSearchString();
+                      doSearch(searchString, categories);
+                      // mennään hakutulokset-sivulle kun painetaan hakua
+                      navigate('/home');
+                    }}
+                  >
+                    <SearchIcon></SearchIcon>
+                  </IconButton>
                   <IconButton
                     onClick={() => {
                       handleSearchString();
@@ -102,6 +121,8 @@ const Landing = () => {
         </Grid>
         <Grid item sx={{mt: 4, mb: 2}}>
           <IconButton onClick={handleShowCategory}>
+        <Grid item sx={{mt: 4, mb: 2}}>
+          <IconButton onClick={handleShowCategory}>
             <TuneIcon></TuneIcon>
           </IconButton>
         </Grid>
@@ -109,6 +130,30 @@ const Landing = () => {
           <Grid item>
             <Typography component="p">Categories</Typography>
             <FormGroup>
+              <FormControlLabel
+                control={<Checkbox />}
+                label="activity parks"
+                value="activity parks"
+                onChange={handleCategory}
+              />
+              <FormControlLabel
+                control={<Checkbox />}
+                label="skate parks"
+                value="skate parks"
+                onChange={handleCategory}
+              />
+              <FormControlLabel
+                control={<Checkbox />}
+                label="dog parks"
+                value="dog parks"
+                onChange={handleCategory}
+              />
+              <FormControlLabel
+                control={<Checkbox />}
+                label="playgrounds"
+                value="playgrounds"
+                onChange={handleCategory}
+              />
               <FormControlLabel
                 control={<Checkbox />}
                 label="activity parks"

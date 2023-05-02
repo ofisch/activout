@@ -1,7 +1,18 @@
-import {Box, Button, Paper, TextField} from '@mui/material';
+import {
+  Box,
+  Button,
+  ClickAwayListener,
+  Grow,
+  MenuItem,
+  MenuList,
+  Paper,
+  Popper,
+  Stack,
+  TextField,
+} from '@mui/material';
 import PropTypes from 'prop-types';
 import useForm from '../hooks/FormHooks';
-import {useState} from 'react';
+import React, {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {appId} from '../utils/variables';
 import {useMedia, useTag} from '../hooks/ApiHooks';
@@ -15,6 +26,41 @@ const Upload = (props) => {
   const {postMedia} = useMedia();
   const {postTag} = useTag();
   const navigate = useNavigate();
+
+  //dropdown
+  const [open, setOpen] = React.useState(false);
+  const anchorRef = React.useRef(null);
+
+  const handleToggle = () => {
+    setOpen((prevOpen) => !prevOpen);
+  };
+
+  const handleClose = (event) => {
+    if (anchorRef.current && anchorRef.current.contains(event.target)) {
+      return;
+    }
+
+    setOpen(false);
+  };
+
+  function handleListKeyDown(event) {
+    if (event.key === 'Tab') {
+      event.preventDefault();
+      setOpen(false);
+    } else if (event.key === 'Escape') {
+      setOpen(false);
+    }
+  }
+
+  // return focus to the button when we transitioned from !open -> open
+  const prevOpen = React.useRef(open);
+  React.useEffect(() => {
+    if (prevOpen.current === true && open === false) {
+      anchorRef.current.focus();
+    }
+
+    prevOpen.current = open;
+  }, [open]);
 
   const initValues = {
     title: '',
@@ -30,13 +76,19 @@ const Upload = (props) => {
       const data = new FormData();
       data.append('title', inputs.title);
       console.log(inputs.title);
+      console.log(inputs.title);
       const allData = {
         desc: inputs.description,
+        category: inputs.category,
+        address: inputs.address,
         category: inputs.category,
         address: inputs.address,
       };
       data.append('description', JSON.stringify(allData));
       data.append('file', file);
+      // data.append('category', inputs.category);
+      // data.append('address', inputs.address);
+      console.log(inputs.address);
       // data.append('category', inputs.category);
       // data.append('address', inputs.address);
       console.log(inputs.address);
@@ -50,6 +102,8 @@ const Upload = (props) => {
         userToken
       );
       console.log('doUpload', tagResult);
+      console.log(allData);
+      console.log(uploadResult.file_id);
       navigate('/home');
     } catch (error) {
       alert(error.message);
@@ -72,7 +126,6 @@ const Upload = (props) => {
   );
 
   return (
-    <Box
       sx={{
         width: '70%',
         mx: 'auto',
@@ -123,15 +176,97 @@ const Upload = (props) => {
                 name="title"
                 value={inputs.title}
               ></TextField>
-              <TextField
-                id="outlined-basic"
-                label="category"
-                variant="outlined"
-                onChange={handleInputChange}
-                type="text"
-                name="category"
-                value={inputs.category}
-              ></TextField>
+              <Stack direction="row" spacing={2}>
+                <div>
+                  <Button
+                    ref={anchorRef}
+                    id="composition-button"
+                    aria-controls={open ? 'composition-menu' : undefined}
+                    aria-expanded={open ? 'true' : undefined}
+                    aria-haspopup="true"
+                    onClick={handleToggle}
+                  >
+                    Category
+                  </Button>
+                  <Popper
+                    open={open}
+                    anchorEl={anchorRef.current}
+                    role={undefined}
+                    placement="bottom-start"
+                    transition
+                    disablePortal
+                  >
+                    {({TransitionProps, placement}) => (
+                      <Grow
+                        {...TransitionProps}
+                        style={{
+                          transformOrigin:
+                            placement === 'bottom-start'
+                              ? 'left top'
+                              : 'left bottom',
+                        }}
+                      >
+                        <Paper>
+                          <ClickAwayListener onClickAway={handleClose}>
+                            <MenuList
+                              autoFocusItem={open}
+                              id="composition-menu"
+                              aria-labelledby="composition-button"
+                              onKeyDown={handleListKeyDown}
+                            >
+                              <MenuItem
+                                onClick={function (event) {
+                                  handleClose();
+                                  handleInputChange();
+                                }}
+                                type="text"
+                                name="category"
+                                value={inputs.category}
+                              >
+                                activity parks
+                              </MenuItem>
+                              <MenuItem
+                                onClick={function (event) {
+                                  handleClose();
+                                  handleInputChange();
+                                }}
+                                type="text"
+                                name="category"
+                                value={inputs.category}
+                              >
+                                skate parks
+                              </MenuItem>
+                              <MenuItem
+                                onClick={function (event) {
+                                  handleClose();
+                                  handleInputChange();
+                                }}
+                                type="text"
+                                name="category"
+                                value={inputs.category}
+                              >
+                                dog parks
+                              </MenuItem>
+                              <MenuItem
+                                onClick={function (event) {
+                                  handleClose();
+                                  handleInputChange();
+                                }}
+                                type="text"
+                                name="category"
+                                value={inputs.category}
+                              >
+                                playgrounds
+                              </MenuItem>
+                            </MenuList>
+                          </ClickAwayListener>
+                        </Paper>
+                      </Grow>
+                    )}
+                  </Popper>
+                </div>
+              </Stack>
+
               <TextField
                 id="outlined-basic"
                 label="address"
