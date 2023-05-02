@@ -51,7 +51,7 @@ const MediaTable = () => {
 
   return (
     <>
-      <IconButton variant="contained" onClick={handleShowSort}>
+      <IconButton variant="contained" onClick={handleShowSort} size="large">
         <FilterAltIcon></FilterAltIcon>
       </IconButton>
       {showSort ? (
