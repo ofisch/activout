@@ -82,9 +82,6 @@ const Landing = () => {
             name="search"
             onChange={handleChange}
             value={searchString}
-            name="search"
-            onChange={handleChange}
-            value={searchString}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
