@@ -9,8 +9,14 @@ import {
   Stack,
 } from '@mui/material';
 import React, {useContext, useEffect, useState} from 'react';
-import {useNavigate} from 'react-router-dom';
-import {doFetch, searchComments, useMedia, useTag} from '../hooks/ApiHooks';
+import {Link, useNavigate} from 'react-router-dom';
+import {
+  doFetch,
+  searchComments,
+  useMedia,
+  useTag,
+  useUser,
+} from '../hooks/ApiHooks';
 import {MediaContext} from '../contexts/MediaContext';
 import useForm from '../hooks/FormHooks';
 import {useLocation} from 'react-router-dom';
@@ -41,7 +47,24 @@ const Single = () => {
   const {postTag} = useTag();
   const navigate = useNavigate();
 
-  const {user} = useContext(MediaContext);
+  const {getUserByToken} = useUser();
+  const {user, setUser} = useContext(MediaContext);
+
+  const getUserInfo = async () => {
+    const userToken = localStorage.getItem('userToken');
+    if (userToken) {
+      console.log(userToken);
+      const userData = await getUserByToken(userToken);
+      if (userData) {
+        setUser(userData);
+        return true;
+      }
+    }
+  };
+
+  useEffect(() => {
+    getUserInfo();
+  }, []);
 
   const initValues = {
     rating: '',
@@ -235,9 +258,6 @@ const Single = () => {
                   flexWrap: 'nowrap',
                 }}
               >
-                <Typography alignItems={'center'} sx={{flexGrow: 1}}>
-                  {user.username}
-                </Typography>
                 <Grid
                   container
                   alignItems={'center'}
@@ -382,14 +402,26 @@ const Single = () => {
             </Box>
           </Box>
 
-          <Button
-            variant="contained"
-            style={{textDecoration: 'none', color: 'primary.contrastText'}}
-            onClick={toggleDrawer}
-          >
-            Add a comment
-          </Button>
-
+          {user ? (
+            <Button
+              variant="contained"
+              style={{textDecoration: 'none', color: 'primary.contrastText'}}
+              onClick={toggleDrawer}
+            >
+              Add a review
+            </Button>
+          ) : (
+            <Button
+              button
+              component={Link}
+              to="/login"
+              variant="contained"
+              style={{textDecoration: 'none', color: 'primary.contrastText'}}
+              onClick={toggleDrawer}
+            >
+              Login to add review
+            </Button>
+          )}
           <Stack spacing={2}>{commentsList()}</Stack>
         </Grid>
       </Paper>
