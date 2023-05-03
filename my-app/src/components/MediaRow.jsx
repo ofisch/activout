@@ -75,7 +75,7 @@ const MediaRow = ({file}) => {
                 variant="h6"
                 sx={{color: 'primary.contrastText'}}
               >
-                {fileAttributes.address}
+                {fileAttributes.address}, {fileAttributes.municipality}
               </Typography>
               <Typography
                 component="h1"

@@ -33,7 +33,7 @@ const doSearch = async (searchString, categoryArray) => {
     for (const file of filesWithThumbnail) {
       const location = JSON.parse(file.description);
 
-      if (location.address != undefined) {
+      if (location.address != undefined && location.municipality != undefined) {
         if (categoryArray.length === 0) {
           // jos EI OLE valittuna kategorioita
           // verrataan haku-stringiä osoitteseen ja otsikkoon
@@ -41,7 +41,10 @@ const doSearch = async (searchString, categoryArray) => {
             searchString
               .toLowerCase()
               .includes(location.address.toLowerCase()) ||
-            searchString.toLowerCase().includes(file.title.toLowerCase())
+            searchString.toLowerCase().includes(file.title.toLowerCase()) ||
+            searchString
+              .toLowerCase()
+              .includes(location.municipality.toLowerCase())
           ) {
             searchResults.push(file);
             console.log('EI kategorioita:', searchResults);
@@ -54,7 +57,10 @@ const doSearch = async (searchString, categoryArray) => {
                 searchString
                   .toLowerCase()
                   .includes(location.address.toLowerCase()) ||
-                searchString.toLowerCase().includes(file.title.toLowerCase())
+                searchString.toLowerCase().includes(file.title.toLowerCase()) ||
+                searchString
+                  .toLowerCase()
+                  .includes(location.municipality.toLowerCase())
               ) {
                 searchResults.push(file);
                 console.log('ON kategorioita ja HAKU:', searchResults);

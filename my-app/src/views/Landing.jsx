@@ -23,7 +23,7 @@ import {useNavigate} from 'react-router-dom';
 const Landing = () => {
   const navigate = useNavigate();
 
-  const [showCategories, setIsShown] = useState(false);
+  const [showCategories, setIsShown] = useState(true);
 
   const [searchString, setSearchString] = useState('');
   const [updatedSearch, setUpdatedSearch] = useState(searchString);
