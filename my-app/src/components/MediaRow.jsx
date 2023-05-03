@@ -7,6 +7,7 @@ import {
   ImageListItem,
   ImageListItemBar,
   Typography,
+  Rating,
 } from '@mui/material';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
@@ -63,7 +64,9 @@ const MediaRow = ({file}) => {
             flexWrap="nowrap"
           >
             <Grid container direction="column">
-              <StarIcon sx={{color: 'primary.contrastText'}}></StarIcon>
+              <Box>
+                <Rating name="read-only" value={2} readOnly />
+              </Box>
               <Typography
                 component="p"
                 sx={{mb: 3, pl: 2, color: 'primary.contrastText'}}

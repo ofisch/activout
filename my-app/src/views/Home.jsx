@@ -33,7 +33,7 @@ const Home = () => {
             >
               <ArrowBackIcon sx={{scale: '2'}}></ArrowBackIcon>
             </IconButton>
-            {userSearch}
+            Search: {userSearch}
           </Typography>
         </Box>
       </Grid>

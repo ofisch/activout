@@ -41,9 +41,8 @@ const Single = () => {
 
   const [file, setFile] = useState(null);
   const [selectedImage, setSelectedImage] = useState(
-    'https://placekitten.com/600/400'
+    'https://placehold.co/600x400?text=image'
   );
-  // 'https://placehold.co/600x400?text=Choose-media'
   const {postMedia} = useMedia();
   const {postTag} = useTag();
   const navigate = useNavigate();
@@ -121,17 +120,6 @@ const Single = () => {
     }
   };
 
-  /*
-  // haetaan kaikki kommentit
-  getComments(location)
-    .then((searchComments) => {
-      console.log(searchComments);
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-    */
-
   const handleFileChange = (event) => {
     event.persist();
     setFile(event.target.files[0]);
@@ -152,6 +140,8 @@ const Single = () => {
   const toggleDrawer = () => {
     setOpenDrawer(!openDrawer);
   };
+
+  const amount = searchComments.length;
 
   const commentsList = () => {
     const [comments, setComments] = useState([]);
@@ -197,9 +187,13 @@ const Single = () => {
                     <Typography component="h1" variant="h6">
                       {searchComment.user}
                     </Typography>
-                    <Typography component="h1" variant="h6">
-                      {searchComment.rating}
-                    </Typography>
+                    <Box>
+                      <Rating
+                        name="read-only"
+                        value={searchComment.rating}
+                        readOnly
+                      />
+                    </Box>
                     <Typography component="h1" variant="h6">
                       {searchComment.review}
                     </Typography>
@@ -405,7 +399,7 @@ const Single = () => {
                 </Grid>
                 <Grid container direction="column">
                   <Typography component="p" sx={{pl: 2}} textAlign={'center'}>
-                    X ratings
+                    {amount} ratings
                   </Typography>
                   <Grid
                     container
@@ -413,14 +407,9 @@ const Single = () => {
                     justifyContent="center"
                     sx={{my: 2}}
                   >
-                    <Typography component="p" variant="h6" sx={{px: 2}}>
-                      5
-                    </Typography>
-                    <StarIcon></StarIcon>
-                    <StarIcon></StarIcon>
-                    <StarIcon></StarIcon>
-                    <StarIcon></StarIcon>
-                    <StarIcon></StarIcon>
+                    <Box>
+                      <Rating name="read-only" value={1} readOnly />
+                    </Box>
                   </Grid>
                 </Grid>
                 {user ? (
