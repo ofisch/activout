@@ -128,7 +128,12 @@ const Single = () => {
       }}
       role="presentation"
     >
-      <Typography component="h1" variant="h3" sx={{mt: 8, mb: 6}}>
+      <Typography
+        component="h1"
+        variant="h3"
+        textAlign="center"
+        sx={{mt: 8, mb: 6}}
+      >
         New review
       </Typography>
       <Box
@@ -175,13 +180,10 @@ const Single = () => {
                 flexWrap: 'nowrap',
               }}
             >
-              <Typography alignItems={'center'} sx={{flexGrow: 1}}>
-                {user.username}
-              </Typography>
               <Grid
                 container
                 alignItems={'center'}
-                justifyContent="right"
+                justifyContent="center"
                 sx={{flexGrow: 1}}
               >
                 <Box>
@@ -247,6 +249,7 @@ const Single = () => {
         sx={{
           maxWidth: '100%',
           mx: 'auto',
+          mt: 4,
         }}
       >
         <Grid
@@ -266,14 +269,14 @@ const Single = () => {
             <Box
               sx={{
                 width: '100%',
-                p: 1,
+                p: 4,
                 backgroundColor: 'primary.light',
               }}
             >
               <Grid
                 container
                 direction="column"
-                justifyContent="flex-start"
+                alignItems="center"
                 flexWrap="nowrap"
               >
                 <Grid container direction="column">
@@ -316,17 +319,24 @@ const Single = () => {
                     <StarIcon></StarIcon>
                   </Grid>
                 </Grid>
+                <Button
+                  variant="contained"
+                  sx={{
+                    textDecoration: 'none',
+                    backgroundColor: 'secondary.main',
+                    color: 'white',
+                    width: '200px',
+                    '&:hover': {
+                      backgroundColor: 'secondary.dark',
+                    },
+                  }}
+                  onClick={toggleDrawer}
+                >
+                  Add a comment
+                </Button>
               </Grid>
             </Box>
           </Box>
-
-          <Button
-            variant="contained"
-            style={{textDecoration: 'none', color: 'black'}}
-            onClick={toggleDrawer}
-          >
-            Add a comment
-          </Button>
         </Grid>
       </Box>
       <Drawer

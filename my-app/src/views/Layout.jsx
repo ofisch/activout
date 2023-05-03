@@ -117,27 +117,39 @@ const Layout = () => {
               </IconButton>
             ) : (
               <Box sx={{mr: 2}}>
-                <Button sx={{color: 'white'}} component={Link} to="/">
+                <Button sx={{color: 'primary.dark'}} component={Link} to="/">
                   Landing
                 </Button>
                 {user ? (
                   <>
                     <Button
-                      sx={{color: 'white'}}
+                      sx={{color: 'primary.dark'}}
                       component={Link}
                       to="/profile"
                     >
                       Profile
                     </Button>
-                    <Button sx={{color: 'white'}} component={Link} to="/upload">
+                    <Button
+                      sx={{color: 'primary.dark'}}
+                      component={Link}
+                      to="/upload"
+                    >
                       Upload
                     </Button>
-                    <Button sx={{color: 'white'}} component={Link} to="/logout">
+                    <Button
+                      sx={{color: 'primary.dark'}}
+                      component={Link}
+                      to="/logout"
+                    >
                       Logout
                     </Button>
                   </>
                 ) : (
-                  <Button sx={{color: 'white'}} component={Link} to="/login">
+                  <Button
+                    sx={{color: 'secondary.main'}}
+                    component={Link}
+                    to="/login"
+                  >
                     Login
                   </Button>
                 )}
@@ -153,7 +165,7 @@ const Layout = () => {
             </Drawer>
           </Toolbar>
         </AppBar>
-        <Box sx={{mt: 12}}>
+        <Box sx={{mt: 0}}>
           <Outlet />
         </Box>
       </Container>

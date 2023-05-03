@@ -41,7 +41,7 @@ const Profile = () => {
 */
   return (
     <Grid container direction="column" alignItems="center">
-      <Card sx={{width: '100%', maxWidth: '425px'}}>
+      <Card sx={{width: '100%', maxWidth: '425px', mt: 8}}>
         {user && (
           <CardContent>
             <List>

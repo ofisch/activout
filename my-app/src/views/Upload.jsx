@@ -12,6 +12,7 @@ import {
   Select,
   Stack,
   TextField,
+  useTheme,
 } from '@mui/material';
 import PropTypes from 'prop-types';
 import useForm from '../hooks/FormHooks';
@@ -19,6 +20,7 @@ import React, {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {appId} from '../utils/variables';
 import {useMedia, useTag} from '../hooks/ApiHooks';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 const Upload = (props) => {
   const [file, setFile] = useState(null);
@@ -114,19 +116,20 @@ const Upload = (props) => {
   return (
     <Box
       sx={{
-        width: '70%',
+        maxWidth: '1000px',
         mx: 'auto',
       }}
     >
       <Paper elevation={3}>
         <Box
           sx={{
-            pt: 2,
-            pb: 2,
+            pt: 4,
+            pb: 4,
             px: 6,
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
+            alingItems: 'center',
             gap: 3,
           }}
         >
@@ -207,12 +210,8 @@ const Upload = (props) => {
                 rows={4}
                 maxRows={6}
               ></TextField>
-              <Button
-                type="submit"
-                variant="contained"
-                color="secondary"
-                size="large"
-              >
+              <Box></Box>
+              <Button type="submit" variant="contained" color="secondary">
                 upload
               </Button>
             </Box>

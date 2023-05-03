@@ -86,6 +86,9 @@ const Landing = () => {
               startAdornment: (
                 <InputAdornment position="start">
                   <IconButton
+                    sx={{
+                      color: 'secondary.main',
+                    }}
                     onClick={() => {
                       handleSearchString();
                       doSearch(searchString, categories);
