@@ -6,6 +6,7 @@ import {
   Grid,
   TextField,
   Typography,
+  Stack,
 } from '@mui/material';
 import React, {useContext, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
@@ -104,16 +105,27 @@ const Single = () => {
           //console.log(titleId.id);
 
           if (titleId.id == location.file_id) {
-            const comment = JSON.parse(file.description);
-            searchComments.push(file);
+            const useComments = [];
+            useComments.push(file);
+
+            for (let i = 0; i < useComments.length; i++) {
+              const commentTitle = JSON.parse(useComments[i].title);
+              const commentDesc = JSON.parse(useComments[i].description);
+
+              const commentValues = {
+                title: commentTitle.title,
+                user: commentDesc.user,
+                rating: commentDesc.rating,
+                review: commentDesc.review,
+                thumbnails: useComments[i].thumbnails.w640,
+              };
+
+              searchComments.push(commentValues);
+            }
+            //console.log(useComments);
             //console.log(titleId);
           }
         }
-      }
-
-      for (let i = 0; i < searchComments.length; i++) {
-        const commentDesc = JSON.parse(searchComments[i].description);
-        console.log(commentDesc);
       }
       console.log(searchComments);
     } catch (error) {
@@ -144,56 +156,58 @@ const Single = () => {
     setOpenDrawer(!openDrawer);
   };
 
-  const commentsList = () => (
-    <Paper elevation={3}>
-      <Box style={{textDecoration: 'none', color: 'primary.contrastText'}}>
-        <Box sx={{bgcolor: 'primary.light', p: 3}}>
-          <Typography component="h1" variant="h3" sx={{ml: 2}}>
-            {file.title}
-          </Typography>
-        </Box>
-        <Box
-          sx={{
-            width: 700,
-            height: 300,
-            my: 4,
-            pl: 7,
-            backgroundColor: 'primary.medium',
-          }}
-        >
-          <Grid
-            container
-            direction="row"
-            justifyContent="flex-start"
-            flexWrap="nowrap"
+  const commentsList = () => {
+    console.log(searchComments);
+
+    /*
+    return (
+      <Paper elevation={3}>
+        <Box style={{textDecoration: 'none', color: 'primary.contrastText'}}>
+          <Box sx={{bgcolor: 'primary.light', p: 3}}>
+            <Typography component="h1" variant="h3" sx={{ml: 2}}>
+              {comment.title}
+            </Typography>
+          </Box>
+          <Box
+            sx={{
+              width: 700,
+              height: 300,
+              my: 4,
+              pl: 7,
+              backgroundColor: 'primary.medium',
+            }}
           >
-            <Grid container direction="column">
-              <StarIcon></StarIcon>
-              <Typography component="p" sx={{mb: 3, pl: 2}}>
-                X ratings
-              </Typography>
-              <Typography component="h1" variant="h6">
-                {fileAttributes.address}
-              </Typography>
-              <Typography component="h1" variant="h6">
-                {fileAttributes.category}
-              </Typography>
-              <Typography component="h1" variant="h6">
-                {fileAttributes.desc}
-              </Typography>
+            <Grid
+              container
+              direction="row"
+              justifyContent="flex-start"
+              flexWrap="nowrap"
+            >
+              <Grid container direction="column">
+                <Typography component="h1" variant="h6">
+                  {comment.user}
+                </Typography>
+                <Typography component="h1" variant="h6">
+                  {comment.rating}
+                </Typography>
+                <Typography component="h1" variant="h6">
+                  {comment.review}
+                </Typography>
+              </Grid>
+              <Grid container>
+                <img
+                  src={mediaUrl + comment.thumbnails}
+                  alt={comment.title}
+                  style={{width: '85%', height: 'auto'}}
+                />
+              </Grid>
             </Grid>
-            <Grid container>
-              <img
-                src={mediaUrl + file.thumbnails.w640}
-                alt={file.title}
-                style={{width: '85%', height: 'auto'}}
-              />
-            </Grid>
-          </Grid>
+          </Box>
         </Box>
-      </Box>
-    </Paper>
-  );
+      </Paper>
+    );
+    */
+  };
 
   const drawerList = () => (
     <Box
@@ -405,7 +419,7 @@ const Single = () => {
             Add a comment
           </Button>
 
-          {commentsList()}
+          <Stack spacing={2}>{commentsList()}</Stack>
         </Grid>
       </Paper>
       <Drawer
