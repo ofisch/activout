@@ -121,17 +121,6 @@ const Single = () => {
     }
   };
 
-  /*
-  // haetaan kaikki kommentit
-  getComments(location)
-    .then((searchComments) => {
-      console.log(searchComments);
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-    */
-
   const handleFileChange = (event) => {
     event.persist();
     setFile(event.target.files[0]);

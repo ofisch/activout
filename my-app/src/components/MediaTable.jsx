@@ -11,9 +11,15 @@ import {
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import PropTypes from 'prop-types';
 import {useEffect, useState} from 'react';
-import {useMedia, searchResults} from '../hooks/ApiHooks';
+import {
+  useMedia,
+  searchResults,
+  getComments,
+  useTag,
+  doFetch,
+} from '../hooks/ApiHooks';
 import {useWindowSize} from '../hooks/WindowHooks';
-import {baseUrl} from '../utils/variables';
+import {appId, baseUrl} from '../utils/variables';
 import MediaRow from './MediaRow';
 import SearchIcon from '@mui/icons-material/Search';
 
@@ -26,6 +32,25 @@ const MediaTable = () => {
   let [searchRes, setSearchRes] = useState([]);
 
   searchRes = searchResults;
+
+  /*
+  for (const i of searchResults) {
+    console.log(i);
+
+    const [comments, setComments] = useState([]);
+
+    getComments(i.file_id)
+      .then((searchComments) => {
+        console.log(searchComments);
+        setComments(searchComments);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+
+    console.log('comments: ', comments);
+  }
+  */
 
   const handleShowSort = (event) => {
     setIsShown((current) => !current);
