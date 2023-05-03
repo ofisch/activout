@@ -16,6 +16,7 @@ const doFetch = async (url, options) => {
 // staattinen taulukko (ehkä vähä nihkee.. mut toimii!!)
 let searchResults = [];
 let userSearch;
+let searchComments = [];
 
 const doSearch = async (searchString, categoryArray) => {
   try {
@@ -71,6 +72,52 @@ const doSearch = async (searchString, categoryArray) => {
   } catch (error) {
     alert(error);
   }
+};
+
+const getComments = async (loc) => {
+  try {
+    searchComments = [];
+
+    const files = await useTag().getTag(appId);
+    const filesWithId = await Promise.all(
+      files.map(async (file) => {
+        return await doFetch(baseUrl + 'media/' + file.file_id);
+      })
+    );
+
+    const useComments = [];
+
+    for (const file of filesWithId) {
+      if (file.title.startsWith('{')) {
+        const titleId = JSON.parse(file.title);
+
+        if (titleId.id == loc.file_id) {
+          // const useComments = [];
+          useComments.push(file);
+
+          console.log(useComments.length);
+          console.log(useComments);
+
+          for (const i of useComments) {
+            const commentTitle = JSON.parse(i.title);
+            const commentDesc = JSON.parse(i.description);
+
+            const commentValues = {
+              title: commentTitle.title,
+              user: commentDesc.user,
+              rating: commentDesc.rating,
+              review: commentDesc.review,
+              thumbnails: i.thumbnails.w640,
+            };
+            searchComments.push(commentValues);
+          }
+        }
+      }
+    }
+  } catch (error) {
+    alert(error.message);
+  }
+  return searchComments;
 };
 
 const useMedia = () => {
@@ -189,4 +236,6 @@ export {
   doSearch,
   searchResults,
   userSearch,
+  getComments,
+  searchComments,
 };

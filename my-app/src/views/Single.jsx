@@ -10,7 +10,7 @@ import {
 } from '@mui/material';
 import React, {useContext, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
-import {doFetch, useMedia, useTag} from '../hooks/ApiHooks';
+import {doFetch, searchComments, useMedia, useTag} from '../hooks/ApiHooks';
 import {MediaContext} from '../contexts/MediaContext';
 import useForm from '../hooks/FormHooks';
 import {useLocation} from 'react-router-dom';
@@ -18,6 +18,7 @@ import {mediaUrl} from '../utils/variables';
 import StarIcon from '@mui/icons-material/Star';
 import {appId} from '../utils/variables';
 import {baseUrl} from '../utils/variables';
+import {getComments} from '../hooks/ApiHooks';
 
 const Single = () => {
   const {state} = useLocation();
@@ -74,66 +75,20 @@ const Single = () => {
         userToken
       );
 
-      //console.log('doUpload', tagResult);
-      console.log(titleData);
-      console.log(allData);
-      console.log('file id ' + uploadResult.file_id);
-
       navigate('/home');
     } catch (error) {
       alert(error.message);
     }
   };
 
-  let searchComments = [];
-
-  const getComments = async () => {
-    try {
-      searchComments = [];
-
-      const files = await useTag().getTag(appId);
-      const filesWithId = await Promise.all(
-        files.map(async (file) => {
-          return await doFetch(baseUrl + 'media/' + file.file_id);
-        })
-      );
-
-      for (const file of filesWithId) {
-        if (file.title.startsWith('{')) {
-          const titleId = JSON.parse(file.title);
-          //console.log(file.title);
-          //console.log(titleId.id);
-
-          if (titleId.id == location.file_id) {
-            const useComments = [];
-            useComments.push(file);
-
-            for (let i = 0; i < useComments.length; i++) {
-              const commentTitle = JSON.parse(useComments[i].title);
-              const commentDesc = JSON.parse(useComments[i].description);
-
-              const commentValues = {
-                title: commentTitle.title,
-                user: commentDesc.user,
-                rating: commentDesc.rating,
-                review: commentDesc.review,
-                thumbnails: useComments[i].thumbnails.w640,
-              };
-
-              searchComments.push(commentValues);
-            }
-            //console.log(useComments);
-            //console.log(titleId);
-          }
-        }
-      }
+  // haetaan kaikki kommentit
+  getComments(location)
+    .then((searchComments) => {
       console.log(searchComments);
-    } catch (error) {
-      alert(error.message);
-    }
-  };
-
-  getComments();
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 
   const handleFileChange = (event) => {
     event.persist();
@@ -154,59 +109,6 @@ const Single = () => {
 
   const toggleDrawer = () => {
     setOpenDrawer(!openDrawer);
-  };
-
-  const commentsList = () => {
-    console.log(searchComments);
-
-    /*
-    return (
-      <Paper elevation={3}>
-        <Box style={{textDecoration: 'none', color: 'primary.contrastText'}}>
-          <Box sx={{bgcolor: 'primary.light', p: 3}}>
-            <Typography component="h1" variant="h3" sx={{ml: 2}}>
-              {comment.title}
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              width: 700,
-              height: 300,
-              my: 4,
-              pl: 7,
-              backgroundColor: 'primary.medium',
-            }}
-          >
-            <Grid
-              container
-              direction="row"
-              justifyContent="flex-start"
-              flexWrap="nowrap"
-            >
-              <Grid container direction="column">
-                <Typography component="h1" variant="h6">
-                  {comment.user}
-                </Typography>
-                <Typography component="h1" variant="h6">
-                  {comment.rating}
-                </Typography>
-                <Typography component="h1" variant="h6">
-                  {comment.review}
-                </Typography>
-              </Grid>
-              <Grid container>
-                <img
-                  src={mediaUrl + comment.thumbnails}
-                  alt={comment.title}
-                  style={{width: '85%', height: 'auto'}}
-                />
-              </Grid>
-            </Grid>
-          </Box>
-        </Box>
-      </Paper>
-    );
-    */
   };
 
   const drawerList = () => (
@@ -419,7 +321,7 @@ const Single = () => {
             Add a comment
           </Button>
 
-          <Stack spacing={2}>{commentsList()}</Stack>
+          <Stack spacing={2}></Stack>
         </Grid>
       </Paper>
       <Drawer
