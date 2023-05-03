@@ -68,9 +68,9 @@ const Landing = () => {
 
   return (
     <>
-      <Grid container direction="column" alignItems="center">
+      <Grid container direction="column" alignItems="center" sx={{mt: '15%'}}>
         <Grid item>
-          <Typography component="h4" variant="h4" sx={{mt: 8, mb: 6}}>
+          <Typography component="h4" variant="h4" sx={{mb: 6}}>
             Activout
           </Typography>
         </Grid>
@@ -82,13 +82,13 @@ const Landing = () => {
             name="search"
             onChange={handleChange}
             value={searchString}
-            name="search"
-            onChange={handleChange}
-            value={searchString}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
                   <IconButton
+                    sx={{
+                      color: 'secondary.main',
+                    }}
                     onClick={() => {
                       handleSearchString();
                       doSearch(searchString, categories);

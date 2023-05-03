@@ -7,6 +7,7 @@ import {
   TextField,
   Typography,
   Stack,
+  Rating,
 } from '@mui/material';
 import React, {useContext, useEffect, useState} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
@@ -71,6 +72,22 @@ const Single = () => {
     review: '',
     user: '',
   };
+
+  // arvostelun labelit
+  const labels = {
+    1: 'Poor',
+    2: 'Poor',
+    3: 'Ok',
+    4: 'Good',
+    5: 'Excellent',
+  };
+
+  const getLabelText = (value) => {
+    return `${value} Star${value !== 1 ? 's' : ''}, ${labels[value]}`;
+  };
+
+  const [ratingValue, setRatingValue] = useState(3);
+  const [hoverRating, setHoverRating] = useState(-1);
 
   const doComment = async () => {
     try {
@@ -206,11 +223,16 @@ const Single = () => {
   const drawerList = () => (
     <Box
       sx={{
-        width: 250,
+        width: 350,
       }}
       role="presentation"
     >
-      <Typography component="h1" variant="h3" sx={{mt: 8, mb: 6}}>
+      <Typography
+        component="h1"
+        variant="h3"
+        textAlign="center"
+        sx={{mt: 8, mb: 6}}
+      >
         New review
       </Typography>
       <Paper elevation={3}>
@@ -319,11 +341,11 @@ const Single = () => {
 
   return (
     <>
-      <Paper
-        elevation={3}
+      <Box
         sx={{
-          maxWidth: '70%',
+          maxWidth: '100%',
           mx: 'auto',
+          mt: 4,
         }}
       >
         <Grid
@@ -343,14 +365,14 @@ const Single = () => {
             <Box
               sx={{
                 width: '100%',
-                p: 1,
+                p: 4,
                 backgroundColor: 'primary.light',
               }}
             >
               <Grid
                 container
                 direction="column"
-                justifyContent="flex-start"
+                alignItems="center"
                 flexWrap="nowrap"
               >
                 <Grid container direction="column">
@@ -398,6 +420,21 @@ const Single = () => {
                     <StarIcon></StarIcon>
                   </Grid>
                 </Grid>
+                <Button
+                  variant="contained"
+                  sx={{
+                    textDecoration: 'none',
+                    backgroundColor: 'secondary.main',
+                    color: 'white',
+                    width: '200px',
+                    '&:hover': {
+                      backgroundColor: 'secondary.dark',
+                    },
+                  }}
+                  onClick={toggleDrawer}
+                >
+                  Add a comment
+                </Button>
               </Grid>
             </Box>
           </Box>
@@ -424,9 +461,9 @@ const Single = () => {
           )}
           <Stack spacing={2}>{commentsList()}</Stack>
         </Grid>
-      </Paper>
+      </Box>
       <Drawer
-        anchor="bottom"
+        anchor="left"
         open={openDrawer}
         onClose={toggleDrawer}
         sx={{width: '100%', height: '60vh'}}

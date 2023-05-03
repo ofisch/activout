@@ -43,7 +43,7 @@ const LoginForm = (props) => {
           label="Username"
           onChange={handleInputChange}
           value={inputs.username}
-          style={{width:'300px'}}
+          style={{width: '300px'}}
         />
         <TextValidator
           fullWidth

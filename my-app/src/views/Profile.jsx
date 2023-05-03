@@ -17,7 +17,7 @@ import {mediaUrl} from '../utils/variables';
 
 const Profile = () => {
   const {user} = useContext(MediaContext);
-  const [avatar, setAvatar] = useState({
+  /*const [avatar, setAvatar] = useState({
     filename: 'https://placekitten.com/320',
   });
   const {getTag} = useTag();
@@ -38,25 +38,13 @@ const Profile = () => {
   useEffect(() => {
     fetchAvatar();
   }, [user]);
-
+*/
   return (
     <Grid container direction="column" alignItems="center">
-      <Card sx={{width: '100%', maxWidth: '425px'}}>
+      <Card sx={{width: '100%', maxWidth: '425px', mt: 8}}>
         {user && (
           <CardContent>
             <List>
-              <ListItem>
-                <ListItemAvatar sx={{width: '100%'}}>
-                  <Avatar
-                    variant="square"
-                    src={avatar.filename}
-                    imgProps={{
-                      alt: `${user.username}'s profile image`,
-                    }}
-                    sx={{width: '100%', height: '30vh'}}
-                  />
-                </ListItemAvatar>
-              </ListItem>
               <ListItem>
                 <ListItemIcon>
                   <AccountCircle />
@@ -74,12 +62,6 @@ const Profile = () => {
                   <Badge />
                 </ListItemIcon>
                 <ListItemText primary={user.full_name} />
-              </ListItem>
-              <ListItem>
-                <ListItemIcon>
-                  <Badge />
-                </ListItemIcon>
-                <ListItemText primary={user.user_id} />
               </ListItem>
             </List>
           </CardContent>

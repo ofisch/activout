@@ -1,6 +1,7 @@
 button:focus {
   outline: none !important;
 }
-body {
-  color: #2e8d75;
+.root {
+  background-color: green;
+
 }

@@ -2,6 +2,17 @@ import '@fontsource/playfair-display';
 import '@fontsource/lato';
 
 const themeOptions = {
+  typography: {
+    subtitle1: {
+      fontSize: '1.2em',
+    },
+    body1: {
+      fontSize: '1.2em',
+    },
+    button: {
+      fontSize: '1,2em',
+    },
+  },
   palette: {
     primary: {
       light: '#F7F9F9',

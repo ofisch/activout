@@ -18,7 +18,18 @@ const MediaRow = ({file}) => {
   const fileAttributes = JSON.parse(file.description);
 
   return (
-    <Paper elevation={3}>
+    <Paper
+      elevation={7}
+      sx={{
+        maxWidth: '100%',
+        minWidth: '50%',
+        pb: 3,
+        mb: 3,
+        '&:hover': {
+          boxShadow: 24,
+        },
+      }}
+    >
       <Box
         component={Link}
         variant="contained"
@@ -27,17 +38,22 @@ const MediaRow = ({file}) => {
         style={{textDecoration: 'none', color: 'primary.contrastText'}}
       >
         <Box sx={{bgcolor: 'primary.light', p: 3}}>
-          <Typography component="h1" variant="h3" sx={{ml: 2}}>
+          <Typography
+            component="h1"
+            variant="h3"
+            sx={{ml: 3, color: 'primary.contrastText'}}
+          >
             {file.title}
           </Typography>
         </Box>
         <Box
           sx={{
-            width: 700,
-            height: 300,
+            width: '100%',
+            height: 312,
             my: 4,
+            pb: 3,
             pl: 7,
-            backgroundColor: 'primary.medium',
+            backgroundColor: 'white',
           }}
         >
           <Grid
@@ -47,17 +63,32 @@ const MediaRow = ({file}) => {
             flexWrap="nowrap"
           >
             <Grid container direction="column">
-              <StarIcon></StarIcon>
-              <Typography component="p" sx={{mb: 3, pl: 2}}>
+              <StarIcon sx={{color: 'primary.contrastText'}}></StarIcon>
+              <Typography
+                component="p"
+                sx={{mb: 3, pl: 2, color: 'primary.contrastText'}}
+              >
                 X ratings
               </Typography>
-              <Typography component="h1" variant="h6">
+              <Typography
+                component="h1"
+                variant="h6"
+                sx={{color: 'primary.contrastText'}}
+              >
                 {fileAttributes.address}
               </Typography>
-              <Typography component="h1" variant="h6">
+              <Typography
+                component="h1"
+                variant="h6"
+                sx={{color: 'primary.contrastText'}}
+              >
                 {fileAttributes.category}
               </Typography>
-              <Typography component="h1" variant="h6">
+              <Typography
+                component="h1"
+                variant="h6"
+                sx={{color: 'primary.contrastText'}}
+              >
                 {fileAttributes.desc}
               </Typography>
             </Grid>

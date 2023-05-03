@@ -19,7 +19,7 @@ import {
 import {useContext, useEffect, useState} from 'react';
 import {Link, Outlet, useLocation, useNavigate} from 'react-router-dom';
 import {MediaContext} from '../contexts/MediaContext';
-import {useUser} from '../hooks/apiHooks';
+import {useUser} from '../hooks/ApiHooks';
 import {themeOptions} from '../theme/themeOptions';
 import MenuIcon from '@mui/icons-material/Menu';
 
@@ -65,9 +65,6 @@ const Layout = () => {
       onKeyDown={toggleDrawer}
     >
       <List>
-        <ListItem button component={Link} to="/home">
-          <ListItemText primary="Home" />
-        </ListItem>
         <ListItem button component={Link} to="/">
           <ListItemText primary="Landing" />
         </ListItem>
@@ -95,7 +92,7 @@ const Layout = () => {
   return (
     <ThemeProvider theme={createTheme(themeOptions)}>
       <CssBaseline />
-      <Container maxWidth="xl">
+      <Container maxWidth="xxl">
         <AppBar position="sticky">
           <Toolbar disableGutters sx={{justifyContent: 'space-between'}}>
             <Typography
@@ -120,30 +117,39 @@ const Layout = () => {
               </IconButton>
             ) : (
               <Box sx={{mr: 2}}>
-                <Button sx={{color: 'white'}} component={Link} to="/home">
-                  Home
-                </Button>
-                <Button sx={{color: 'white'}} component={Link} to="/">
+                <Button sx={{color: 'primary.dark'}} component={Link} to="/">
                   Landing
                 </Button>
                 {user ? (
                   <>
                     <Button
-                      sx={{color: 'white'}}
+                      sx={{color: 'primary.dark'}}
                       component={Link}
                       to="/profile"
                     >
                       Profile
                     </Button>
-                    <Button sx={{color: 'white'}} component={Link} to="/upload">
+                    <Button
+                      sx={{color: 'primary.dark'}}
+                      component={Link}
+                      to="/upload"
+                    >
                       Upload
                     </Button>
-                    <Button sx={{color: 'white'}} component={Link} to="/logout">
+                    <Button
+                      sx={{color: 'primary.dark'}}
+                      component={Link}
+                      to="/logout"
+                    >
                       Logout
                     </Button>
                   </>
                 ) : (
-                  <Button sx={{color: 'white'}} component={Link} to="/login">
+                  <Button
+                    sx={{color: 'secondary.main'}}
+                    component={Link}
+                    to="/login"
+                  >
                     Login
                   </Button>
                 )}
@@ -159,7 +165,7 @@ const Layout = () => {
             </Drawer>
           </Toolbar>
         </AppBar>
-        <Box sx={{mt: 12}}>
+        <Box sx={{mt: 0}}>
           <Outlet />
         </Box>
       </Container>
