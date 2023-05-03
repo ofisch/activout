@@ -235,107 +235,110 @@ const Single = () => {
       >
         New review
       </Typography>
-      <Paper elevation={3}>
-        <Box
-          sx={{
-            pt: 2,
-            pb: 2,
-            px: 6,
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-between',
-            gap: 3,
+      <Box
+        sx={{
+          pt: 2,
+          pb: 2,
+          px: 6,
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+          gap: 3,
+        }}
+      >
+        <img
+          src={selectedImage}
+          alt="preview"
+          style={{
+            width: '100%',
+            objectFit: 'contain',
           }}
-        >
-          <img
-            src={selectedImage}
-            alt="preview"
-            style={{
-              width: '100%',
-              objectFit: 'contain',
+        />
+        <input
+          onChange={handleFileChange}
+          type="file"
+          name="file"
+          accept="image/*,video/*,audio/*"
+        ></input>
+        <form onSubmit={handleSubmit}>
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between',
+              gap: 3,
             }}
-          />
-          <input
-            onChange={handleFileChange}
-            type="file"
-            name="file"
-            accept="image/*,video/*,audio/*"
-          ></input>
-          <form onSubmit={handleSubmit}>
-            <Box
+          >
+            <Grid
+              container
+              alignItems={'center'}
               sx={{
+                my: 2,
                 display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'space-between',
-                gap: 3,
+                flexDirection: 'row',
+                flexWrap: 'nowrap',
               }}
             >
               <Grid
                 container
                 alignItems={'center'}
-                sx={{
-                  my: 2,
-                  display: 'flex',
-                  flexDirection: 'row',
-                  flexWrap: 'nowrap',
-                }}
+                justifyContent="center"
+                sx={{flexGrow: 1}}
               >
-                <Grid
-                  container
-                  alignItems={'center'}
-                  justifyContent="right"
-                  sx={{flexGrow: 1}}
-                >
-                  <TextField
-                    id="outlined-basic"
-                    label="rating"
-                    variant="outlined"
-                    onChange={handleInputChange}
-                    type="text"
-                    name="rating"
-                    value={inputs.rating}
-                    sx={{width: '80px', mr: '10px'}}
-                  ></TextField>
-                  <StarIcon></StarIcon>
-                  <StarIcon></StarIcon>
-                  <StarIcon></StarIcon>
-                  <StarIcon></StarIcon>
-                  <StarIcon></StarIcon>
-                </Grid>
+                <Box>
+                  <Rating
+                    value={ratingValue}
+                    precision={1}
+                    getLabelText={getLabelText}
+                    onChange={(event, newValue) => {
+                      setRatingValue(newValue);
+                      inputs.rating = newValue;
+                    }}
+                    onChangeActive={(event, newHover) => {
+                      setHoverRating(newHover);
+                    }}
+                    emptyIcon={<StarIcon style={{opacity: 0.55}} />}
+                  />
+                  {ratingValue !== null && (
+                    <Box sx={{ml: 2}}>
+                      {labels[hoverRating !== -1 ? hoverRating : ratingValue]}
+                    </Box>
+                  )}
+                </Box>
               </Grid>
-              <TextField
-                id="outlined-basic"
-                label="title"
-                variant="outlined"
-                onChange={handleInputChange}
-                type="text"
-                name="title"
-                value={inputs.title}
-              ></TextField>
-              <TextField
-                id="outlined-basic"
-                label="review"
-                variant="outlined"
-                onChange={handleInputChange}
-                name="review"
-                value={inputs.review}
-                multiline
-                rows={4}
-                maxRows={6}
-              ></TextField>
-              <Button
-                type="submit"
-                variant="contained"
-                color="secondary"
-                size="large"
-                onClick={toggleDrawer}
-              >
-                Comment
-              </Button>
-            </Box>
-          </form>
-        </Box>
-      </Paper>
+            </Grid>
+            <TextField
+              id="outlined-basic"
+              label="title"
+              variant="outlined"
+              onChange={handleInputChange}
+              type="text"
+              name="title"
+              value={inputs.title}
+            ></TextField>
+            <TextField
+              id="outlined-basic"
+              label="review"
+              variant="outlined"
+              onChange={handleInputChange}
+              name="review"
+              value={inputs.review}
+              multiline
+              rows={4}
+              maxRows={6}
+            ></TextField>
+            <Button
+              type="submit"
+              variant="contained"
+              color="secondary"
+              size="large"
+              onClick={toggleDrawer}
+            >
+              Comment
+            </Button>
+          </Box>
+        </form>
+      </Box>
     </Box>
   );
 
@@ -420,45 +423,41 @@ const Single = () => {
                     <StarIcon></StarIcon>
                   </Grid>
                 </Grid>
-                <Button
-                  variant="contained"
-                  sx={{
-                    textDecoration: 'none',
-                    backgroundColor: 'secondary.main',
-                    color: 'white',
-                    width: '200px',
-                    '&:hover': {
-                      backgroundColor: 'secondary.dark',
-                    },
-                  }}
-                  onClick={toggleDrawer}
-                >
-                  Add a comment
-                </Button>
+                {user ? (
+                  <Button
+                    variant="contained"
+                    sx={{
+                      textDecoration: 'none',
+                      backgroundColor: 'secondary.main',
+                      color: 'white',
+                      width: '200px',
+                      '&:hover': {
+                        backgroundColor: 'secondary.dark',
+                      },
+                    }}
+                    onClick={toggleDrawer}
+                  >
+                    Add a comment
+                  </Button>
+                ) : (
+                  <Button
+                    button
+                    component={Link}
+                    to="/login"
+                    variant="contained"
+                    style={{
+                      textDecoration: 'none',
+                      color: 'primary.contrastText',
+                    }}
+                    onClick={toggleDrawer}
+                  >
+                    Login to add review
+                  </Button>
+                )}
               </Grid>
             </Box>
           </Box>
 
-          {user ? (
-            <Button
-              variant="contained"
-              style={{textDecoration: 'none', color: 'primary.contrastText'}}
-              onClick={toggleDrawer}
-            >
-              Add a review
-            </Button>
-          ) : (
-            <Button
-              button
-              component={Link}
-              to="/login"
-              variant="contained"
-              style={{textDecoration: 'none', color: 'primary.contrastText'}}
-              onClick={toggleDrawer}
-            >
-              Login to add review
-            </Button>
-          )}
           <Stack spacing={2}>{commentsList()}</Stack>
         </Grid>
       </Box>
