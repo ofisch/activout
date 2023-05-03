@@ -102,7 +102,9 @@ const Layout = () => {
                 letterSpacing: '.3rem',
               }}
             >
-              Activout
+              <Button sx={{color: 'primary.dark'}} component={Link} to="/">
+                Activout
+              </Button>
             </Typography>
             {isMobile ? (
               <IconButton
@@ -118,7 +120,7 @@ const Layout = () => {
             ) : (
               <Box sx={{mr: 2}}>
                 <Button sx={{color: 'primary.dark'}} component={Link} to="/">
-                  Landing
+                  Search
                 </Button>
                 {user ? (
                   <>

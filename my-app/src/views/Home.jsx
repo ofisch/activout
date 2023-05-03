@@ -24,6 +24,9 @@ const Home = () => {
         >
           <Typography component="h1" variant="h3" sx={{mb: 6}}>
             <IconButton
+              sx={{
+                color: 'secondary.main',
+              }}
               onClick={() => {
                 navigate('/');
               }}

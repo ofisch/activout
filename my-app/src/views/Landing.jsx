@@ -104,7 +104,12 @@ const Landing = () => {
           ></TextField>
         </Grid>
         <Grid item sx={{mt: 4, mb: 2}}>
-          <IconButton onClick={handleShowCategory}>
+          <IconButton
+            sx={{
+              color: 'secondary.main',
+            }}
+            onClick={handleShowCategory}
+          >
             <TuneIcon></TuneIcon>
           </IconButton>
         </Grid>

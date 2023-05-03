@@ -56,7 +56,13 @@ const MediaTable = () => {
         variant="p"
         sx={{mt: -2, mb: 3}}
       >{`${searchResults.length} results`}</Typography>
-      <IconButton variant="contained" onClick={handleShowSort}>
+      <IconButton
+        sx={{
+          color: 'secondary.main',
+        }}
+        variant="contained"
+        onClick={handleShowSort}
+      >
         <FilterAltIcon sx={{scale: '2', mb: 5}}></FilterAltIcon>
       </IconButton>
       {showSort ? (
