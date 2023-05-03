@@ -8,6 +8,9 @@ import {
   Typography,
   Stack,
   Rating,
+  ListItemIcon,
+  ListItemText,
+  ListItem,
 } from '@mui/material';
 import React, {useContext, useEffect, useState} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
@@ -26,6 +29,7 @@ import StarIcon from '@mui/icons-material/Star';
 import {appId} from '../utils/variables';
 import {baseUrl} from '../utils/variables';
 import {getComments} from '../hooks/ApiHooks';
+import {AccountCircle, Badge, ContactMail} from '@mui/icons-material';
 
 const Single = () => {
   const {state} = useLocation();
@@ -167,23 +171,37 @@ const Single = () => {
     }, []);
 
     return (
-      <div>
+      <Box
+        sx={{
+          my: 4,
+        }}
+      >
         {comments.map((searchComment) => (
-          <Paper elevation={3} key={searchComment.id}>
+          <Paper elevation={7} key={searchComment.id}>
             <Box
               style={{textDecoration: 'none', color: 'primary.contrastText'}}
             >
               <Box sx={{bgcolor: 'primary.light', p: 3}}>
-                <Typography component="h1" variant="h3" sx={{ml: 2}}>
+                <Typography
+                  component="h1"
+                  variant="h3"
+                  sx={{
+                    ml: 2,
+                    overflow: 'scroll',
+                    maxWidth: '650px',
+                    height: '100px',
+                  }}
+                >
                   {searchComment.title}
                 </Typography>
               </Box>
               <Box
                 sx={{
-                  width: 700,
-                  height: 300,
+                  width: '100%',
+                  maxWidth: '650px',
+                  height: 'auto',
                   my: 4,
-                  pl: 7,
+                  pl: 6,
                   backgroundColor: 'primary.medium',
                 }}
               >
@@ -194,17 +212,18 @@ const Single = () => {
                   flexWrap="nowrap"
                 >
                   <Grid container direction="column">
-                    <Typography component="h1" variant="h6">
-                      {searchComment.user}
-                    </Typography>
-                    <Typography component="h1" variant="h6">
-                      {searchComment.rating}
-                    </Typography>
+                    <Box>
+                      <Rating
+                        name="read-only"
+                        value={searchComment.rating}
+                        readOnly
+                      />
+                    </Box>
                     <Typography component="h1" variant="h6">
                       {searchComment.review}
                     </Typography>
                   </Grid>
-                  <Grid container>
+                  <Grid container sx={{maxWidth: 'auto', height: 'auto', p: 3}}>
                     <img
                       src={mediaUrl + searchComment.thumbnails}
                       alt={searchComment.title}
@@ -212,11 +231,17 @@ const Single = () => {
                     />
                   </Grid>
                 </Grid>
+                <ListItem sx={{fontWeight: 'bold'}}>
+                  <ListItemIcon>
+                    <AccountCircle />
+                  </ListItemIcon>
+                  <ListItemText primary={searchComment.user} />
+                </ListItem>
               </Box>
             </Box>
           </Paper>
         ))}
-      </div>
+      </Box>
     );
   };
 
@@ -349,6 +374,7 @@ const Single = () => {
           maxWidth: '100%',
           mx: 'auto',
           mt: 4,
+          mb: 4,
         }}
       >
         <Grid
@@ -357,7 +383,8 @@ const Single = () => {
           alignItems="center"
           sx={{maxWidth: '100%'}}
         >
-          <Box
+          <Paper
+            elevation={15}
             sx={{
               backgroundColor: 'primary.main',
             }}
@@ -456,9 +483,8 @@ const Single = () => {
                 )}
               </Grid>
             </Box>
-          </Box>
-
-          <Stack spacing={2}>{commentsList()}</Stack>
+          </Paper>
+          <Stack>{commentsList()}</Stack>
         </Grid>
       </Box>
       <Drawer
