@@ -99,15 +99,18 @@ const getComments = async (loc) => {
           for (const i of useComments) {
             const commentTitle = JSON.parse(i.title);
             const commentDesc = JSON.parse(i.description);
+            const commentId = JSON.parse(i.file_id);
 
-            const commentValues = {
-              title: commentTitle.title,
-              user: commentDesc.user,
-              rating: commentDesc.rating,
-              review: commentDesc.review,
-              thumbnails: i.thumbnails.w640,
-            };
-            searchComments.push(commentValues);
+            if (!useComments.includes(commentId)) {
+              const commentValues = {
+                title: commentTitle.title,
+                user: commentDesc.user,
+                rating: commentDesc.rating,
+                review: commentDesc.review,
+                thumbnails: i.thumbnails.w640,
+              };
+              searchComments.push(commentValues);
+            }
           }
         }
       }
