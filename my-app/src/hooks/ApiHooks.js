@@ -85,14 +85,12 @@ const getComments = async (loc) => {
       })
     );
 
-    const useComments = [];
-
     for (const file of filesWithId) {
       if (file.title.startsWith('{')) {
         const titleId = JSON.parse(file.title);
 
         if (titleId.id == loc.file_id) {
-          // const useComments = [];
+          const useComments = [];
           useComments.push(file);
 
           console.log(useComments.length);

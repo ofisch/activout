@@ -8,7 +8,7 @@ import {
   Typography,
   Stack,
 } from '@mui/material';
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {doFetch, searchComments, useMedia, useTag} from '../hooks/ApiHooks';
 import {MediaContext} from '../contexts/MediaContext';
@@ -81,6 +81,7 @@ const Single = () => {
     }
   };
 
+  /*
   // haetaan kaikki kommentit
   getComments(location)
     .then((searchComments) => {
@@ -89,6 +90,7 @@ const Single = () => {
     .catch((error) => {
       console.error(error);
     });
+    */
 
   const handleFileChange = (event) => {
     event.persist();
@@ -109,6 +111,73 @@ const Single = () => {
 
   const toggleDrawer = () => {
     setOpenDrawer(!openDrawer);
+  };
+
+  const commentsList = () => {
+    const [comments, setComments] = useState([]);
+
+    useEffect(() => {
+      getComments(location)
+        .then((searchComments) => {
+          setComments(searchComments);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }, []);
+
+    return (
+      <div>
+        {comments.map((searchComment) => (
+          <Paper elevation={3} key={searchComment.id}>
+            <Box
+              style={{textDecoration: 'none', color: 'primary.contrastText'}}
+            >
+              <Box sx={{bgcolor: 'primary.light', p: 3}}>
+                <Typography component="h1" variant="h3" sx={{ml: 2}}>
+                  {searchComment.title}
+                </Typography>
+              </Box>
+              <Box
+                sx={{
+                  width: 700,
+                  height: 300,
+                  my: 4,
+                  pl: 7,
+                  backgroundColor: 'primary.medium',
+                }}
+              >
+                <Grid
+                  container
+                  direction="row"
+                  justifyContent="flex-start"
+                  flexWrap="nowrap"
+                >
+                  <Grid container direction="column">
+                    <Typography component="h1" variant="h6">
+                      {searchComment.user}
+                    </Typography>
+                    <Typography component="h1" variant="h6">
+                      {searchComment.rating}
+                    </Typography>
+                    <Typography component="h1" variant="h6">
+                      {searchComment.review}
+                    </Typography>
+                  </Grid>
+                  <Grid container>
+                    <img
+                      src={mediaUrl + searchComment.thumbnails}
+                      alt={searchComment.title}
+                      style={{width: '85%', height: 'auto'}}
+                    />
+                  </Grid>
+                </Grid>
+              </Box>
+            </Box>
+          </Paper>
+        ))}
+      </div>
+    );
   };
 
   const drawerList = () => (
@@ -321,7 +390,7 @@ const Single = () => {
             Add a comment
           </Button>
 
-          <Stack spacing={2}></Stack>
+          <Stack spacing={2}>{commentsList()}</Stack>
         </Grid>
       </Paper>
       <Drawer
