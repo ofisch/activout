@@ -36,12 +36,15 @@ const doSearch = async (searchString, categoryArray) => {
       if (location.address != undefined) {
         if (categoryArray.length === 0) {
           // jos EI OLE valittuna kategorioita
-          // verrataan haku-stringiä osoitteseen ja otsikkoon
+          // verrataan haku-stringiä osoitteseen ja otsikkoon ja alueeseen
           if (
             searchString
               .toLowerCase()
               .includes(location.address.toLowerCase()) ||
-            searchString.toLowerCase().includes(file.title.toLowerCase())
+            searchString.toLowerCase().includes(file.title.toLowerCase()) ||
+            searchString
+              .toLowerCase()
+              .includes(location.municipality.toLowerCase())
           ) {
             searchResults.push(file);
             console.log('EI kategorioita:', searchResults);
@@ -54,7 +57,10 @@ const doSearch = async (searchString, categoryArray) => {
                 searchString
                   .toLowerCase()
                   .includes(location.address.toLowerCase()) ||
-                searchString.toLowerCase().includes(file.title.toLowerCase())
+                searchString.toLowerCase().includes(file.title.toLowerCase()) ||
+                searchString
+                  .toLowerCase()
+                  .includes(location.municipality.toLowerCase())
               ) {
                 searchResults.push(file);
                 console.log('ON kategorioita ja HAKU:', searchResults);

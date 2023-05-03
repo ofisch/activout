@@ -52,7 +52,7 @@ const MediaRow = ({file}) => {
                 X ratings
               </Typography>
               <Typography component="h1" variant="h6">
-                {fileAttributes.address}
+                {fileAttributes.address}, {fileAttributes.municipality}
               </Typography>
               <Typography component="h1" variant="h6">
                 {fileAttributes.category}
