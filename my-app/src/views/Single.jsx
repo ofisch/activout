@@ -159,15 +159,8 @@ const Single = () => {
     initValues
   );
 
-  const [openDrawer, setOpenDrawer] = useState(false);
-
-  const toggleDrawer = () => {
-    setOpenDrawer(!openDrawer);
-  };
-
-  const amount = searchComments.length;
-
   const commentsList = () => {
+    console.log('testi' + Date.now());
     const [comments, setComments] = useState([]);
 
     useEffect(() => {
@@ -178,11 +171,11 @@ const Single = () => {
         .catch((error) => {
           console.error(error);
         });
-    }, []);
+    }, [location]);
 
     return (
       <div>
-        {comments.map((searchComment) => (
+        {comments.slice(0, -1).map((searchComment) => (
           <Paper elevation={3} key={searchComment.id}>
             <Box
               style={{textDecoration: 'none', color: 'primary.contrastText'}}
@@ -236,6 +229,15 @@ const Single = () => {
         ))}
       </div>
     );
+  };
+
+  const amount = searchComments.length - 1;
+  const avgRating = searchComments[searchComments.length - 1];
+
+  const [openDrawer, setOpenDrawer] = useState(false);
+
+  const toggleDrawer = () => {
+    setOpenDrawer(!openDrawer);
   };
 
   const drawerList = () => (
@@ -356,7 +358,7 @@ const Single = () => {
               size="large"
               onClick={handleOnClick}
             >
-              Comment
+              Review
             </Button>
           </Box>
         </ValidatorForm>
@@ -436,7 +438,11 @@ const Single = () => {
                     sx={{my: 2}}
                   >
                     <Box>
-                      <Rating name="read-only" value={1} readOnly />
+                      <Rating
+                        name="read-only"
+                        value={avgRating || 0}
+                        readOnly
+                      />
                     </Box>
                   </Grid>
                 </Grid>
@@ -454,7 +460,7 @@ const Single = () => {
                     }}
                     onClick={toggleDrawer}
                   >
-                    Add a comment
+                    Add a review
                   </Button>
                 ) : (
                   <Button

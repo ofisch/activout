@@ -76,6 +76,9 @@ const doSearch = async (searchString, categoryArray) => {
 };
 
 const getComments = async (loc) => {
+  let ratingSum = 0;
+  let ratingCount = 0;
+
   try {
     searchComments = [];
 
@@ -108,11 +111,15 @@ const getComments = async (loc) => {
                 thumbnails: i.thumbnails.w640,
               };
               searchComments.push(commentValues);
+              ratingSum += parseFloat(commentDesc.rating);
+              ratingCount++;
             }
           }
         }
       }
     }
+    const avgRating = ratingSum / ratingCount;
+    searchComments.push(avgRating);
   } catch (error) {
     alert(error.message);
   }

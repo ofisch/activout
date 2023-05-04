@@ -16,15 +16,14 @@ const loginForm = {
 };
 
 const upload = {
-  title: ['this field is required'],
-  category: ['this field is required'],
+  title: ['this field is required', 'Max length is 50 letters'],
   address: ['this field is required'],
   municipality: ['this field is required'],
-  description: ['this field is required'],
+  description: ['this field is required', 'Max length is 150 letters'],
 };
 
 const comment = {
-  title: ['this field is required'],
+  title: ['this field is required', 'Max length is 50 letters'],
   review: ['this field is required', 'Max length is 150 letters'],
 };
 

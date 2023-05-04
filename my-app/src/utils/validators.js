@@ -12,15 +12,14 @@ const loginValidators = {
 };
 
 const uploadValidators = {
-  title: ['required'],
-  category: ['required'],
+  title: ['required', 'maxStringLength:50'],
   address: ['required'],
   municipality: ['required'],
-  description: ['required'],
+  description: ['required', 'maxStringLength:150'],
 };
 
 const commentValidators = {
-  title: ['required'],
+  title: ['required', 'maxStringLength:50'],
   review: ['required', 'maxStringLength:150'],
 };
 
