@@ -7,6 +7,7 @@ import {
   ImageListItem,
   ImageListItemBar,
   Typography,
+  Rating,
 } from '@mui/material';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
@@ -45,6 +46,9 @@ const MediaRow = ({file}) => {
   let searchComments = [];
 
   const getCommentsToLocations = async (loc) => {
+    let ratingSum = 0;
+    let ratingCount = 0;
+
     try {
       searchComments = [];
 
@@ -80,6 +84,10 @@ const MediaRow = ({file}) => {
                   thumbnails: i.thumbnails.w640,
                 };
                 searchComments.push(commentValues);
+                console.log('rating: ', commentDesc.rating);
+                ratingSum += parseFloat(commentDesc.rating);
+                ratingCount++;
+                console.log(ratingCount);
               }
             }
           }
@@ -88,10 +96,22 @@ const MediaRow = ({file}) => {
     } catch (error) {
       alert(error.message);
     }
-    return searchComments;
+    const avgRating = ratingSum / ratingCount;
+    console.log(avgRating);
+
+    return avgRating;
   };
 
-  getCommentsToLocations(file);
+  const [comments, setComments] = useState();
+
+  getCommentsToLocations(file)
+    .then((searchComments) => {
+      setComments(searchComments);
+      console.log('getComments: ', comments);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 
   // TODO: eti rating taulukon sisältä
   console.log('MOI: ', searchComments);
@@ -142,12 +162,21 @@ const MediaRow = ({file}) => {
             flexWrap="nowrap"
           >
             <Grid container direction="column">
-              <StarIcon sx={{color: 'primary.contrastText'}}></StarIcon>
               <Typography
                 component="p"
-                sx={{mb: 3, pl: 2, color: 'primary.contrastText'}}
+                sx={{mb: 3, color: 'primary.contrastText'}}
               >
-                {searchComments.description}
+                <Box
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    flexWrap: 'nowrap',
+                    alignItems: 'center',
+                  }}
+                >
+                  <Typography sx={{mr: '15px'}}>{comments}</Typography>
+                  <Rating name="read-only" value={comments} readOnly />
+                </Box>
               </Typography>
               <Typography
                 component="h1"
