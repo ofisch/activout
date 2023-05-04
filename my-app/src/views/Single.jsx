@@ -26,6 +26,9 @@ import StarIcon from '@mui/icons-material/Star';
 import {appId} from '../utils/variables';
 import {baseUrl} from '../utils/variables';
 import {getComments} from '../hooks/ApiHooks';
+import {comment} from '../utils/errorMessages';
+import {commentValidators} from '../utils/validators';
+import {TextValidator, ValidatorForm} from 'react-material-ui-form-validator';
 
 const Single = () => {
   const {state} = useLocation();
@@ -38,6 +41,27 @@ const Single = () => {
   } catch (error) {
     console.log(error);
   }
+
+  // Tarkistetaan, että submit menee läpi ennen drawerin sulkemista
+  const [isSubmitSuccessful, setIsSubmitSuccessful] = useState(false);
+
+  const handleOnClick = async () => {
+    try {
+      setIsSubmitSuccessful(true);
+    } catch (error) {
+      console.error(error);
+      setIsSubmitSuccessful(false);
+    }
+
+    toggleDrawerIfSubmitSuccessful();
+  };
+
+  const toggleDrawerIfSubmitSuccessful = () => {
+    if (isSubmitSuccessful) {
+      toggleDrawer();
+      setIsSubmitSuccessful(false);
+    }
+  };
 
   const [file, setFile] = useState(null);
   const [selectedImage, setSelectedImage] = useState(
@@ -75,7 +99,7 @@ const Single = () => {
   // arvostelun labelit
   const labels = {
     1: 'Poor',
-    2: 'Poor',
+    2: 'Decent',
     3: 'Ok',
     4: 'Good',
     5: 'Excellent',
@@ -254,7 +278,7 @@ const Single = () => {
           name="file"
           accept="image/*,video/*,audio/*"
         ></input>
-        <form onSubmit={handleSubmit}>
+        <ValidatorForm component="form" onSubmit={handleSubmit}>
           <Box
             sx={{
               display: 'flex',
@@ -301,7 +325,7 @@ const Single = () => {
                 </Box>
               </Grid>
             </Grid>
-            <TextField
+            <TextValidator
               id="outlined-basic"
               label="title"
               variant="outlined"
@@ -309,8 +333,10 @@ const Single = () => {
               type="text"
               name="title"
               value={inputs.title}
-            ></TextField>
-            <TextField
+              validators={commentValidators.title}
+              errorMessages={comment.title}
+            ></TextValidator>
+            <TextValidator
               id="outlined-basic"
               label="review"
               variant="outlined"
@@ -320,18 +346,20 @@ const Single = () => {
               multiline
               rows={4}
               maxRows={6}
-            ></TextField>
+              validators={commentValidators.review}
+              errorMessages={comment.review}
+            ></TextValidator>
             <Button
               type="submit"
               variant="contained"
               color="secondary"
               size="large"
-              onClick={toggleDrawer}
+              onClick={handleOnClick}
             >
               Comment
             </Button>
           </Box>
-        </form>
+        </ValidatorForm>
       </Box>
     </Box>
   );
@@ -438,7 +466,6 @@ const Single = () => {
                       textDecoration: 'none',
                       color: 'primary.contrastText',
                     }}
-                    onClick={toggleDrawer}
                   >
                     Login to add review
                   </Button>

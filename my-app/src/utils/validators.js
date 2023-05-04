@@ -11,4 +11,22 @@ const loginValidators = {
   password: ['required'],
 };
 
-export {registerValidators, loginValidators};
+const uploadValidators = {
+  title: ['required'],
+  category: ['required'],
+  address: ['required'],
+  municipality: ['required'],
+  description: ['required'],
+};
+
+const commentValidators = {
+  title: ['required'],
+  review: ['required', 'maxStringLength:150'],
+};
+
+export {
+  registerValidators,
+  loginValidators,
+  uploadValidators,
+  commentValidators,
+};

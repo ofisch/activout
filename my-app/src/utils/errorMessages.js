@@ -15,4 +15,17 @@ const loginForm = {
   password: ['this field is required'],
 };
 
-export {registerForm, loginForm};
+const upload = {
+  title: ['this field is required'],
+  category: ['this field is required'],
+  address: ['this field is required'],
+  municipality: ['this field is required'],
+  description: ['this field is required'],
+};
+
+const comment = {
+  title: ['this field is required'],
+  review: ['this field is required', 'Max length is 150 letters'],
+};
+
+export {registerForm, loginForm, upload, comment};
