@@ -45,7 +45,7 @@ const Layout = () => {
       const userData = await getUserByToken(userToken);
       if (userData) {
         setUser(userData);
-        const target = location.pathname === '/' ? '/home' : location.pathname;
+        const target = location.pathname === '/' ? '/' : location.pathname;
         navigate(target);
         return;
       }

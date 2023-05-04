@@ -97,7 +97,7 @@ const Upload = (props) => {
       console.log(allData);
       console.log(uploadResult.file_id);
       alert('✅ Location added!');
-      navigate('/home');
+      navigate('/');
     } catch (error) {
       alert(error.message);
     }
