@@ -117,11 +117,13 @@ const Layout = () => {
                 letterSpacing: '.3rem',
               }}
             >
-              <img
-                src={roundLogo}
-                alt={location.title}
-                style={{maxHeight: '55px', height: '100%', widtht: 'auto'}}
-              ></img>
+              <Button component={Link} to="/">
+                <img
+                  src={roundLogo}
+                  alt={location.title}
+                  style={{maxHeight: '55px', height: '100%', widtht: 'auto'}}
+                ></img>
+              </Button>
             </Typography>
             {isMobile ? (
               <Box>
