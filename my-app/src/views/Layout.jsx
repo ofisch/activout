@@ -27,6 +27,7 @@ import AddLocationIcon from '@mui/icons-material/AddLocation';
 import LogoutIcon from '@mui/icons-material/Logout';
 import LoginIcon from '@mui/icons-material/Login';
 import {AccountCircle} from '@mui/icons-material';
+import roundLogo from '../assets/LOGOPng.png';
 
 const Layout = () => {
   const {user, setUser} = useContext(MediaContext);
@@ -116,9 +117,11 @@ const Layout = () => {
                 letterSpacing: '.3rem',
               }}
             >
-              <Button sx={{color: 'primary.dark'}} component={Link} to="/">
-                Activout
-              </Button>
+              <img
+                src={roundLogo}
+                alt={location.title}
+                style={{maxHeight: '55px', height: '100%', widtht: 'auto'}}
+              ></img>
             </Typography>
             {isMobile ? (
               <Box>
