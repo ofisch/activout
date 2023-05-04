@@ -12,7 +12,6 @@ import {
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import {appId, baseUrl, mediaUrl} from '../utils/variables';
-import StarIcon from '@mui/icons-material/Star';
 import {doFetch, getComments, useTag} from '../hooks/ApiHooks';
 import {useEffect, useState} from 'react';
 import PlaceIcon from '@mui/icons-material/Place';
@@ -73,14 +72,18 @@ const MediaRow = ({file}) => {
       alert(error.message);
     }
     const avgRating = ratingSum / ratingCount;
-    return avgRating;
+    searchComments.push(avgRating);
+    searchComments.push(ratingCount);
+    return searchComments;
   };
 
-  const [comments, setComments] = useState();
+  const [avgDisplay, setAvgDisplay] = useState();
+  const [ratings, setRatings] = useState();
 
   getCommentsToLocations(file)
     .then((searchComments) => {
-      setComments(searchComments);
+      setAvgDisplay(searchComments[searchComments.length - 2].toFixed(1));
+      setRatings(searchComments[searchComments.length - 1]);
     })
     .catch((error) => {
       console.error(error);
@@ -137,6 +140,7 @@ const MediaRow = ({file}) => {
               component="p"
               sx={{mb: 3, color: 'primary.contrastText'}}
             >
+              <Typography component="p">{ratings} ratings</Typography>
               <Box
                 sx={{
                   display: 'flex',
@@ -145,8 +149,8 @@ const MediaRow = ({file}) => {
                   alignItems: 'center',
                 }}
               >
-                <Typography sx={{mr: '15px'}}>{comments}</Typography>
-                <Rating name="read-only" value={comments || 0} readOnly />
+                <Typography sx={{mr: '15px'}}>{avgDisplay}</Typography>
+                <Rating name="read-only" value={avgDisplay || 0} readOnly />
               </Box>
             </Typography>
             <Typography

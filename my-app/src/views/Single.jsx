@@ -163,14 +163,6 @@ const Single = () => {
     initValues
   );
 
-  const [openDrawer, setOpenDrawer] = useState(false);
-
-  const toggleDrawer = () => {
-    setOpenDrawer(!openDrawer);
-  };
-
-  const amount = searchComments.length;
-
   const commentsList = () => {
     const [comments, setComments] = useState([]);
 
@@ -186,7 +178,7 @@ const Single = () => {
 
     return (
       <Box>
-        {comments.map((searchComment) => (
+        {comments.slice(0, -1).map((searchComment) => (
           // eslint-disable-next-line react/jsx-key
           <Paper
             elevation={7}
@@ -286,6 +278,16 @@ const Single = () => {
         ))}
       </Box>
     );
+  };
+
+  const amount = searchComments.length - 1;
+  const avgRating = searchComments[searchComments.length - 1];
+  const displayAvg = parseFloat(avgRating).toFixed(1);
+
+  const [openDrawer, setOpenDrawer] = useState(false);
+
+  const toggleDrawer = () => {
+    setOpenDrawer(!openDrawer);
   };
 
   const drawerList = () => (
@@ -406,7 +408,7 @@ const Single = () => {
               size="large"
               onClick={handleOnClick}
             >
-              Comment
+              Review
             </Button>
           </Box>
         </ValidatorForm>
@@ -490,8 +492,13 @@ const Single = () => {
                     justifyContent="center"
                     sx={{my: 2}}
                   >
+                    <Typography component="p">{displayAvg}</Typography>
                     <Box>
-                      <Rating name="read-only" value={1} readOnly />
+                      <Rating
+                        name="read-only"
+                        value={avgRating || 0}
+                        readOnly
+                      />
                     </Box>
                   </Grid>
                 </Grid>
@@ -509,7 +516,7 @@ const Single = () => {
                     }}
                     onClick={toggleDrawer}
                   >
-                    Add a comment
+                    Add a review
                   </Button>
                 ) : (
                   <Button

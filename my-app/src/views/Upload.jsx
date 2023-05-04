@@ -21,6 +21,9 @@ import {useNavigate} from 'react-router-dom';
 import {appId} from '../utils/variables';
 import {useMedia, useTag} from '../hooks/ApiHooks';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import {upload} from '../utils/errorMessages';
+import {uploadValidators} from '../utils/validators';
+import {TextValidator, ValidatorForm} from 'react-material-ui-form-validator';
 
 const Upload = (props) => {
   const [file, setFile] = useState(null);
@@ -146,9 +149,9 @@ const Upload = (props) => {
             onChange={handleFileChange}
             type="file"
             name="file"
-            accept="image/*,video/*,audio/*"
+            accept="image/*"
           ></input>
-          <form onSubmit={handleSubmit}>
+          <ValidatorForm component="form" onSubmit={handleSubmit}>
             <Box
               sx={{
                 display: 'flex',
@@ -157,7 +160,8 @@ const Upload = (props) => {
                 gap: 3,
               }}
             >
-              <TextField
+              <TextValidator
+                component="textField"
                 id="outlined-basic"
                 label="title"
                 variant="outlined"
@@ -165,7 +169,9 @@ const Upload = (props) => {
                 type="text"
                 name="title"
                 value={inputs.title}
-              ></TextField>
+                validators={uploadValidators.title}
+                errorMessages={upload.title}
+              ></TextValidator>
 
               <FormControl>
                 <InputLabel>category</InputLabel>
@@ -181,7 +187,8 @@ const Upload = (props) => {
                 </Select>
               </FormControl>
 
-              <TextField
+              <TextValidator
+                component="textField"
                 id="outlined-basic"
                 label="address"
                 variant="outlined"
@@ -189,8 +196,11 @@ const Upload = (props) => {
                 type="text"
                 name="address"
                 value={inputs.address}
-              ></TextField>
-              <TextField
+                validators={uploadValidators.address}
+                errorMessages={upload.address}
+              ></TextValidator>
+              <TextValidator
+                component="textField"
                 id="outlined-basic"
                 label="municipality"
                 variant="outlined"
@@ -198,8 +208,11 @@ const Upload = (props) => {
                 type="text"
                 name="municipality"
                 value={inputs.municipality}
-              ></TextField>
-              <TextField
+                validators={uploadValidators.municipality}
+                errorMessages={upload.municipality}
+              ></TextValidator>
+              <TextValidator
+                component="textField"
                 id="outlined-basic"
                 label="description"
                 variant="outlined"
@@ -209,13 +222,15 @@ const Upload = (props) => {
                 multiline
                 rows={4}
                 maxRows={6}
-              ></TextField>
+                validators={uploadValidators.description}
+                errorMessages={upload.description}
+              ></TextValidator>
               <Box></Box>
               <Button type="submit" variant="contained" color="secondary">
                 upload
               </Button>
             </Box>
-          </form>
+          </ValidatorForm>
         </Box>
       </Paper>
     </Box>
