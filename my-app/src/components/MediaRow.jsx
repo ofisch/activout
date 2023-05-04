@@ -15,6 +15,9 @@ import {appId, baseUrl, mediaUrl} from '../utils/variables';
 import StarIcon from '@mui/icons-material/Star';
 import {doFetch, getComments, useTag} from '../hooks/ApiHooks';
 import {useEffect, useState} from 'react';
+import PlaceIcon from '@mui/icons-material/Place';
+import HikingIcon from '@mui/icons-material/Hiking';
+import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
 
 const MediaRow = ({file}) => {
   // lokaation kaikki ominaisuudet (kuvaus, kategoria, osoite jne.)
@@ -58,7 +61,8 @@ const MediaRow = ({file}) => {
                   thumbnails: i.thumbnails.w640,
                 };
                 searchComments.push(commentValues);
-                ratingSum += parseFloat(commentDesc.rating);
+                ratingSum += parseFloat(commentDesc.rating).toFixed(1);
+
                 ratingCount++;
               }
             }
@@ -86,10 +90,11 @@ const MediaRow = ({file}) => {
     <Paper
       elevation={7}
       sx={{
-        maxWidth: '100%',
+        maxWidth: '900px',
         minWidth: '50%',
-        pb: 3,
-        mb: 3,
+        width: '100%',
+        pb: 0,
+        mb: 0,
         '&:hover': {
           boxShadow: 24,
         },
@@ -100,82 +105,82 @@ const MediaRow = ({file}) => {
         variant="contained"
         to="/single"
         state={{file}}
-        style={{textDecoration: 'none', color: 'primary.contrastText'}}
+        style={{
+          textDecoration: 'none',
+          color: 'primary.contrastText',
+        }}
       >
-        <Box sx={{bgcolor: 'primary.light', p: 3}}>
+        <Box sx={{bgcolor: 'primary.light', pb: 2, pt: 2}}>
           <Typography
             component="h1"
             variant="h3"
-            sx={{ml: 3, color: 'primary.contrastText'}}
+            sx={{color: 'primary.contrastText', ml: 2}}
           >
             {file.title}
           </Typography>
         </Box>
         <Box
           sx={{
-            width: '100%',
-            height: 312,
-            my: 4,
-            pb: 3,
-            pl: 7,
+            height: 'auto',
             backgroundColor: 'white',
           }}
+        ></Box>
+
+        <Grid
+          container
+          direction="row"
+          justifyContent="flex-start"
+          flexWrap="nowrap"
         >
-          <Grid
-            container
-            direction="row"
-            justifyContent="flex-start"
-            flexWrap="nowrap"
-          >
-            <Grid container direction="column">
-              <StarIcon sx={{color: 'primary.contrastText'}}></StarIcon>
-              <Typography
-                component="p"
-                sx={{mb: 3, color: 'primary.contrastText'}}
+          <Grid container direction="column" sx={{p: 2}}>
+            <Typography
+              component="p"
+              sx={{mb: 3, color: 'primary.contrastText'}}
+            >
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  flexWrap: 'nowrap',
+                  alignItems: 'center',
+                }}
               >
-                <Box
-                  sx={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    flexWrap: 'nowrap',
-                    alignItems: 'center',
-                  }}
-                >
-                  <Typography sx={{mr: '15px'}}>{comments}</Typography>
-                  <Rating name="read-only" value={comments || 0} readOnly />
-                </Box>
-              </Typography>
-              <Typography
-                component="h1"
-                variant="h6"
-                sx={{color: 'primary.contrastText'}}
-              >
-                {fileAttributes.address}, {fileAttributes.municipality}
-              </Typography>
-              <Typography
-                component="h1"
-                variant="h6"
-                sx={{color: 'primary.contrastText'}}
-              >
-                {fileAttributes.category}
-              </Typography>
-              <Typography
-                component="h1"
-                variant="h6"
-                sx={{color: 'primary.contrastText'}}
-              >
-                {fileAttributes.desc}
-              </Typography>
-            </Grid>
+                <Typography sx={{mr: '15px'}}>{comments}</Typography>
+                <Rating name="read-only" value={comments || 0} readOnly />
+              </Box>
+            </Typography>
+            <Typography
+              component="h1"
+              variant="h6"
+              sx={{color: 'primary.contrastText'}}
+            >
+              <PlaceIcon sx={{mr: 1}}> </PlaceIcon>
+              {fileAttributes.address}, {fileAttributes.municipality}
+            </Typography>
+            <Typography
+              component="h1"
+              variant="h6"
+              sx={{color: 'primary.contrastText'}}
+            >
+              <HikingIcon sx={{mr: 1}}></HikingIcon>
+              {fileAttributes.category}
+            </Typography>
+            <Typography
+              component="h1"
+              variant="h6"
+              sx={{color: 'primary.contrastText', mt: 3}}
+            >
+              {fileAttributes.desc}
+            </Typography>
             <Grid container>
               <img
                 src={mediaUrl + file.thumbnails.w640}
                 alt={file.title}
-                style={{width: '85%', height: 'auto'}}
+                style={{width: '100%', height: 'auto', overflow: 'hidden'}}
               />
             </Grid>
           </Grid>
-        </Box>
+        </Grid>
       </Box>
     </Paper>
   );

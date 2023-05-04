@@ -22,6 +22,11 @@ import {MediaContext} from '../contexts/MediaContext';
 import {useUser} from '../hooks/ApiHooks';
 import {themeOptions} from '../theme/themeOptions';
 import MenuIcon from '@mui/icons-material/Menu';
+import SearchIcon from '@mui/icons-material/Search';
+import AddLocationIcon from '@mui/icons-material/AddLocation';
+import LogoutIcon from '@mui/icons-material/Logout';
+import LoginIcon from '@mui/icons-material/Login';
+import {AccountCircle} from '@mui/icons-material';
 
 const Layout = () => {
   const {user, setUser} = useContext(MediaContext);
@@ -66,17 +71,25 @@ const Layout = () => {
     >
       <List>
         <ListItem button component={Link} to="/">
-          <ListItemText primary="Landing" />
+          <SearchIcon sx={{mr: 1}}></SearchIcon>
+          <p></p>
+          <ListItemText primary="Search" />
         </ListItem>
         {user ? (
           <>
             <ListItem button component={Link} to="/upload">
+              <AddLocationIcon sx={{mr: 1}}></AddLocationIcon>
+
               <ListItemText primary="Upload" />
             </ListItem>
             <ListItem button component={Link} to="/profile">
+              <AccountCircle sx={{mr: 1}} />
+              <p></p>
               <ListItemText primary="Profile" />
             </ListItem>
             <ListItem button component={Link} to="/logout">
+              <LogoutIcon sx={{mr: 1}}></LogoutIcon>
+              <p></p>
               <ListItemText primary="Logout" />
             </ListItem>
           </>
@@ -120,6 +133,7 @@ const Layout = () => {
             ) : (
               <Box sx={{mr: 2}}>
                 <Button sx={{color: 'primary.dark'}} component={Link} to="/">
+                  <SearchIcon sx={{mr: 1}}></SearchIcon>
                   Search
                 </Button>
                 {user ? (
@@ -129,6 +143,7 @@ const Layout = () => {
                       component={Link}
                       to="/profile"
                     >
+                      <AccountCircle sx={{mr: 1}} />
                       Profile
                     </Button>
                     <Button
@@ -136,6 +151,7 @@ const Layout = () => {
                       component={Link}
                       to="/upload"
                     >
+                      <AddLocationIcon sx={{mr: 1}}></AddLocationIcon>
                       Upload
                     </Button>
                     <Button
@@ -143,6 +159,7 @@ const Layout = () => {
                       component={Link}
                       to="/logout"
                     >
+                      <LogoutIcon sx={{mr: 1}}></LogoutIcon>
                       Logout
                     </Button>
                   </>
@@ -152,6 +169,7 @@ const Layout = () => {
                     component={Link}
                     to="/login"
                   >
+                    <LoginIcon sx={{mr: 1}}></LoginIcon>
                     Login
                   </Button>
                 )}

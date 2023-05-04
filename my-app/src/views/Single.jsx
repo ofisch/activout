@@ -29,6 +29,10 @@ import {getComments} from '../hooks/ApiHooks';
 import {comment} from '../utils/errorMessages';
 import {commentValidators} from '../utils/validators';
 import {TextValidator, ValidatorForm} from 'react-material-ui-form-validator';
+import PlaceIcon from '@mui/icons-material/Place';
+import HikingIcon from '@mui/icons-material/Hiking';
+import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
+import {AccountCircle} from '@mui/icons-material';
 
 const Single = () => {
   const {state} = useLocation();
@@ -183,54 +187,100 @@ const Single = () => {
     return (
       <div>
         {comments.map((searchComment) => (
-          <Paper elevation={3} key={searchComment.id}>
+          <Paper
+            elevation={7}
+            sx={{
+              maxWidth: '900px',
+              minWidth: '50%',
+              width: '100%',
+              pb: 0,
+              mb: 2,
+            }}
+          >
             <Box
               style={{textDecoration: 'none', color: 'primary.contrastText'}}
             >
-              <Box sx={{bgcolor: 'primary.light', p: 3}}>
-                <Typography component="h1" variant="h3" sx={{ml: 2}}>
+              <Box
+                sx={{
+                  bgcolor: 'primary.light',
+                  pb: 2,
+                  pt: 2,
+                  maxWidth: '900px',
+                  minWidth: '50%',
+                  width: '100%',
+                }}
+              >
+                <Typography
+                  component="h1"
+                  variant="h3"
+                  sx={{color: 'primary.contrastText', ml: 2}}
+                >
                   {searchComment.title}
                 </Typography>
               </Box>
               <Box
                 sx={{
-                  width: 700,
-                  height: 300,
-                  my: 4,
-                  pl: 7,
-                  backgroundColor: 'primary.medium',
+                  height: 'auto',
+                  backgroundColor: 'white',
                 }}
+              ></Box>
+              <Grid
+                container
+                direction="row"
+                justifyContent="flex-start"
+                flexWrap="nowrap"
               >
-                <Grid
-                  container
-                  direction="row"
-                  justifyContent="flex-start"
-                  flexWrap="nowrap"
-                >
-                  <Grid container direction="column">
-                    <Typography component="h1" variant="h6">
-                      {searchComment.user}
-                    </Typography>
-                    <Box>
+                <Grid container direction="column" sx={{p: 2}}>
+                  <Typography
+                    component="p"
+                    sx={{mb: 3, color: 'primary.contrastText'}}
+                  >
+                    <Box
+                      sx={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        flexWrap: 'nowrap',
+                        alignItems: 'center',
+                      }}
+                    >
+                      <Typography sx={{mr: '15px'}}>
+                        {searchComment.rating}
+                      </Typography>
                       <Rating
                         name="read-only"
-                        value={searchComment.rating}
+                        value={searchComment.rating || 0}
                         readOnly
                       />
                     </Box>
-                    <Typography component="h1" variant="h6">
-                      {searchComment.review}
-                    </Typography>
-                  </Grid>
+                  </Typography>
+                  <Typography
+                    component="h1"
+                    variant="h6"
+                    sx={{color: 'primary.contrastText', mt: 3}}
+                  >
+                    {searchComment.review}
+                  </Typography>
+                  <Typography
+                    component="h1"
+                    variant="h6"
+                    sx={{color: 'primary.contrastText', mt: 3}}
+                  >
+                    <AccountCircle sx={{mr: 1}} />
+                    {searchComment.user}
+                  </Typography>
                   <Grid container>
                     <img
                       src={mediaUrl + searchComment.thumbnails}
                       alt={searchComment.title}
-                      style={{width: '85%', height: 'auto'}}
+                      style={{
+                        width: '100%',
+                        height: 'auto',
+                        overflow: 'hidden',
+                      }}
                     />
                   </Grid>
                 </Grid>
-              </Box>
+              </Grid>
             </Box>
           </Paper>
         ))}
@@ -368,7 +418,8 @@ const Single = () => {
     <>
       <Box
         sx={{
-          maxWidth: '100%',
+          width: '100%',
+          maxWidth: '1200px',
           mx: 'auto',
           mt: 4,
         }}
@@ -377,7 +428,7 @@ const Single = () => {
           container
           direction="column"
           alignItems="center"
-          sx={{maxWidth: '100%'}}
+          sx={{width: '100%', maxWidth: '1200px'}}
         >
           <Box
             sx={{

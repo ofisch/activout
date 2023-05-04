@@ -20,6 +20,7 @@ const Home = () => {
             pb: 3,
             mb: 3,
             mx: 'auto',
+            mt: 5,
           }}
         >
           <Typography component="h1" variant="h3" sx={{mb: 6}}>

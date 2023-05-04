@@ -33,25 +33,6 @@ const MediaTable = () => {
 
   searchRes = searchResults;
 
-  /*
-  for (const i of searchResults) {
-    console.log(i);
-
-    const [comments, setComments] = useState([]);
-
-    getComments(i.file_id)
-      .then((searchComments) => {
-        console.log(searchComments);
-        setComments(searchComments);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-
-    console.log('comments: ', comments);
-  }
-  */
-
   const handleShowSort = (event) => {
     setIsShown((current) => !current);
   };
