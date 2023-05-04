@@ -56,6 +56,22 @@ const MediaTable = () => {
       //  console.log('hakutulokset', searchRes);
     } else if (event.target.value == 'highest') {
       console.log(event.target.value);
+      for (const result of searchResults) {
+        console.log('result', result);
+
+        let avgRating = 0;
+
+        getComments(result)
+          .then((searchComments) => {
+            console.log('searchComments: ', searchComments);
+            avgRating = searchComments[searchComments.length - 1];
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+
+        console.log('avgRating: ', avgRating);
+      }
     } else if (event.target.value == 'lowest') {
       console.log(event.target.value);
     } else if (event.target.value == 'most') {
