@@ -8,9 +8,6 @@ import {
   Typography,
   Stack,
   Rating,
-  ListItemIcon,
-  ListItemText,
-  ListItem,
 } from '@mui/material';
 import React, {useContext, useEffect, useState} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
@@ -29,7 +26,6 @@ import StarIcon from '@mui/icons-material/Star';
 import {appId} from '../utils/variables';
 import {baseUrl} from '../utils/variables';
 import {getComments} from '../hooks/ApiHooks';
-import {AccountCircle, Badge, ContactMail} from '@mui/icons-material';
 import {comment} from '../utils/errorMessages';
 import {commentValidators} from '../utils/validators';
 import {TextValidator, ValidatorForm} from 'react-material-ui-form-validator';
@@ -185,83 +181,62 @@ const Single = () => {
     }, []);
 
     return (
-      <Box
-        sx={{
-          my: 4,
-        }}
-      >
+      <div>
         {comments.map((searchComment) => (
-          <Paper elevation={7} key={searchComment.id}>
+          <Paper elevation={3} key={searchComment.id}>
             <Box
               style={{textDecoration: 'none', color: 'primary.contrastText'}}
             >
               <Box sx={{bgcolor: 'primary.light', p: 3}}>
-                <Typography
-                  component="h1"
-                  variant="h3"
-                  sx={{
-                    ml: 2,
-                    width: '100%',
-                    height: 'auto',
-                  }}
-                >
+                <Typography component="h1" variant="h3" sx={{ml: 2}}>
                   {searchComment.title}
                 </Typography>
               </Box>
               <Box
                 sx={{
-                  width: '100%',
-                  height: 'auto',
+                  width: 700,
+                  height: 300,
                   my: 4,
-                  pl: 6,
+                  pl: 7,
                   backgroundColor: 'primary.medium',
                 }}
               >
                 <Grid
                   container
-                  spacing={2}
                   direction="row"
                   justifyContent="flex-start"
-                  alignItems="center"
+                  flexWrap="nowrap"
                 >
-                  <Grid item xs={12} sm={6}>
-                    <Box sx={{width: '100%'}}>
+                  <Grid container direction="column">
+                    <Typography component="h1" variant="h6">
+                      {searchComment.user}
+                    </Typography>
+                    <Box>
                       <Rating
                         name="read-only"
                         value={searchComment.rating}
                         readOnly
                       />
                     </Box>
-                  </Grid>
-                  <Grid item xs={12} sm={6}>
-                    <Box sx={{width: '100%'}}>
-                      <img
-                        src={mediaUrl + searchComment.thumbnails}
-                        alt={searchComment.title}
-                        style={{width: '100%', height: 'auto'}}
-                      />
-                    </Box>
-                  </Grid>
-                  <Grid item xs={12}>
                     <Typography component="h1" variant="h6">
                       {searchComment.review}
                     </Typography>
                   </Grid>
-                  <Grid item xs={12}>
-                    <ListItem sx={{fontWeight: 'bold'}}>
-                      <ListItemIcon>
-                        <AccountCircle />
-                      </ListItemIcon>
-                      <ListItemText primary={searchComment.user} />
-                    </ListItem>
+                  <Grid container>
+                    <img
+                      src={mediaUrl + searchComment.thumbnails}
+                      alt={searchComment.title}
+                      style={{width: '85%', height: 'auto'}}
+                    />
                   </Grid>
                 </Grid>
               </Box>
             </Box>
           </Paper>
         ))}
-      </Box>
+      </div>
     );
+  };
 
   const drawerList = () => (
     <Box
@@ -396,7 +371,6 @@ const Single = () => {
           maxWidth: '100%',
           mx: 'auto',
           mt: 4,
-          mb: 4,
         }}
       >
         <Grid
@@ -405,8 +379,7 @@ const Single = () => {
           alignItems="center"
           sx={{maxWidth: '100%'}}
         >
-          <Paper
-            elevation={15}
+          <Box
             sx={{
               backgroundColor: 'primary.main',
             }}
@@ -499,8 +472,9 @@ const Single = () => {
                 )}
               </Grid>
             </Box>
-          </Paper>
-          <Stack>{commentsList()}</Stack>
+          </Box>
+
+          <Stack spacing={2}>{commentsList()}</Stack>
         </Grid>
       </Box>
       <Drawer
