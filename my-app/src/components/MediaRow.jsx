@@ -93,8 +93,8 @@ const MediaRow = ({file}) => {
         maxWidth: '900px',
         minWidth: '50%',
         width: '100%',
-        pb: 0,
         mb: 0,
+        mt: 4,
         '&:hover': {
           boxShadow: 24,
         },
@@ -114,7 +114,7 @@ const MediaRow = ({file}) => {
           <Typography
             component="h1"
             variant="h3"
-            sx={{color: 'primary.contrastText', ml: 2}}
+            sx={{color: 'primary.contrastText', px: 2}}
           >
             {file.title}
           </Typography>

@@ -60,7 +60,7 @@ const MediaTable = () => {
     <>
       <Typography
         variant="p"
-        sx={{mt: -2, mb: 3}}
+        sx={{mb: 3}}
       >{`${searchResults.length} results`}</Typography>
       <IconButton
         sx={{
