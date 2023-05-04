@@ -19,6 +19,7 @@ import {useState} from 'react';
 import {useTag, doSearch} from '../hooks/ApiHooks';
 import {appId} from '../utils/variables';
 import {useNavigate} from 'react-router-dom';
+import logo from '../assets/logo-black.png';
 
 const Landing = () => {
   const navigate = useNavigate();
@@ -66,12 +67,14 @@ const Landing = () => {
   return (
     <>
       <Grid container direction="column" alignItems="center" sx={{mt: '10%'}}>
-        <Grid item>
-          <Typography component="h4" variant="h4" sx={{mb: 6}}>
-            Activout
-          </Typography>
+        <Grid item display="flex" justifyContent="center">
+          <img
+            src={logo}
+            alt={location.title}
+            style={{minWidth: '250px', width: '25%', height: 'auto'}}
+          />
         </Grid>
-        <Grid item>
+        <Grid item sx={{mt: 5}}>
           <TextField
             id="outlined-basic"
             label="Search"
