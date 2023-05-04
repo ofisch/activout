@@ -2,6 +2,7 @@ import {
   Box,
   Button,
   ClickAwayListener,
+  Container,
   FormControl,
   Grow,
   InputLabel,
@@ -123,7 +124,7 @@ const Upload = (props) => {
         mx: 'auto',
       }}
     >
-      <Paper elevation={3}>
+      <Paper maxWidth="xs" elevation={3} sx={{mt: 4}}>
         <Box
           sx={{
             pt: 4,
@@ -171,9 +172,10 @@ const Upload = (props) => {
                 value={inputs.title}
                 validators={uploadValidators.title}
                 errorMessages={upload.title}
+                style={{width: '100%'}}
               ></TextValidator>
 
-              <FormControl>
+              <FormControl style={{width: '100%'}}>
                 <InputLabel>category</InputLabel>
                 <Select
                   label="category"
@@ -198,6 +200,7 @@ const Upload = (props) => {
                 value={inputs.address}
                 validators={uploadValidators.address}
                 errorMessages={upload.address}
+                style={{width: '100%'}}
               ></TextValidator>
               <TextValidator
                 component="textField"
@@ -210,6 +213,7 @@ const Upload = (props) => {
                 value={inputs.municipality}
                 validators={uploadValidators.municipality}
                 errorMessages={upload.municipality}
+                style={{width: '100%'}}
               ></TextValidator>
               <TextValidator
                 component="textField"
@@ -224,6 +228,7 @@ const Upload = (props) => {
                 maxRows={6}
                 validators={uploadValidators.description}
                 errorMessages={upload.description}
+                style={{width: '100%'}}
               ></TextValidator>
               <Box></Box>
               <Button type="submit" variant="contained" color="secondary">

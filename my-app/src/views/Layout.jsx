@@ -80,7 +80,7 @@ const Layout = () => {
             <ListItem button component={Link} to="/upload">
               <AddLocationIcon sx={{mr: 1}}></AddLocationIcon>
 
-              <ListItemText primary="Upload" />
+              <ListItemText primary="Add location" />
             </ListItem>
             <ListItem button component={Link} to="/profile">
               <AccountCircle sx={{mr: 1}} />
@@ -153,7 +153,7 @@ const Layout = () => {
                       to="/upload"
                     >
                       <AddLocationIcon sx={{mr: 1}}></AddLocationIcon>
-                      Upload
+                      Add location
                     </Button>
                     <Button
                       sx={{color: 'primary.dark'}}

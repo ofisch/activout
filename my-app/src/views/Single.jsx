@@ -353,7 +353,7 @@ const Single = () => {
                 container
                 alignItems={'center'}
                 justifyContent="center"
-                sx={{flexGrow: 1}}
+                sx={{flexGrow: 1, width: '100%'}}
               >
                 <Box>
                   <Rating
@@ -387,6 +387,7 @@ const Single = () => {
               value={inputs.title}
               validators={commentValidators.title}
               errorMessages={comment.title}
+              sx={{width: '100%'}}
             ></TextValidator>
             <TextValidator
               id="outlined-basic"
@@ -400,6 +401,7 @@ const Single = () => {
               maxRows={6}
               validators={commentValidators.review}
               errorMessages={comment.review}
+              sx={{width: '100%'}}
             ></TextValidator>
             <Button
               type="submit"
@@ -439,7 +441,12 @@ const Single = () => {
               mb: 5,
             }}
           >
-            <Typography component="h1" variant="h2" textAlign={'center'}>
+            <Typography
+              component="h1"
+              variant="h1"
+              textAlign={'left'}
+              sx={{ml: 4, py: 2}}
+            >
               {location.title}
             </Typography>
             <Box
@@ -477,7 +484,7 @@ const Single = () => {
                     style={{width: '70%', height: 'auto'}}
                   />
                 </Grid>
-                <Grid container direction="column">
+                <Grid container direction="column" alignContent={'center'}>
                   <Typography component="p" sx={{pl: 2}}>
                     {allData.desc}
                   </Typography>

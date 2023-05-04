@@ -4,13 +4,13 @@ import '@fontsource/lato';
 const themeOptions = {
   typography: {
     h1: {
-      fontSize: '2.4em',
+      fontSize: '2.6em',
     },
     h2: {
-      fontSize: '2em',
+      fontSize: '2.2em',
     },
     h3: {
-      fontSize: '1.9em',
+      fontSize: '2.2em',
     },
     subtitle1: {
       fontSize: '1em',
