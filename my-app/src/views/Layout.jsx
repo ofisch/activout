@@ -95,6 +95,7 @@ const Layout = () => {
           </>
         ) : (
           <ListItem button component={Link} to="/login">
+            <LoginIcon sx={{mr: 1}}></LoginIcon>
             <ListItemText primary="Login" />
           </ListItem>
         )}

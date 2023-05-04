@@ -25,7 +25,17 @@ const Login = (props) => {
         </Typography>
       </Grid>
       <Grid item>
-        <Button onClick={toggle}>{formToggle ? 'Register' : 'Login'}</Button>
+        <Button
+          onClick={toggle}
+          sx={{
+            color: 'secondary.main',
+            '&:hover': {
+              color: 'secondary.dark',
+            },
+          }}
+        >
+          {formToggle ? 'Register' : 'Login'}
+        </Button>
       </Grid>
     </Grid>
   );

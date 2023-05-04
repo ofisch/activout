@@ -185,8 +185,9 @@ const Single = () => {
     }, []);
 
     return (
-      <div>
+      <Box>
         {comments.map((searchComment) => (
+          // eslint-disable-next-line react/jsx-key
           <Paper
             elevation={7}
             sx={{
@@ -213,7 +214,7 @@ const Single = () => {
                 <Typography
                   component="h1"
                   variant="h3"
-                  sx={{color: 'primary.contrastText', ml: 2}}
+                  sx={{color: 'primary.contrastText', ml: 4}}
                 >
                   {searchComment.title}
                 </Typography>
@@ -230,10 +231,10 @@ const Single = () => {
                 justifyContent="flex-start"
                 flexWrap="nowrap"
               >
-                <Grid container direction="column" sx={{p: 2}}>
+                <Grid container direction="column" sx={{p: 2, ml: 2}}>
                   <Typography
                     component="p"
-                    sx={{mb: 3, color: 'primary.contrastText'}}
+                    sx={{mb: 2, color: 'primary.contrastText'}}
                   >
                     <Box
                       sx={{
@@ -254,9 +255,8 @@ const Single = () => {
                     </Box>
                   </Typography>
                   <Typography
-                    component="h1"
-                    variant="h6"
-                    sx={{color: 'primary.contrastText', mt: 3}}
+                    component="p"
+                    sx={{color: 'primary.contrastText'}}
                   >
                     {searchComment.review}
                   </Typography>
@@ -284,7 +284,7 @@ const Single = () => {
             </Box>
           </Paper>
         ))}
-      </div>
+      </Box>
     );
   };
 
@@ -430,9 +430,11 @@ const Single = () => {
           alignItems="center"
           sx={{width: '100%', maxWidth: '1200px'}}
         >
-          <Box
+          <Paper
+            elevation={7}
             sx={{
               backgroundColor: 'primary.main',
+              mb: 5,
             }}
           >
             <Typography component="h1" variant="h2" textAlign={'center'}>
@@ -451,11 +453,13 @@ const Single = () => {
                 alignItems="center"
                 flexWrap="nowrap"
               >
-                <Grid container direction="column">
-                  <Typography component="h1" variant="h6" sx={{pl: 2}}>
+                <Grid container direction="column" sx={{ml: 1}}>
+                  <Typography component="h1" variant="h6">
+                    <HikingIcon sx={{mr: 1}}></HikingIcon>
                     {allData.category}
                   </Typography>
-                  <Typography component="p" sx={{pl: 2}}>
+                  <Typography component="p">
+                    <PlaceIcon sx={{mr: 1}}></PlaceIcon>
                     {allData.address}
                   </Typography>
                 </Grid>
@@ -476,7 +480,7 @@ const Single = () => {
                     {allData.desc}
                   </Typography>
                 </Grid>
-                <Grid container direction="column">
+                <Grid container direction="column" sx={{mt: 4}}>
                   <Typography component="p" sx={{pl: 2}} textAlign={'center'}>
                     {amount} ratings
                   </Typography>
@@ -523,7 +527,7 @@ const Single = () => {
                 )}
               </Grid>
             </Box>
-          </Box>
+          </Paper>
 
           <Stack spacing={2}>{commentsList()}</Stack>
         </Grid>

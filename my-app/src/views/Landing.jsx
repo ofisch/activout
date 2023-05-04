@@ -68,7 +68,7 @@ const Landing = () => {
 
   return (
     <>
-      <Grid container direction="column" alignItems="center" sx={{mt: '15%'}}>
+      <Grid container direction="column" alignItems="center" sx={{mt: '10%'}}>
         <Grid item>
           <Typography component="h4" variant="h4" sx={{mb: 6}}>
             Activout

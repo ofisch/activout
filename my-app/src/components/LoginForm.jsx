@@ -54,7 +54,19 @@ const LoginForm = (props) => {
           onChange={handleInputChange}
           value={inputs.password}
         />
-        <Button fullWidth sx={{mt: 3}} variant="contained" type="submit">
+        <Button
+          fullWidth
+          sx={{
+            mt: 3,
+            backgroundColor: 'secondary.main',
+            color: 'secondary.contrastText',
+            '&:hover': {
+              backgroundColor: 'secondary.dark',
+            },
+          }}
+          variant="contained"
+          type="submit"
+        >
           Login
         </Button>
       </ValidatorForm>
