@@ -72,7 +72,6 @@ const Single = () => {
   const getUserInfo = async () => {
     const userToken = localStorage.getItem('userToken');
     if (userToken) {
-      console.log(userToken);
       const userData = await getUserByToken(userToken);
       if (userData) {
         setUser(userData);
@@ -106,10 +105,6 @@ const Single = () => {
 
   const [ratingValue, setRatingValue] = useState(3);
   const [hoverRating, setHoverRating] = useState(-1);
-
-  if (ratingValue === null) {
-    setRatingValue(0);
-  }
 
   const doComment = async () => {
     try {
@@ -294,7 +289,6 @@ const Single = () => {
 
   const toggleDrawer = () => {
     setOpenDrawer(!openDrawer);
-    console.log(ratingValue);
   };
 
   const drawerList = () => (
@@ -364,14 +358,15 @@ const Single = () => {
               >
                 <Box>
                   <Rating
+                    defaultChecked={true}
+                    defaultValue={3}
                     value={ratingValue}
                     precision={1}
                     getLabelText={getLabelText}
-                    onChange={(event, newValue = 3) => {
+                    onChange={(event, newValue) => {
                       setRatingValue(newValue);
-                      inputs.rating = newValue;
-                      console.log('input ' + inputs.rating);
-                      console.log('rating ' + ratingValue);
+                      //  setRatingValue(newValue);
+                      //  inputs.rating = newValue;
                     }}
                     onChangeActive={(event, newHover) => {
                       setHoverRating(newHover);
@@ -426,6 +421,14 @@ const Single = () => {
       </Box>
     </Box>
   );
+
+  // laitetaan ratingin arvo inputs.rating:iin
+  if (ratingValue === null) {
+    setRatingValue(0);
+    inputs.rating = ratingValue;
+  } else {
+    inputs.rating = ratingValue;
+  }
 
   return (
     <>

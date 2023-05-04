@@ -60,8 +60,7 @@ const MediaRow = ({file}) => {
                   thumbnails: i.thumbnails.w640,
                 };
                 searchComments.push(commentValues);
-                ratingSum += parseFloat(commentDesc.rating).toFixed(1);
-
+                ratingSum += commentDesc.rating;
                 ratingCount++;
               }
             }

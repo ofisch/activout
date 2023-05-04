@@ -41,6 +41,8 @@ const MediaTable = () => {
     setSearchRes((searchRes = searchResults));
   };
 
+  console.log(searchRes);
+
   const handleSort = (event) => {
     if (event.target.value == 'a-z') {
       searchResults.sort((a, b) => (a.title > b.title ? 1 : -1));
@@ -52,6 +54,12 @@ const MediaTable = () => {
       handleSearchRes();
       handleShowSort();
       //  console.log('hakutulokset', searchRes);
+    } else if (event.target.value == 'highest') {
+      console.log(event.target.value);
+    } else if (event.target.value == 'lowest') {
+      console.log(event.target.value);
+    } else if (event.target.value == 'most') {
+      console.log(event.target.value);
     }
     // TODO: järjestäminen ratingin perusteella (kun saadaan ratingit sovellukseen)
   };

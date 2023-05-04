@@ -113,7 +113,6 @@ const getComments = async (loc) => {
               searchComments.push(commentValues);
               ratingSum += parseFloat(commentDesc.rating);
               ratingCount++;
-              console.log(commentDesc.rating);
             }
           }
         }
