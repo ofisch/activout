@@ -187,9 +187,8 @@ const Single = () => {
                   variant="h3"
                   sx={{
                     ml: 2,
-                    overflow: 'scroll',
-                    maxWidth: '650px',
-                    height: '100px',
+                    width: '100%',
+                    height: 'auto',
                   }}
                 >
                   {searchComment.title}
@@ -198,7 +197,6 @@ const Single = () => {
               <Box
                 sx={{
                   width: '100%',
-                  maxWidth: '650px',
                   height: 'auto',
                   my: 4,
                   pl: 6,
@@ -207,43 +205,49 @@ const Single = () => {
               >
                 <Grid
                   container
+                  spacing={2}
                   direction="row"
                   justifyContent="flex-start"
-                  flexWrap="nowrap"
+                  alignItems="center"
                 >
-                  <Grid container direction="column">
-                    <Box>
+                  <Grid item xs={12} sm={6}>
+                    <Box sx={{width: '100%'}}>
                       <Rating
                         name="read-only"
                         value={searchComment.rating}
                         readOnly
                       />
                     </Box>
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
+                    <Box sx={{width: '100%'}}>
+                      <img
+                        src={mediaUrl + searchComment.thumbnails}
+                        alt={searchComment.title}
+                        style={{width: '100%', height: 'auto'}}
+                      />
+                    </Box>
+                  </Grid>
+                  <Grid item xs={12}>
                     <Typography component="h1" variant="h6">
                       {searchComment.review}
                     </Typography>
                   </Grid>
-                  <Grid container sx={{maxWidth: 'auto', height: 'auto', p: 3}}>
-                    <img
-                      src={mediaUrl + searchComment.thumbnails}
-                      alt={searchComment.title}
-                      style={{width: '85%', height: 'auto'}}
-                    />
+                  <Grid item xs={12}>
+                    <ListItem sx={{fontWeight: 'bold'}}>
+                      <ListItemIcon>
+                        <AccountCircle />
+                      </ListItemIcon>
+                      <ListItemText primary={searchComment.user} />
+                    </ListItem>
                   </Grid>
                 </Grid>
-                <ListItem sx={{fontWeight: 'bold'}}>
-                  <ListItemIcon>
-                    <AccountCircle />
-                  </ListItemIcon>
-                  <ListItemText primary={searchComment.user} />
-                </ListItem>
               </Box>
             </Box>
           </Paper>
         ))}
       </Box>
     );
-  };
 
   const drawerList = () => (
     <Box
