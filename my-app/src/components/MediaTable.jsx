@@ -33,53 +33,31 @@ const MediaTable = () => {
 
   searchRes = searchResults;
 
+  // shows sort buttons
   const handleShowSort = (event) => {
     setIsShown((current) => !current);
   };
 
+  // sets the value of searchesRes to searchResults-array
   const handleSearchRes = () => {
     setSearchRes((searchRes = searchResults));
   };
 
-  console.log(searchRes);
-
+  // triggered when a sort option is selected from the dropdown
   const handleSort = (event) => {
     if (event.target.value == 'a-z') {
       searchResults.sort((a, b) => (a.title > b.title ? 1 : -1));
       handleSearchRes();
       handleShowSort();
-      //  console.log('hakutulokset', searchRes);
     } else if (event.target.value == 'z-a') {
       searchResults.sort((a, b) => (a.title < b.title ? 1 : -1));
       handleSearchRes();
       handleShowSort();
-      //  console.log('hakutulokset', searchRes);
-    } else if (event.target.value == 'highest') {
-      console.log(event.target.value);
-      for (const result of searchResults) {
-        console.log('result', result);
-
-        let avgRating = 0;
-
-        getComments(result)
-          .then((searchComments) => {
-            console.log('searchComments: ', searchComments);
-            avgRating = searchComments[searchComments.length - 1];
-          })
-          .catch((error) => {
-            console.error(error);
-          });
-
-        console.log('avgRating: ', avgRating);
-      }
-    } else if (event.target.value == 'lowest') {
-      console.log(event.target.value);
-    } else if (event.target.value == 'most') {
-      console.log(event.target.value);
     }
-    // TODO: järjestäminen ratingin perusteella (kun saadaan ratingit sovellukseen)
   };
 
+  // renders a search results display with sorting options.
+  // shows the number of search results, a button to trigger the sorting options, and a list of search results
   return (
     <>
       <Typography
@@ -112,27 +90,6 @@ const MediaTable = () => {
               onClick={(event) => handleSort(event, 'value')}
             >
               Z - A
-            </Button>
-            <Button
-              variant="outlined"
-              value="highest"
-              onClick={(event) => handleSort(event, 'value')}
-            >
-              Highest rating
-            </Button>
-            <Button
-              variant="outlined"
-              value="lowest"
-              onClick={(event) => handleSort(event, 'value')}
-            >
-              Lowest rating
-            </Button>
-            <Button
-              variant="outlined"
-              value="most"
-              onClick={(event) => handleSort(event, 'value')}
-            >
-              Most ratings
             </Button>
           </FormGroup>
         </Grid>

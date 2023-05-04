@@ -27,16 +27,16 @@ import {uploadValidators} from '../utils/validators';
 import {TextValidator, ValidatorForm} from 'react-material-ui-form-validator';
 
 const Upload = (props) => {
+  // Setting initial states using the useState hook
   const [file, setFile] = useState(null);
   const [selectedImage, setSelectedImage] = useState(
     'https://placehold.co/600x400?text=image'
   );
-  // 'https://placekitten.com/600/400'
   const {postMedia} = useMedia();
   const {postTag} = useTag();
   const navigate = useNavigate();
 
-  //  dropdown
+  // Setting initial states for dropdown using the useState hook
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
 
@@ -45,10 +45,9 @@ const Upload = (props) => {
   const handleChange = (e) => {
     setValue(e.target.value);
     inputs.category = e.target.value;
-    console.log('inputs.', inputs.category);
   };
 
-  // return focus to the button when we transitioned from !open -> open
+  // Return focus to dropdown button when dropdown closes
   const prevOpen = React.useRef(open);
   React.useEffect(() => {
     if (prevOpen.current === true && open === false) {
@@ -58,6 +57,7 @@ const Upload = (props) => {
     prevOpen.current = open;
   }, [open]);
 
+  // Setting initial values for form fields
   const initValues = {
     title: '',
     category: '',
@@ -67,11 +67,14 @@ const Upload = (props) => {
     description: '',
   };
 
+  // Function to upload data to server
   const doUpload = async () => {
     try {
       const data = new FormData();
       data.append('title', inputs.title);
       console.log(inputs.title);
+
+      // create object for other input values
       const allData = {
         desc: inputs.description,
         category: inputs.category,
@@ -80,8 +83,6 @@ const Upload = (props) => {
       };
       data.append('description', JSON.stringify(allData));
       data.append('file', file);
-      // data.append('category', inputs.category);
-      // data.append('address', inputs.address);
       console.log(inputs.address);
       const userToken = localStorage.getItem('userToken');
       const uploadResult = await postMedia(data, userToken);
@@ -102,6 +103,7 @@ const Upload = (props) => {
     }
   };
 
+  // Function to handle file input change
   const handleFileChange = (event) => {
     event.persist();
     setFile(event.target.files[0]);

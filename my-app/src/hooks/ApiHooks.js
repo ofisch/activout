@@ -13,16 +13,16 @@ const doFetch = async (url, options) => {
   return json;
 };
 
-// staattinen taulukko (ehkä vähä nihkee.. mut toimii!!)
 let searchResults = [];
 let userSearch;
 let searchComments = [];
 
+// searches by matching the searchString and categoryArray against the file data
 const doSearch = async (searchString, categoryArray) => {
   try {
     searchResults = [];
     userSearch = searchString;
-    // haetaan kaikki
+
     const files = await useTag().getTag(appId);
     const filesWithThumbnail = await Promise.all(
       files.map(async (file) => {
@@ -35,8 +35,6 @@ const doSearch = async (searchString, categoryArray) => {
 
       if (location.address != undefined && location.municipality != undefined) {
         if (categoryArray.length === 0) {
-          // jos EI OLE valittuna kategorioita
-          // verrataan haku-stringiä osoitteseen ja otsikkoon
           if (
             searchString
               .toLowerCase()
@@ -49,7 +47,6 @@ const doSearch = async (searchString, categoryArray) => {
             searchResults.push(file);
           }
         } else {
-          // jos ON valittuna kategorioita
           if (categoryArray.includes(location.category)) {
             if (searchString) {
               if (
@@ -75,6 +72,8 @@ const doSearch = async (searchString, categoryArray) => {
   }
 };
 
+// fetches comments of a location
+// calculates the average rating of the location and returns an array containing the comments and average rating.
 const getComments = async (loc) => {
   let ratingSum = 0;
   let ratingCount = 0;

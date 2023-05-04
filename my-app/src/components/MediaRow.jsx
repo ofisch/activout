@@ -19,11 +19,13 @@ import HikingIcon from '@mui/icons-material/Hiking';
 import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
 
 const MediaRow = ({file}) => {
-  // lokaation kaikki ominaisuudet (kuvaus, kategoria, osoite jne.)
+  // all attributes of a file
   const fileAttributes = JSON.parse(file.description);
 
   let searchComments = [];
 
+  // fetches comments associated with a location
+  // returns an array containing the comments, average rating, and rating count.
   const getCommentsToLocations = async (loc) => {
     let ratingSum = 0;
     let ratingCount = 0;

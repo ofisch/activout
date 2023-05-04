@@ -46,11 +46,9 @@ const Landing = () => {
         if (i.includes(value)) {
           const index = categories.indexOf(i);
           const x = categories.splice(index, 1);
-          //  console.log(x);
         }
       }
     }
-    //  console.log(categories);
   };
 
   const handleShowCategory = (event) => {
@@ -59,7 +57,6 @@ const Landing = () => {
 
   const handleChange = (event) => {
     setSearchString(event.target.value);
-    //  console.log('categoryArray:', categories);
   };
 
   const handleSearchString = () => {

@@ -106,6 +106,7 @@ const Single = () => {
   const [ratingValue, setRatingValue] = useState(3);
   const [hoverRating, setHoverRating] = useState(-1);
 
+  // handles posting a comment or a review with comment data.
   const doComment = async () => {
     try {
       const data = new FormData();
@@ -153,6 +154,7 @@ const Single = () => {
     initValues
   );
 
+  // state variable to store and fetch comments, updating the state with the retrieved data.
   const commentsList = () => {
     const [comments, setComments] = useState([]);
 
@@ -291,6 +293,7 @@ const Single = () => {
     setOpenDrawer(!openDrawer);
   };
 
+  // renders a drawer with a form for creating a new review.
   const drawerList = () => (
     <Box
       sx={{
@@ -365,8 +368,6 @@ const Single = () => {
                     getLabelText={getLabelText}
                     onChange={(event, newValue) => {
                       setRatingValue(newValue);
-                      //  setRatingValue(newValue);
-                      //  inputs.rating = newValue;
                     }}
                     onChangeActive={(event, newHover) => {
                       setHoverRating(newHover);
@@ -423,6 +424,7 @@ const Single = () => {
   );
 
   // laitetaan ratingin arvo inputs.rating:iin
+  // setting the rating value into inputs.rating
   if (ratingValue === null) {
     setRatingValue(0);
     inputs.rating = ratingValue;
