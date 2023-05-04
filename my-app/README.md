@@ -1,3 +1,3 @@
 # Activout
 
-Open [https://users.metropolia.fi/~lassiaa/react-projekti/]
+https://users.metropolia.fi/~lassiaa/react-projekti/
