@@ -4,34 +4,25 @@ import {
   Drawer,
   Paper,
   Grid,
-  TextField,
   Typography,
   Stack,
   Rating,
 } from '@mui/material';
 import React, {useContext, useEffect, useState} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
-import {
-  doFetch,
-  searchComments,
-  useMedia,
-  useTag,
-  useUser,
-} from '../hooks/ApiHooks';
+import {searchComments, useMedia, useTag, useUser} from '../hooks/ApiHooks';
 import {MediaContext} from '../contexts/MediaContext';
 import useForm from '../hooks/FormHooks';
 import {useLocation} from 'react-router-dom';
 import {mediaUrl} from '../utils/variables';
 import StarIcon from '@mui/icons-material/Star';
 import {appId} from '../utils/variables';
-import {baseUrl} from '../utils/variables';
 import {getComments} from '../hooks/ApiHooks';
 import {comment} from '../utils/errorMessages';
 import {commentValidators} from '../utils/validators';
 import {TextValidator, ValidatorForm} from 'react-material-ui-form-validator';
 import PlaceIcon from '@mui/icons-material/Place';
 import HikingIcon from '@mui/icons-material/Hiking';
-import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
 import {AccountCircle} from '@mui/icons-material';
 
 const Single = () => {
@@ -115,6 +106,10 @@ const Single = () => {
 
   const [ratingValue, setRatingValue] = useState(3);
   const [hoverRating, setHoverRating] = useState(-1);
+
+  if (ratingValue === null) {
+    setRatingValue(0);
+  }
 
   const doComment = async () => {
     try {
@@ -224,6 +219,23 @@ const Single = () => {
                 flexWrap="nowrap"
               >
                 <Grid container direction="column" sx={{p: 2, ml: 2}}>
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      flexDirection: 'row',
+                      flexWrap: 'nowrap',
+                      alignItems: 'center',
+                    }}
+                  >
+                    <Typography
+                      component="h1"
+                      variant="h6"
+                      sx={{color: 'primary.contrastText', my: 2}}
+                    >
+                      <AccountCircle sx={{mr: 1, verticalAlign: 'sub'}} />
+                      {searchComment.user}
+                    </Typography>
+                  </Box>
                   <Typography
                     component="p"
                     sx={{mb: 2, color: 'primary.contrastText'}}
@@ -236,9 +248,6 @@ const Single = () => {
                         alignItems: 'center',
                       }}
                     >
-                      <Typography sx={{mr: '15px'}}>
-                        {searchComment.rating}
-                      </Typography>
                       <Rating
                         name="read-only"
                         value={searchComment.rating || 0}
@@ -248,17 +257,9 @@ const Single = () => {
                   </Typography>
                   <Typography
                     component="p"
-                    sx={{color: 'primary.contrastText'}}
+                    sx={{color: 'primary.contrastText', mb: 2}}
                   >
                     {searchComment.review}
-                  </Typography>
-                  <Typography
-                    component="h1"
-                    variant="h6"
-                    sx={{color: 'primary.contrastText', mt: 3}}
-                  >
-                    <AccountCircle sx={{mr: 1}} />
-                    {searchComment.user}
                   </Typography>
                   <Grid container>
                     <img
@@ -281,13 +282,19 @@ const Single = () => {
   };
 
   const amount = searchComments.length - 1;
-  const avgRating = searchComments[searchComments.length - 1];
+  let avgRating = searchComments[searchComments.length - 1];
+
+  if (isNaN(avgRating)) {
+    avgRating = 0;
+  }
+
   const displayAvg = parseFloat(avgRating).toFixed(1);
 
   const [openDrawer, setOpenDrawer] = useState(false);
 
   const toggleDrawer = () => {
     setOpenDrawer(!openDrawer);
+    console.log(ratingValue);
   };
 
   const drawerList = () => (
@@ -328,7 +335,7 @@ const Single = () => {
           onChange={handleFileChange}
           type="file"
           name="file"
-          accept="image/*,video/*,audio/*"
+          accept="image/*"
         ></input>
         <ValidatorForm component="form" onSubmit={handleSubmit}>
           <Box
@@ -360,9 +367,11 @@ const Single = () => {
                     value={ratingValue}
                     precision={1}
                     getLabelText={getLabelText}
-                    onChange={(event, newValue) => {
+                    onChange={(event, newValue = 3) => {
                       setRatingValue(newValue);
                       inputs.rating = newValue;
+                      console.log('input ' + inputs.rating);
+                      console.log('rating ' + ratingValue);
                     }}
                     onChangeActive={(event, newHover) => {
                       setHoverRating(newHover);

@@ -34,7 +34,7 @@ const Layout = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [openDrawer, setOpenDrawer] = useState(false);
 
   const getUserInfo = async () => {
@@ -121,16 +121,21 @@ const Layout = () => {
               </Button>
             </Typography>
             {isMobile ? (
-              <IconButton
-                size="large"
-                edge="end"
-                color="inherit"
-                aria-label="menu"
-                sx={{mr: 2}}
-                onClick={toggleDrawer}
-              >
-                <MenuIcon />
-              </IconButton>
+              <Box>
+                <Button sx={{color: 'primary.dark'}} component={Link} to="/">
+                  <SearchIcon></SearchIcon>
+                </Button>
+                <IconButton
+                  size="large"
+                  edge="end"
+                  color="inherit"
+                  aria-label="menu"
+                  sx={{mr: 2}}
+                  onClick={toggleDrawer}
+                >
+                  <MenuIcon />
+                </IconButton>
+              </Box>
             ) : (
               <Box sx={{mr: 2}}>
                 <Button sx={{color: 'primary.dark'}} component={Link} to="/">

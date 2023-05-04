@@ -71,7 +71,10 @@ const MediaRow = ({file}) => {
     } catch (error) {
       alert(error.message);
     }
-    const avgRating = ratingSum / ratingCount;
+    let avgRating = ratingSum / ratingCount;
+    if (isNaN(avgRating) || avgRating === null) {
+      avgRating = 0;
+    }
     searchComments.push(avgRating);
     searchComments.push(ratingCount);
     return searchComments;

@@ -13,29 +13,42 @@ const Home = () => {
         container
         direction="row"
         alignItems="top-left"
-        sx={{width: '100%'}}
+        sx={{width: '100%', justifyContent: 'center'}}
       >
         <Box
           sx={{
-            pb: 3,
+            mt: 8,
             mb: 3,
-            mx: 'auto',
-            mt: 5,
+            display: 'flex',
+            flexDirection: 'row',
+            flexWrap: 'nowrap',
+            alignItems: 'flex-start',
+            width: '900px',
           }}
         >
-          <Typography component="h1" variant="h3" sx={{mb: 6}}>
+          <Box
+            sx={{
+              flexGrow: 1,
+              justifyContent: 'flex-start',
+            }}
+          >
             <IconButton
-              sx={{
-                color: 'secondary.main',
-              }}
+              sx={{color: 'secondary.main'}}
               onClick={() => {
                 navigate('/');
               }}
             >
               <ArrowBackIcon sx={{scale: '2'}}></ArrowBackIcon>
             </IconButton>
+          </Box>
+          <Typography
+            component="h1"
+            variant="h3"
+            sx={{mx: 3, flexGrow: 1, textAlign: 'center'}}
+          >
             Search: {userSearch}
           </Typography>
+          <Box sx={{flexGrow: 1}}></Box>
         </Box>
       </Grid>
       <Grid container direction="column" alignItems="center" sx={{mt: '0'}}>
