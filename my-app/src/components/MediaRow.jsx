@@ -20,29 +20,6 @@ const MediaRow = ({file}) => {
   // lokaation kaikki ominaisuudet (kuvaus, kategoria, osoite jne.)
   const fileAttributes = JSON.parse(file.description);
 
-  console.log('file: ', file.file_id);
-
-  /*
-  const [comments, setComments] = useState([]);
-
-  const commentsToLocation = (location) => {
-    useEffect(() => {
-      getComments(location)
-        .then((searchComments) => {
-          setComments(searchComments);
-          console.log(searchComments);
-          console.log('comments: ', comments);
-          console.log('rating: ', comments.rating);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    }, []);
-  };
-
-  commentsToLocation(file);
-  */
-
   let searchComments = [];
 
   const getCommentsToLocations = async (loc) => {
@@ -67,9 +44,6 @@ const MediaRow = ({file}) => {
             const useComments = [];
             useComments.push(file);
 
-            console.log(useComments.length);
-            console.log(useComments);
-
             for (const i of useComments) {
               const commentTitle = JSON.parse(i.title);
               const commentDesc = JSON.parse(i.description);
@@ -84,10 +58,8 @@ const MediaRow = ({file}) => {
                   thumbnails: i.thumbnails.w640,
                 };
                 searchComments.push(commentValues);
-                console.log('rating: ', commentDesc.rating);
                 ratingSum += parseFloat(commentDesc.rating);
                 ratingCount++;
-                console.log(ratingCount);
               }
             }
           }
@@ -97,8 +69,6 @@ const MediaRow = ({file}) => {
       alert(error.message);
     }
     const avgRating = ratingSum / ratingCount;
-    console.log(avgRating);
-
     return avgRating;
   };
 
@@ -107,14 +77,10 @@ const MediaRow = ({file}) => {
   getCommentsToLocations(file)
     .then((searchComments) => {
       setComments(searchComments);
-      console.log('getComments: ', comments);
     })
     .catch((error) => {
       console.error(error);
     });
-
-  // TODO: eti rating taulukon sisältä
-  console.log('MOI: ', searchComments);
 
   return (
     <Paper
@@ -175,7 +141,7 @@ const MediaRow = ({file}) => {
                   }}
                 >
                   <Typography sx={{mr: '15px'}}>{comments}</Typography>
-                  <Rating name="read-only" value={comments} readOnly />
+                  <Rating name="read-only" value={comments || 0} readOnly />
                 </Box>
               </Typography>
               <Typography

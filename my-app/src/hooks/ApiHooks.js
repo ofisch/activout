@@ -47,7 +47,6 @@ const doSearch = async (searchString, categoryArray) => {
               .includes(location.municipality.toLowerCase())
           ) {
             searchResults.push(file);
-            console.log('EI kategorioita:', searchResults);
           }
         } else {
           // jos ON valittuna kategorioita
@@ -63,18 +62,14 @@ const doSearch = async (searchString, categoryArray) => {
                   .includes(location.municipality.toLowerCase())
               ) {
                 searchResults.push(file);
-                console.log('ON kategorioita ja HAKU:', searchResults);
               }
             } else {
               searchResults.push(file);
-              console.log('ON kategorioita mutta EI HAKUA:', searchResults);
             }
           }
         }
       }
     }
-
-    console.log(searchResults);
   } catch (error) {
     alert(error);
   }
@@ -98,9 +93,6 @@ const getComments = async (loc) => {
         if (titleId.id == loc.file_id) {
           const useComments = [];
           useComments.push(file);
-
-          console.log(useComments.length);
-          console.log(useComments);
 
           for (const i of useComments) {
             const commentTitle = JSON.parse(i.title);
