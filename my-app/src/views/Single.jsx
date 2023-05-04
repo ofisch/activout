@@ -26,6 +26,9 @@ import StarIcon from '@mui/icons-material/Star';
 import {appId} from '../utils/variables';
 import {baseUrl} from '../utils/variables';
 import {getComments} from '../hooks/ApiHooks';
+import {comment} from '../utils/errorMessages';
+import {commentValidators} from '../utils/validators';
+import {TextValidator, ValidatorForm} from 'react-material-ui-form-validator';
 
 const Single = () => {
   const {state} = useLocation();
@@ -39,11 +42,31 @@ const Single = () => {
     console.log(error);
   }
 
+  // Tarkistetaan, että submit menee läpi ennen drawerin sulkemista
+  const [isSubmitSuccessful, setIsSubmitSuccessful] = useState(false);
+
+  const handleOnClick = async () => {
+    try {
+      setIsSubmitSuccessful(true);
+    } catch (error) {
+      console.error(error);
+      setIsSubmitSuccessful(false);
+    }
+
+    toggleDrawerIfSubmitSuccessful();
+  };
+
+  const toggleDrawerIfSubmitSuccessful = () => {
+    if (isSubmitSuccessful) {
+      toggleDrawer();
+      setIsSubmitSuccessful(false);
+    }
+  };
+
   const [file, setFile] = useState(null);
   const [selectedImage, setSelectedImage] = useState(
-    'https://placekitten.com/600/400'
+    'https://placehold.co/600x400?text=image'
   );
-  // 'https://placehold.co/600x400?text=Choose-media'
   const {postMedia} = useMedia();
   const {postTag} = useTag();
   const navigate = useNavigate();
@@ -76,7 +99,7 @@ const Single = () => {
   // arvostelun labelit
   const labels = {
     1: 'Poor',
-    2: 'Poor',
+    2: 'Decent',
     3: 'Ok',
     4: 'Good',
     5: 'Excellent',
@@ -142,6 +165,8 @@ const Single = () => {
     setOpenDrawer(!openDrawer);
   };
 
+  const amount = searchComments.length;
+
   const commentsList = () => {
     const [comments, setComments] = useState([]);
 
@@ -186,9 +211,13 @@ const Single = () => {
                     <Typography component="h1" variant="h6">
                       {searchComment.user}
                     </Typography>
-                    <Typography component="h1" variant="h6">
-                      {searchComment.rating}
-                    </Typography>
+                    <Box>
+                      <Rating
+                        name="read-only"
+                        value={searchComment.rating}
+                        readOnly
+                      />
+                    </Box>
                     <Typography component="h1" variant="h6">
                       {searchComment.review}
                     </Typography>
@@ -249,7 +278,7 @@ const Single = () => {
           name="file"
           accept="image/*,video/*,audio/*"
         ></input>
-        <form onSubmit={handleSubmit}>
+        <ValidatorForm component="form" onSubmit={handleSubmit}>
           <Box
             sx={{
               display: 'flex',
@@ -296,7 +325,7 @@ const Single = () => {
                 </Box>
               </Grid>
             </Grid>
-            <TextField
+            <TextValidator
               id="outlined-basic"
               label="title"
               variant="outlined"
@@ -304,8 +333,10 @@ const Single = () => {
               type="text"
               name="title"
               value={inputs.title}
-            ></TextField>
-            <TextField
+              validators={commentValidators.title}
+              errorMessages={comment.title}
+            ></TextValidator>
+            <TextValidator
               id="outlined-basic"
               label="review"
               variant="outlined"
@@ -315,18 +346,20 @@ const Single = () => {
               multiline
               rows={4}
               maxRows={6}
-            ></TextField>
+              validators={commentValidators.review}
+              errorMessages={comment.review}
+            ></TextValidator>
             <Button
               type="submit"
               variant="contained"
               color="secondary"
               size="large"
-              onClick={toggleDrawer}
+              onClick={handleOnClick}
             >
               Comment
             </Button>
           </Box>
-        </form>
+        </ValidatorForm>
       </Box>
     </Box>
   );
@@ -394,7 +427,7 @@ const Single = () => {
                 </Grid>
                 <Grid container direction="column">
                   <Typography component="p" sx={{pl: 2}} textAlign={'center'}>
-                    X ratings
+                    {amount} ratings
                   </Typography>
                   <Grid
                     container
@@ -402,14 +435,9 @@ const Single = () => {
                     justifyContent="center"
                     sx={{my: 2}}
                   >
-                    <Typography component="p" variant="h6" sx={{px: 2}}>
-                      5
-                    </Typography>
-                    <StarIcon></StarIcon>
-                    <StarIcon></StarIcon>
-                    <StarIcon></StarIcon>
-                    <StarIcon></StarIcon>
-                    <StarIcon></StarIcon>
+                    <Box>
+                      <Rating name="read-only" value={1} readOnly />
+                    </Box>
                   </Grid>
                 </Grid>
                 {user ? (
@@ -438,7 +466,6 @@ const Single = () => {
                       textDecoration: 'none',
                       color: 'primary.contrastText',
                     }}
-                    onClick={toggleDrawer}
                   >
                     Login to add review
                   </Button>

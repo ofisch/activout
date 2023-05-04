@@ -128,6 +128,7 @@ const MediaRow = ({file}) => {
             flexWrap="nowrap"
           >
             <Grid container direction="column">
+              <StarIcon sx={{color: 'primary.contrastText'}}></StarIcon>
               <Typography
                 component="p"
                 sx={{mb: 3, color: 'primary.contrastText'}}
