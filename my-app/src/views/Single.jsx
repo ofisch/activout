@@ -160,7 +160,6 @@ const Single = () => {
   );
 
   const commentsList = () => {
-    console.log('testi' + Date.now());
     const [comments, setComments] = useState([]);
 
     useEffect(() => {
@@ -171,7 +170,7 @@ const Single = () => {
         .catch((error) => {
           console.error(error);
         });
-    }, [location]);
+    }, []);
 
     return (
       <div>
@@ -233,6 +232,7 @@ const Single = () => {
 
   const amount = searchComments.length - 1;
   const avgRating = searchComments[searchComments.length - 1];
+  const displayAvg = parseFloat(avgRating).toFixed(1);
 
   const [openDrawer, setOpenDrawer] = useState(false);
 
@@ -437,6 +437,7 @@ const Single = () => {
                     justifyContent="center"
                     sx={{my: 2}}
                   >
+                    <Typography component="p">{displayAvg}</Typography>
                     <Box>
                       <Rating
                         name="read-only"

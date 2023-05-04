@@ -25,7 +25,6 @@ import {upload} from '../utils/errorMessages';
 import {uploadValidators} from '../utils/validators';
 import {TextValidator, ValidatorForm} from 'react-material-ui-form-validator';
 
-
 const Upload = (props) => {
   const [file, setFile] = useState(null);
   const [selectedImage, setSelectedImage] = useState(
@@ -150,7 +149,7 @@ const Upload = (props) => {
             onChange={handleFileChange}
             type="file"
             name="file"
-            accept="image/*,video/*,audio/*"
+            accept="image/*"
           ></input>
           <ValidatorForm component="form" onSubmit={handleSubmit}>
             <Box
@@ -162,6 +161,7 @@ const Upload = (props) => {
               }}
             >
               <TextValidator
+                component="textField"
                 id="outlined-basic"
                 label="title"
                 variant="outlined"
@@ -188,6 +188,7 @@ const Upload = (props) => {
               </FormControl>
 
               <TextValidator
+                component="textField"
                 id="outlined-basic"
                 label="address"
                 variant="outlined"
@@ -199,6 +200,7 @@ const Upload = (props) => {
                 errorMessages={upload.address}
               ></TextValidator>
               <TextValidator
+                component="textField"
                 id="outlined-basic"
                 label="municipality"
                 variant="outlined"
@@ -210,6 +212,7 @@ const Upload = (props) => {
                 errorMessages={upload.municipality}
               ></TextValidator>
               <TextValidator
+                component="textField"
                 id="outlined-basic"
                 label="description"
                 variant="outlined"

@@ -78,7 +78,7 @@ const MediaRow = ({file}) => {
 
   getCommentsToLocations(file)
     .then((searchComments) => {
-      setAvgDisplay(searchComments[searchComments.length - 2]);
+      setAvgDisplay(searchComments[searchComments.length - 2].toFixed(1));
       setRatings(searchComments[searchComments.length - 1]);
     })
     .catch((error) => {
